@@ -5,7 +5,9 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drink Book App", "Drink Book App\Drink Book App.csproj", "{AAD2F94F-A695-456A-B8A4-F3AD281EAD3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostgresSqlAccess", "PostgresSqlAccess\PostgresSqlAccess.csproj", "{DEF8D405-1CFE-442B-AB26-F5117184739D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "PostgresSqlAccess\DataAccess.csproj", "{DEF8D405-1CFE-442B-AB26-F5117184739D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessTests", "DataAccessTests\DataAccessTests.csproj", "{D0AA4885-1D1A-4380-9C53-2924C591810C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DEF8D405-1CFE-442B-AB26-F5117184739D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEF8D405-1CFE-442B-AB26-F5117184739D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEF8D405-1CFE-442B-AB26-F5117184739D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0AA4885-1D1A-4380-9C53-2924C591810C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0AA4885-1D1A-4380-9C53-2924C591810C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0AA4885-1D1A-4380-9C53-2924C591810C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0AA4885-1D1A-4380-9C53-2924C591810C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
