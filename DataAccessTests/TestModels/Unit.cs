@@ -16,6 +16,7 @@ namespace DataAccessTests.TestModels
 		{
 			name = Name;
 		}
+		public Unit() { }
 
 	}
 }

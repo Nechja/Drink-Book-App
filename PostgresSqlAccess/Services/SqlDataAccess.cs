@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace DataAccess.Services;
 public class SqlDataAccess
     {
-	//private readonly IConfiguration _config;
 	private readonly string connectionString;
 
 	public string ConnectionStringName { get; set; } = "Testing";
@@ -23,9 +22,7 @@ public class SqlDataAccess
 	/// <param name="config">The IConfiguration object containing the connection string.</param>
 	public SqlDataAccess(IConfiguration config)
 	{
-		connectionString = config.GetConnectionString(ConnectionStringName);
-		//this._config = config;
-
+		connectionString = config.GetConnectionString(ConnectionStringName)!;
 	}
 	/// <summary>
 	/// Initializes a new instance of the SQLDataAccess class using a connection string. 
@@ -37,7 +34,6 @@ public class SqlDataAccess
 		connectionString = config;
 
 	}
-
 
 	/// <summary>
 	/// Executes an SQL query and retrieves a list of objects from the database.
@@ -75,16 +71,19 @@ public class SqlDataAccess
 		}
 	}
 
-	public async Task DeleteData<T>(string sql, int id)
+	public async Task DeleteData(string sql)
 	{
 		using (IDbConnection connection = new NpgsqlConnection(connectionString))
 		{
-			var data = await connection.ExecuteAsync(sql, id);
+			var data = await connection.ExecuteAsync(sql);
 		}
 	}
 
-	public async Task UpdateData<T>(string sql, T parameters)
+	public async Task UpdateData(string sql,int id)
 	{
-		throw new NotImplementedException();
+		using (IDbConnection connection = new NpgsqlConnection(connectionString))
+		{
+			var data = await connection.ExecuteAsync(sql,id);
+		}
 	}
 }
