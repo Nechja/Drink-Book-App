@@ -130,6 +130,13 @@ namespace DataAccess.Services.Tests
 			}
 		}
 
+		/// <summary>
+		/// This test method verifies the functionality of updating data in the Unit table.
+		/// It sets up random units by inserting them into the database, retrieves the list of units from the database to verify the write operation,
+		/// selects the ID of the last unit in the list, updates the name of the unit with 'Update Test' using the ID,
+		/// and checks if the unit is successfully updated by querying the database for units with the updated name.
+		/// If the write operation fails, the unit ID is not found, or the update fails, the test fails.
+		/// </summary>
 		[TestMethod()]
 		public async Task UpdateDataTest()
 		{

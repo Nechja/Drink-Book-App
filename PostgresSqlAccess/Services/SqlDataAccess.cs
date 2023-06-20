@@ -62,6 +62,13 @@ public class SqlDataAccess
 		}
 	}
 
+	/// <summary>
+	/// Executes an SQL query to save data to the database.
+	/// The query is executed using the provided connection string, and the parameters are passed to the query.
+	/// </summary>
+	/// <typeparam name="T">The type of the parameters to be passed to the query.</typeparam>
+	/// <param name="sql">The SQL query to execute.</param>
+	/// <param name="parameters">The parameters to be passed to the query.</param>
 	public async Task SaveData<T>(string sql, T parameters)
 	{
 
@@ -71,6 +78,22 @@ public class SqlDataAccess
 		}
 	}
 
+	public async Task<int> SaveDataWithCheck<T>(string sql, T parameters)
+	{
+		throw new NotImplementedException();
+
+		using (IDbConnection connection = new NpgsqlConnection(connectionString))
+		{
+			var data = await connection.ExecuteAsync(sql, parameters);
+			return 0;
+		}
+	}
+
+	/// <summary>
+	/// Executes an SQL query to delete data from the database.
+	/// The query is executed using the provided connection string, and no parameters are passed to the query.
+	/// </summary>
+	/// <param name="sql">The SQL query to execute.</param>
 	public async Task DeleteData(string sql)
 	{
 		using (IDbConnection connection = new NpgsqlConnection(connectionString))
