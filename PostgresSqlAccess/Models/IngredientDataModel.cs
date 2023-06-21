@@ -7,19 +7,18 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
-	internal class IngredientDataModel
+	 public class IngredientDataModel
 	{
 		[ExplicitKey]
 		public int Id { get; set; }
-		public string Name { get; set; }
-		public IngredientTypeDataModel Type { get; set; }
-		public int? Oz { get; set; }
-		public string? Special { get; set; }
 
-		public List<IngredientTagDataModel>? Tags { get; set; }
+		public string Name { get; set; }
+
+		public IngredientTypeDataModel IngredientType { get; set; } = new();
+
 		
 
-		public IngredientDataModel() { }
-
+		public List<InstructionDataModel> Instructions { get; set; } = new();
+		public List<IngredientTagDataModel> Tags { get; } = new();
 	}
 }

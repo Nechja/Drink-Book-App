@@ -12,6 +12,8 @@ namespace DataAccess.Models
 		[ExplicitKey]
 		public int id {  get; set; }
 		public string Value { get; set; }
+
+		public List<DrinkDataModel> Drinks { get; set; } = new();
 		public DrinkTagsDataModel() { }
 
 		public DrinkTagsDataModel(string value) 

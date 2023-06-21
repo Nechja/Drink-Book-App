@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Models
+namespace DataAccess.Services
 {
-	internal class DrinkIngredientDataModel
+	internal class DrinkRepository
 	{
+
 	}
 }

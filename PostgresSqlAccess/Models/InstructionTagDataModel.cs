@@ -7,11 +7,18 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
-	public class IngredientTagDataModel
+	public class InstructionTagDataModel
 	{
 		[ExplicitKey]
 		public int Id { get; set; }
 		public string Value { get; set; }
-		public List<IngredientDataModel> Ingredients { get; set; } = new();
+
+		public List<InstructionDataModel> Instructions { get; set; }
+		public InstructionTagDataModel() { }
+
+		public InstructionTagDataModel(string value)
+		{ 
+			Value = value;
+		}
 	}
 }

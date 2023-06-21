@@ -9,6 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccess.Services;
+
+/// <summary>
+/// This is used for raw access to SQL
+/// All the commands are broken into CRUD
+/// This can be used for future raw access and to 
+/// add in events to let the EFC see changes
+/// </summary>
 public class SqlDataAccess
     {
 	private readonly string connectionString;

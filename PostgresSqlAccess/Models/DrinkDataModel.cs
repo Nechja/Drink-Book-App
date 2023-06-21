@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
-	internal class DrinkDataModel
+	public class DrinkDataModel
 	{
 		[ExplicitKey]
 		public int Id { get; set; }
@@ -17,8 +17,8 @@ namespace DataAccess.Models
 		public string? Notes { get; set; }
 		public Uri? Image { get; set; }
 
-		List<DrinkTagsDataModel> Tags { get; set; }
-		List<DrinkIngredientDataModel> ingredients { get; set; }
+		public List<DrinkTagsDataModel> Tags { get; set; }  = new();
+		public List<InstructionDataModel> Instructions { get; set; } = new();
 
 
 		public DrinkDataModel() { }
