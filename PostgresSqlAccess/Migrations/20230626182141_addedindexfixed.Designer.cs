@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DrinkDBContext))]
-    [Migration("20230620231646_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230626182141_addedindexfixed")]
+    partial class addedindexfixed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("text");
 
+                    b.Property<int?>("ModId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -51,22 +54,28 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ModId");
+
+                    b.HasIndex("Name");
+
+                    NpgsqlIndexBuilderExtensions.IncludeProperties(b.HasIndex("Name"), new[] { "Id" });
+
                     b.ToTable("Drinks");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.DrinkTagsDataModel", b =>
+            modelBuilder.Entity("DataAccess.Models.DrinkTagDataModel", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("DrinkTags");
                 });
@@ -173,19 +182,19 @@ namespace DataAccess.Migrations
                     b.ToTable("InstructionTags");
                 });
 
-            modelBuilder.Entity("DrinkDataModelDrinkTagsDataModel", b =>
+            modelBuilder.Entity("DrinkDataModelDrinkTagDataModel", b =>
                 {
                     b.Property<int>("DrinksId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Tagsid")
+                    b.Property<int>("TagsId")
                         .HasColumnType("integer");
 
-                    b.HasKey("DrinksId", "Tagsid");
+                    b.HasKey("DrinksId", "TagsId");
 
-                    b.HasIndex("Tagsid");
+                    b.HasIndex("TagsId");
 
-                    b.ToTable("DrinkDataModelDrinkTagsDataModel");
+                    b.ToTable("DrinkDataModelDrinkTagDataModel");
                 });
 
             modelBuilder.Entity("IngredientDataModelIngredientTagDataModel", b =>
@@ -218,6 +227,15 @@ namespace DataAccess.Migrations
                     b.ToTable("InstructionDataModelInstructionTagDataModel");
                 });
 
+            modelBuilder.Entity("DataAccess.Models.DrinkDataModel", b =>
+                {
+                    b.HasOne("DataAccess.Models.DrinkDataModel", "Mod")
+                        .WithMany()
+                        .HasForeignKey("ModId");
+
+                    b.Navigation("Mod");
+                });
+
             modelBuilder.Entity("DataAccess.Models.IngredientDataModel", b =>
                 {
                     b.HasOne("DataAccess.Models.IngredientTypeDataModel", "IngredientType")
@@ -248,7 +266,7 @@ namespace DataAccess.Migrations
                     b.Navigation("Ingredient");
                 });
 
-            modelBuilder.Entity("DrinkDataModelDrinkTagsDataModel", b =>
+            modelBuilder.Entity("DrinkDataModelDrinkTagDataModel", b =>
                 {
                     b.HasOne("DataAccess.Models.DrinkDataModel", null)
                         .WithMany()
@@ -256,9 +274,9 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Models.DrinkTagsDataModel", null)
+                    b.HasOne("DataAccess.Models.DrinkTagDataModel", null)
                         .WithMany()
-                        .HasForeignKey("Tagsid")
+                        .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

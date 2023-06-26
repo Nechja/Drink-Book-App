@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DrinkDBContext))]
-    [Migration("20230620231646_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230621014316_UpdatedFramework")]
+    partial class UpdatedFramework
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("text");
 
+                    b.Property<int?>("ModId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -50,6 +53,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ModId");
 
                     b.ToTable("Drinks");
                 });
@@ -216,6 +221,15 @@ namespace DataAccess.Migrations
                     b.HasIndex("TagsId");
 
                     b.ToTable("InstructionDataModelInstructionTagDataModel");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.DrinkDataModel", b =>
+                {
+                    b.HasOne("DataAccess.Models.DrinkDataModel", "Mod")
+                        .WithMany()
+                        .HasForeignKey("ModId");
+
+                    b.Navigation("Mod");
                 });
 
             modelBuilder.Entity("DataAccess.Models.IngredientDataModel", b =>

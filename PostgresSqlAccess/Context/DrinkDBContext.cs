@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Models;
 
-namespace DataAccess.Tools
+namespace DataAccess.Context
 {
-	public class DrinkDBConext : DbContext
+	public class DrinkDBContext : DbContext
 	{
 		public DbSet<DrinkDataModel> Drinks { get; set; }
 
-		public DbSet<DrinkTagsDataModel> DrinkTags { get; set; }
+		public DbSet<DrinkTagDataModel> DrinkTags { get; set; }
 		public DbSet<InstructionDataModel> Instructions { get; set; }
 		public DbSet<InstructionTagDataModel> InstructionTags { get; set; }
 		
@@ -32,6 +32,11 @@ namespace DataAccess.Tools
 				.WithMany(e => e.Drinks);
 			modelBuilder.Entity<DrinkDataModel>()
 				.HasMany(e => e.Instructions).WithOne(e => e.Drink);
+			modelBuilder.Entity<DrinkDataModel>()
+				.HasOne(e => e.Mod);
+			modelBuilder.Entity<DrinkDataModel>()
+				.HasIndex(p => p.Name)
+				.IncludeProperties(p => p.Id);
 			modelBuilder.Entity<InstructionDataModel>()
 				.HasOne(e => e.Ingredient)
 				.WithMany(e => e.Instructions);

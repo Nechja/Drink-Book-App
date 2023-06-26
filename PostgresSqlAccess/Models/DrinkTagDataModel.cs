@@ -1,23 +1,25 @@
-﻿using Dapper.Contrib.Extensions;
+﻿
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess.Models.Interfaces;
 
 namespace DataAccess.Models
 {
-	public class DrinkTagsDataModel
+	public class DrinkTagDataModel : ITagDataModel
 	{
-		[ExplicitKey]
-		public int id {  get; set; }
+		[Key]
+		public int Id { get; set; }
 		public string Value { get; set; }
 
 		public List<DrinkDataModel> Drinks { get; set; } = new();
-		public DrinkTagsDataModel() { }
+		public DrinkTagDataModel() { }
 
-		public DrinkTagsDataModel(string value) 
-		{ 
+		public DrinkTagDataModel(string value)
+		{
 			Value = value;
 		}
 	}

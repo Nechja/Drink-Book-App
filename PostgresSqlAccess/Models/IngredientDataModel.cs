@@ -1,22 +1,23 @@
-﻿using Dapper.Contrib.Extensions;
+﻿using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess.Models.Interfaces;
 
 namespace DataAccess.Models
 {
-	 public class IngredientDataModel
+    public class IngredientDataModel : IIngredientDataModel
 	{
-		[ExplicitKey]
+		[Key]
 		public int Id { get; set; }
 
 		public string Name { get; set; }
 
 		public IngredientTypeDataModel IngredientType { get; set; } = new();
 
-		
+
 
 		public List<InstructionDataModel> Instructions { get; set; } = new();
 		public List<IngredientTagDataModel> Tags { get; } = new();

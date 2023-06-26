@@ -186,11 +186,10 @@ namespace DataAccess.Services.Tests
 
 		/// <summary>
 		/// This method performs cleanup tasks for SQL tests.
-		/// It deletes all data from the Unit table and restarts the sequence for the primary key column.
 		/// This method is used to clean up the database after running SQL-related tests.
 		/// </summary>
 		/// 
-		[TestMethod()]
+		[TestCleanup]
 		public async Task XCleanUpSql()
 		{
 			try
