@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drink Book App", "Drink Book App\Drink Book App.csproj", "{AAD2F94F-A695-456A-B8A4-F3AD281EAD3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Drink Book App", "Drink Book App\Drink Book App.csproj", "{AAD2F94F-A695-456A-B8A4-F3AD281EAD3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "PostgresSqlAccess\DataAccess.csproj", "{DEF8D405-1CFE-442B-AB26-F5117184739D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "PostgresSqlAccess\DataAccess.csproj", "{DEF8D405-1CFE-442B-AB26-F5117184739D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessTests", "DataAccessTests\DataAccessTests.csproj", "{D0AA4885-1D1A-4380-9C53-2924C591810C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessTests", "DataAccessTests\DataAccessTests.csproj", "{D0AA4885-1D1A-4380-9C53-2924C591810C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -20,6 +20,8 @@ namespace DataAccess.Context
 
 		public DbSet<IngredientTagDataModel> IngredientsTags { get; set;}
 
+
+
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseNpgsql("Username=postgres;Password=2244;Host=172.31.48.1;Port=5432;DataBase=Book;Pooling=true;");

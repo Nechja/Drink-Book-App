@@ -1,33 +1,113 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+:root {
+    --color-primary: #ffffff; /*  Grey */
+    --color-secondary: #333333; /* White */
+    --color-accent: #e1ad01; /* Gold */
+    --color-backsecondary: #cecece
 }
 
-h1:focus {
+/* Set body background and text color */
+body {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+}
+
+.navbar-brand {
+    color: var(--color-secondary);
+}
+
+.nav-link {
+    color: var(--color-secondary);
+}
+
+    .nav-link:focus {
+        color: var(--color-secondary);
+        outline: none;
+    }
+
+/* Page container styles */
+.container {
+    margin-top: 50px;
+}
+
+/* Heading styles */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-primary);
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-secondary);
+}
+
+    .btn-primary:hover {
+        background-color: var(--color-primary);
+        color: var(--color-secondary);
+    }
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus {
     outline: none;
 }
 
-a, .btn-link {
-    color: #0071c1;
+/* Form control styles */
+.form-control:focus {
+    outline: none;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-.content {
-    padding-top: 1.1rem;
+.form-check-input:focus {
+    outline: none;
 }
 
 .valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
+    outline: none;
+}
+
+/* Link styles */
+a,
+.btn-link {
+    color: var(--color-primary);
+}
+
+a:hover,
+.btn-link:hover {
+    text-decoration: none;
+}
+
+/* Card styles */
+.card {
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+}
+
+
+
+.card-title {
+    color: var(--color-primary);
+}
+
+.card-text {
+    color: var(--color-primary);
+}
+
+
+/* Footer styles */
+.footer {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    padding: 10px;
+    text-align: center;
 }
 
 .invalid {

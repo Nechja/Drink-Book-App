@@ -3,6 +3,6 @@
     public interface IIngredientDataModel
     {
         int Id { get; set; }
-        IngredientTypeDataModel IngredientType { get; set; }
+        public string Name { get; set; }
     }
 }

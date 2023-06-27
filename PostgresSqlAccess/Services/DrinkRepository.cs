@@ -32,7 +32,10 @@ public class DrinkRepository
 		{
 			try
 			{
-				return context.Drinks.SingleOrDefault(drink => drink.Id == id)!;
+				return context.Drinks.Include(r => r.Instructions)
+					.ThenInclude(i => i.Ingredient)
+					.ThenInclude(i => i.IngredientType)
+					.SingleOrDefault(drink => drink.Id == id)!;
 			}
 			catch
 			{
