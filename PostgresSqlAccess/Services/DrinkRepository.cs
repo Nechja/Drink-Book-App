@@ -49,9 +49,10 @@ public class DrinkRepository
 	{
 		using(var context = _dbContextFactory.CreateDbContext())
 		{
-			return context.Drinks.SingleOrDefault(drink => drink.Name == name)!;
+			return context.Drinks.FirstOrDefault(drink => drink.Name == name)!;
 		}
 	}
+
 
 	public List<DrinkDataModel> GetDrinks()
 	{

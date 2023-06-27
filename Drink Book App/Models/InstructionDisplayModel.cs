@@ -26,5 +26,25 @@ namespace Drink_Book_App.Models
             }
         }
 
+        public string InstructionText
+        {
+            get 
+            {
+                string instruction = "";
+                if(Oz != null)
+                {
+                    instruction += $"{Oz.ToString()}ᵒᶻ {ingredient.Name}";
+                    return instruction;
+                }
+                if(Special != null)
+                {
+                    instruction += $"{Special} {ingredient.Name}";
+                    return instruction;
+                }
+                
+                return instruction;
+            }
+        }
+
     }
 }

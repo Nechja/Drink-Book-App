@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.Xml;
 
-namespace Drink_Book_App.Components
+namespace Drink_Book_App.Components.DrinkCard
 {
 	partial class DrinkCard
 	{

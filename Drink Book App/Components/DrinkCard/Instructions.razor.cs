@@ -1,7 +1,7 @@
 ﻿using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
 
-namespace Drink_Book_App.Components
+namespace Drink_Book_App.Components.DrinkCard
 {
     public partial class Instructions
     {
