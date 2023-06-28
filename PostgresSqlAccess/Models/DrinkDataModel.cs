@@ -20,5 +20,7 @@ namespace DataAccess.Models
 
 
 		public DrinkDataModel() { }
+
+
 	}
 }

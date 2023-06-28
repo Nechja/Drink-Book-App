@@ -1,122 +1,7 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
-:root {
-    --color-primary: #333333; /* Dark Grey */
-    --color-secondary: #ffffff; /* White */
-    --color-accent: #b58fe6; 
-}
 
-/* Set body background and text color */
-body {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
-    font-family: 'Roboto', sans-serif;
-}
 
-/* Navbar styles */
-.navbar {
-    background-color: var(--color-secondary);
-    color: var(--color-primary);
-}
-
-.navbar-brand {
-    color: var(--color-primary);
-}
-
-.nav-link {
-    color: var(--color-primary);
-}
-
-    .nav-link:focus {
-        color: var(--color-primary);
-        outline: none;
-    }
-
-/* Page container styles */
-.container {
-    margin-top: 50px;
-}
-
-/* Heading styles */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--color-secondary);
-}
-
-/* Button styles */
-.btn-primary {
-    background-color: var(--color-accent);
-    color: var(--color-primary);
-}
-
-    .btn-primary:hover {
-        background-color: var(--color-secondary);
-        color: var(--color-primary);
-    }
-
-.btn:focus,
-.btn:active:focus,
-.btn-link.nav-link:focus {
-    outline: none;
-}
-
-/* Form control styles */
-.form-control:focus {
-    outline: none;
-}
-
-.form-check-input:focus {
-    outline: none;
-}
-
-.valid.modified:not([type=checkbox]) {
-    outline: none;
-}
-
-/* Link styles */
-a,
-.btn-link {
-    color: var(--color-secondary);
-}
-
-    a:hover,
-    .btn-link:hover {
-        text-decoration: none;
-    }
-
-/* Card styles */
-.card {
-    background-color: var(--color-secondary);
-    color: var(--color-primary);
-    border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-}
-
-.card-title {
-    color: var(--color-primary);
-}
-
-.card-text {
-    color: var(--color-primary);
-}
-
-/* List styles */
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin-bottom: 1rem;
-}
-
-/* Footer styles */
-.footer {
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
-    padding: 10px;
-    text-align: center;
-}
 
 .invalid {
     outline: 1px solid red;
@@ -134,4 +19,22 @@ li {
 
     .blazor-error-boundary::after {
         content: "An error has occurred."
+    }
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
     }

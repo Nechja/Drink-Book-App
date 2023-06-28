@@ -22,7 +22,7 @@ namespace Drink_Book_App.Pages
 			if(DrinkName  == null) { return; } 
 			if(DrinkId == null) { return; }
 			Drink = repo.GetDrinkById(DrinkId.Value);
-			if (DrinkName.ToLower() != Drink.Name.ToLower())
+			if (DrinkName.ToLower() == Drink.Name.ToLower())
 			{
 				failed = false;
 			}

@@ -1,5 +1,20 @@
-﻿<h3>DrinkListView</h3>
+﻿@page "/drinklist"
 
-@code {
-
+@if(drinks is null)
+{
+	<Loading></Loading>
+}
+else
+{
+  <div class="container">
+    <h1>Drink List</h1>
+    <ul class="list-group">
+            @foreach(DrinkDisplayModel drink in drinks)
+            {
+                <li class="list-group-item">
+                    <NavLink class="nav-link" @onclick="() => NavTo(drink.Name,drink.Id)">@drink.Name</NavLink>
+                </li>
+            }
+    </ul>
+  </div>
 }
