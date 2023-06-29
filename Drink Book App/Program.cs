@@ -1,3 +1,4 @@
+using Auth0.AspNetCore.Authentication;
 using DataAccess.Context;
 using DataAccess.Services;
 using Drink_Book_App.Data;
@@ -11,6 +12,11 @@ var connectionString = builder.Configuration.GetConnectionString("Default")
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddAuth0WebAppAuthentication(
+	options => { 
+		options.Domain = builder.Configuration["Auth0:Domain"];
+		options.ClientId = builder.Configuration["Auth0:ClientId"];
+    });
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddTransient<DrinkRepository>();
@@ -32,6 +38,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
