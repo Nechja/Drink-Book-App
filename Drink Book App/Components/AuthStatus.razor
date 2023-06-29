@@ -1,27 +1,21 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Authentication
 
-@inject NavigationManager Navigation
-
 
 <AuthorizeView>
     <Authorized>
-        <h4>
-            Hello, @context.User.Identity.Name!
-            <a class="text-white text-decoration-none d-inline-block" href="#" @onclick="BeginSignOut">Log out</a>
-        </h4>
+        <NavLink class="nav-link" href="logout">
+            <span class="oi oi-account-logout" aria-hidden="true"></span>Log out
+        </NavLink>
     </Authorized>
     <NotAuthorized>
-        <h4>
-            <a class="text-white text-decoration-none" href="authentication/login">Log in</a>
-        </h4>
+        <NavLink class="nav-link" href="login?redirectUri=/">
+            <span class="oi oi-account-login" aria-hidden="true"></span>Log in
+        </NavLink>
+        
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
-    private async Task BeginSignOut(MouseEventArgs args)
-    {
-        //await SignOutManager.SetSignOutState();
-        Navigation.NavigateTo("login/logout");
-    }
+
 }

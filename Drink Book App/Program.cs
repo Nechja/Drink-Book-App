@@ -13,9 +13,11 @@ var connectionString = builder.Configuration.GetConnectionString("Default")
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddAuth0WebAppAuthentication(
-	options => { 
+	options => {
+
 		options.Domain = builder.Configuration["Auth0:Domain"];
 		options.ClientId = builder.Configuration["Auth0:ClientId"];
+
     });
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
