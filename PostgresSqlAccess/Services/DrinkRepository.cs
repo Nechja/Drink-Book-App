@@ -78,6 +78,8 @@ public class DrinkRepository
 			
 	}
 
+
+
 	public async Task UpdateDrink(DrinkDataModel drink)
 	{
 		using(var context = _dbContextFactory.CreateDbContext())
@@ -96,7 +98,44 @@ public class DrinkRepository
 		}
 	}
 
+    //Ingredient types
 
 
-	
+    public List<IngredientTypeDataModel> GetIngredientTypes()
+    {
+        using (var context = _dbContextFactory.CreateDbContext())
+        {
+            return context.IngredientTypes.ToList();
+        }
+    }
+
+    public void UpdateIngredientType(IngredientTypeDataModel ingredientType)
+    {
+        using (var context = _dbContextFactory.CreateDbContext())
+        {
+            context.Update(ingredientType);
+            context.SaveChanges();
+        }
+    }
+
+    public void AddIngredientType(IngredientTypeDataModel ingredientType)
+    {
+        using (var context = _dbContextFactory.CreateDbContext())
+        {
+            context.IngredientTypes.Add(ingredientType);
+            context.SaveChanges();
+        }
+    }
+
+    public void DeleteIngredientType(int id)
+    {
+        using (var context = _dbContextFactory.CreateDbContext())
+        {
+            context.Remove(context.IngredientTypes.SingleOrDefault(t => t.Id == id)!);
+            context.SaveChanges();
+        }
+    }
+
+
+
 }

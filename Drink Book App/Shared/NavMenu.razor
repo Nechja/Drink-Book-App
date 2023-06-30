@@ -22,6 +22,13 @@
                     </NavLink>
                 </li>
                 <li class="nav-item">
+                    <AuthorizeView Roles="Admin">
+                        <NavLink class="nav-link" href="adddrink">
+                            <span class="oi oi-plus" aria-hidden="true"></span> Add Drink
+                        </NavLink>
+                    </AuthorizeView>
+                </li>
+                <li class="nav-item">
                     <AuthStatus></AuthStatus>
                 </li>
             </ul>
