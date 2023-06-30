@@ -3,7 +3,6 @@ using System;
 using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,11 +11,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DrinkDBContext))]
-    [Migration("20230621014316_UpdatedFramework")]
-    partial class UpdatedFramework
+    partial class DrinkDBContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,6 +33,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Garnish")
                         .HasColumnType("text");
 
+                    b.Property<int?>("GlassId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Ice")
                         .HasColumnType("text");
 
@@ -54,26 +54,54 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GlassId");
+
                     b.HasIndex("ModId");
+
+                    b.HasIndex("Name");
+
+                    NpgsqlIndexBuilderExtensions.IncludeProperties(b.HasIndex("Name"), new[] { "Id" });
 
                     b.ToTable("Drinks");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.DrinkTagsDataModel", b =>
+            modelBuilder.Entity("DataAccess.Models.DrinkTagDataModel", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("DrinkTags");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.GlassDataModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Name")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("Oz")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Glasses");
                 });
 
             modelBuilder.Entity("DataAccess.Models.IngredientDataModel", b =>
@@ -129,7 +157,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IngredientTypeDataModel");
+                    b.ToTable("IngredientTypes");
                 });
 
             modelBuilder.Entity("DataAccess.Models.InstructionDataModel", b =>
@@ -178,19 +206,19 @@ namespace DataAccess.Migrations
                     b.ToTable("InstructionTags");
                 });
 
-            modelBuilder.Entity("DrinkDataModelDrinkTagsDataModel", b =>
+            modelBuilder.Entity("DrinkDataModelDrinkTagDataModel", b =>
                 {
                     b.Property<int>("DrinksId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Tagsid")
+                    b.Property<int>("TagsId")
                         .HasColumnType("integer");
 
-                    b.HasKey("DrinksId", "Tagsid");
+                    b.HasKey("DrinksId", "TagsId");
 
-                    b.HasIndex("Tagsid");
+                    b.HasIndex("TagsId");
 
-                    b.ToTable("DrinkDataModelDrinkTagsDataModel");
+                    b.ToTable("DrinkDataModelDrinkTagDataModel");
                 });
 
             modelBuilder.Entity("IngredientDataModelIngredientTagDataModel", b =>
@@ -225,9 +253,15 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.DrinkDataModel", b =>
                 {
+                    b.HasOne("DataAccess.Models.GlassDataModel", "Glass")
+                        .WithMany("Drinks")
+                        .HasForeignKey("GlassId");
+
                     b.HasOne("DataAccess.Models.DrinkDataModel", "Mod")
                         .WithMany()
                         .HasForeignKey("ModId");
+
+                    b.Navigation("Glass");
 
                     b.Navigation("Mod");
                 });
@@ -262,7 +296,7 @@ namespace DataAccess.Migrations
                     b.Navigation("Ingredient");
                 });
 
-            modelBuilder.Entity("DrinkDataModelDrinkTagsDataModel", b =>
+            modelBuilder.Entity("DrinkDataModelDrinkTagDataModel", b =>
                 {
                     b.HasOne("DataAccess.Models.DrinkDataModel", null)
                         .WithMany()
@@ -270,9 +304,9 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Models.DrinkTagsDataModel", null)
+                    b.HasOne("DataAccess.Models.DrinkTagDataModel", null)
                         .WithMany()
-                        .HasForeignKey("Tagsid")
+                        .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -310,6 +344,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.DrinkDataModel", b =>
                 {
                     b.Navigation("Instructions");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.GlassDataModel", b =>
+                {
+                    b.Navigation("Drinks");
                 });
 
             modelBuilder.Entity("DataAccess.Models.IngredientDataModel", b =>

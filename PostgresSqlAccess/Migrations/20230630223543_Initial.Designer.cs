@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DrinkDBContext))]
-    [Migration("20230626182141_addedindexfixed")]
-    partial class addedindexfixed
+    [Migration("20230630223543_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Garnish")
                         .HasColumnType("text");
 
+                    b.Property<int?>("GlassId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Ice")
                         .HasColumnType("text");
 
@@ -53,6 +56,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GlassId");
 
                     b.HasIndex("ModId");
 
@@ -78,6 +83,28 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DrinkTags");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.GlassDataModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Name")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("Oz")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Glasses");
                 });
 
             modelBuilder.Entity("DataAccess.Models.IngredientDataModel", b =>
@@ -133,7 +160,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IngredientTypeDataModel");
+                    b.ToTable("IngredientTypes");
                 });
 
             modelBuilder.Entity("DataAccess.Models.InstructionDataModel", b =>
@@ -229,9 +256,15 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.DrinkDataModel", b =>
                 {
+                    b.HasOne("DataAccess.Models.GlassDataModel", "Glass")
+                        .WithMany("Drinks")
+                        .HasForeignKey("GlassId");
+
                     b.HasOne("DataAccess.Models.DrinkDataModel", "Mod")
                         .WithMany()
                         .HasForeignKey("ModId");
+
+                    b.Navigation("Glass");
 
                     b.Navigation("Mod");
                 });
@@ -314,6 +347,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.DrinkDataModel", b =>
                 {
                     b.Navigation("Instructions");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.GlassDataModel", b =>
+                {
+                    b.Navigation("Drinks");
                 });
 
             modelBuilder.Entity("DataAccess.Models.IngredientDataModel", b =>

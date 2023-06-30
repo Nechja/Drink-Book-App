@@ -6,39 +6,37 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Drinks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Ice = table.Column<string>(type: "text", nullable: true),
-                    Garnish = table.Column<string>(type: "text", nullable: true),
-                    Notes = table.Column<string>(type: "text", nullable: true),
-                    Image = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Drinks", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DrinkTags",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Value = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DrinkTags", x => x.id);
+                    table.PrimaryKey("PK_DrinkTags", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Glasses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<int>(type: "integer", nullable: false),
+                    Oz = table.Column<int>(type: "integer", nullable: true),
+                    Image = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Glasses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,7 +53,7 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IngredientTypeDataModel",
+                name: "IngredientTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -64,7 +62,7 @@ namespace DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IngredientTypeDataModel", x => x.Id);
+                    table.PrimaryKey("PK_IngredientTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,27 +79,32 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DrinkDataModelDrinkTagsDataModel",
+                name: "Drinks",
                 columns: table => new
                 {
-                    DrinksId = table.Column<int>(type: "integer", nullable: false),
-                    Tagsid = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Ice = table.Column<string>(type: "text", nullable: true),
+                    Garnish = table.Column<string>(type: "text", nullable: true),
+                    Notes = table.Column<string>(type: "text", nullable: true),
+                    ModId = table.Column<int>(type: "integer", nullable: true),
+                    GlassId = table.Column<int>(type: "integer", nullable: true),
+                    Image = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DrinkDataModelDrinkTagsDataModel", x => new { x.DrinksId, x.Tagsid });
+                    table.PrimaryKey("PK_Drinks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DrinkDataModelDrinkTagsDataModel_DrinkTags_Tagsid",
-                        column: x => x.Tagsid,
-                        principalTable: "DrinkTags",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DrinkDataModelDrinkTagsDataModel_Drinks_DrinksId",
-                        column: x => x.DrinksId,
+                        name: "FK_Drinks_Drinks_ModId",
+                        column: x => x.ModId,
                         principalTable: "Drinks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Drinks_Glasses_GlassId",
+                        column: x => x.GlassId,
+                        principalTable: "Glasses",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -117,9 +120,33 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_Ingredients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ingredients_IngredientTypeDataModel_IngredientTypeId",
+                        name: "FK_Ingredients_IngredientTypes_IngredientTypeId",
                         column: x => x.IngredientTypeId,
-                        principalTable: "IngredientTypeDataModel",
+                        principalTable: "IngredientTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DrinkDataModelDrinkTagDataModel",
+                columns: table => new
+                {
+                    DrinksId = table.Column<int>(type: "integer", nullable: false),
+                    TagsId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DrinkDataModelDrinkTagDataModel", x => new { x.DrinksId, x.TagsId });
+                    table.ForeignKey(
+                        name: "FK_DrinkDataModelDrinkTagDataModel_DrinkTags_TagsId",
+                        column: x => x.TagsId,
+                        principalTable: "DrinkTags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DrinkDataModelDrinkTagDataModel_Drinks_DrinksId",
+                        column: x => x.DrinksId,
+                        principalTable: "Drinks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -201,9 +228,25 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DrinkDataModelDrinkTagsDataModel_Tagsid",
-                table: "DrinkDataModelDrinkTagsDataModel",
-                column: "Tagsid");
+                name: "IX_DrinkDataModelDrinkTagDataModel_TagsId",
+                table: "DrinkDataModelDrinkTagDataModel",
+                column: "TagsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Drinks_GlassId",
+                table: "Drinks",
+                column: "GlassId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Drinks_ModId",
+                table: "Drinks",
+                column: "ModId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Drinks_Name",
+                table: "Drinks",
+                column: "Name")
+                .Annotation("Npgsql:IndexInclude", new[] { "Id" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_IngredientDataModelIngredientTagDataModel_TagsId",
@@ -235,7 +278,7 @@ namespace DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DrinkDataModelDrinkTagsDataModel");
+                name: "DrinkDataModelDrinkTagDataModel");
 
             migrationBuilder.DropTable(
                 name: "IngredientDataModelIngredientTagDataModel");
@@ -262,7 +305,10 @@ namespace DataAccess.Migrations
                 name: "Ingredients");
 
             migrationBuilder.DropTable(
-                name: "IngredientTypeDataModel");
+                name: "Glasses");
+
+            migrationBuilder.DropTable(
+                name: "IngredientTypes");
         }
     }
 }

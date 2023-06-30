@@ -18,13 +18,16 @@ namespace DataAccess.Context
 		
 		public DbSet<IngredientDataModel> Ingredients { get; set; }
 
+		public DbSet<GlassDataModel> Glasses { get; set; }
+		public DbSet<IngredientTypeDataModel>  IngredientTypes { get; set; }
+
 		public DbSet<IngredientTagDataModel> IngredientsTags { get; set;}
 
 
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseNpgsql("Username=postgres;Password=2244;Host=172.31.48.1;Port=5432;DataBase=Book;Pooling=true;");
+			optionsBuilder.UseNpgsql("Username=postgres;Password=2244;Host=172.31.48.1;Port=5432;DataBase=DrinkBook;Pooling=true;");
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,6 +42,9 @@ namespace DataAccess.Context
 			modelBuilder.Entity<DrinkDataModel>()
 				.HasIndex(p => p.Name)
 				.IncludeProperties(p => p.Id);
+			modelBuilder.Entity<DrinkDataModel>()
+				.HasOne(p => p.Glass).WithMany(p => p.Drinks);
+
 			modelBuilder.Entity<InstructionDataModel>()
 				.HasOne(e => e.Ingredient)
 				.WithMany(e => e.Instructions);

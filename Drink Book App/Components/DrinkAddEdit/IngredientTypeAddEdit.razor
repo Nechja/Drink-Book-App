@@ -1,0 +1,64 @@
+﻿<style>
+    /* Custom CSS to remove borders from list items */
+    .list-group-item {
+        border: none;
+    }
+
+    /* Optional: To change the appearance of the "Edit" link */
+    .edit-link {
+        text-decoration: none;
+        color: #007bff;
+        cursor: pointer;
+    }
+
+        .edit-link:hover {
+            text-decoration: underline;
+        }
+</style>
+
+    <div>
+        <div>
+            <div>
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">Ingredient Type</h5>
+                    <div class="row mb-3">
+                        <IngredientTypeAddEditCard></IngredientTypeAddEditCard>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">List</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-group">
+                                    @foreach(IngredientTypeDisplayModel i in _types)
+                                    {
+                                        <li class="list-group-item">
+                                            @i.Name
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-group">
+                                    @foreach (IngredientTypeDisplayModel i in _types)
+                                    {
+                                    <li class="list-group-item text-end">
+                                        <NavLink class="edit-link">Edit</NavLink>
+                                    </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+

@@ -1,0 +1,30 @@
+﻿@page "/drink"
+@page "/drink/{DrinkName}/{DrinkId:int}"
+
+
+@if (Drink is null)
+{
+	<Loading></Loading>
+
+}
+@if(failed == true)
+{
+	<PageTitle>Error</PageTitle>
+	<div class="row justify-content-center">Drink loading has failed.</div>
+}
+else
+{
+	<PageTitle>@Drink.Name</PageTitle>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="row">
+					<DrinkCard DrinkData="Drink"></DrinkCard>
+				</div>
+			</div>
+		</div>
+
+	</div>
+}
+
+

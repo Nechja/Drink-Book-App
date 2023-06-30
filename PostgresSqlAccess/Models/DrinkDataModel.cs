@@ -13,6 +13,8 @@ namespace DataAccess.Models
 		public string? Notes { get; set; }
 
 		public DrinkDataModel? Mod { get; set; }
+
+		public GlassDataModel? Glass { get; set; }
 		public Uri? Image { get; set; }
 
 		public List<DrinkTagDataModel>? Tags { get; set; } = new();
