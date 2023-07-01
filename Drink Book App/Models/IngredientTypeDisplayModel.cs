@@ -9,7 +9,7 @@ namespace Drink_Book_App.Models
     {
         public int Id { get; set; }
         [Required]
-        [StringLength(50, ErrorMessage = "To long!")]
+        [StringLength(50, ErrorMessage = "Too long!")]
         public string Name { get; set; }
 
         public IngredientTypeDisplayModel(IIngredientTypeDataModel model) 

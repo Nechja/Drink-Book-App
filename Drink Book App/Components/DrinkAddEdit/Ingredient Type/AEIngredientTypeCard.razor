@@ -1,12 +1,26 @@
 ﻿<h3>AddEditIngredientType</h3>
 
 <div class="card">
-
-	<EditForm Model="@IngredientDisplay" OnValidSubmit="ValidSubmit">
-		<DataAnnotationsValidator />
-		<ValidationSummary />
-		<label for="Name">Name of Ingredient Type</label>
-		<InputText @bind-Value=IngredientDisplay.Name class="form-control" id="Name"></InputText>
-		<input type="submit" class="btn btn-primary" value="Add" />
-	</EditForm>
+	<div class="card-body">
+		<EditForm Model="@IngredientDisplay" OnValidSubmit="ValidSubmit">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+			<label for="Name">Name of Ingredient Type</label>
+			<InputText @bind-Value=IngredientDisplay.Name class="form-control" id="Name"></InputText>
+			<input type="submit" class="btn btn-primary" value="Add" />
+		</EditForm>
+	</div>
+</div>
+<div class="card">
+	<div class="card-body">
+		<ul class="list-group list-group-flush">
+			@foreach (IngredientTypeDisplayModel i in ingredientTypes)
+			{
+				<li class="list-group-item d-flex justify-content-between align-items-start">
+					<NavLink>@i.Name.ToString()</NavLink>
+					<span class="badge bg-primary rounded-pill"><NavLink>edit</NavLink></span>
+				</li>
+			}
+		</ul>
+	</div>
 </div>
