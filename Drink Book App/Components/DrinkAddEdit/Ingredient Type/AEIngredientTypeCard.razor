@@ -1,5 +1,12 @@
 ﻿<h3>AddEditIngredientType</h3>
 
-@code {
+<div class="card">
 
-}
+	<EditForm Model="@IngredientDisplay" OnValidSubmit="ValidSubmit">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+		<label for="Name">Name of Ingredient Type</label>
+		<InputText @bind-Value=IngredientDisplay.Name class="form-control" id="Name"></InputText>
+		<input type="submit" class="btn btn-primary" value="Add" />
+	</EditForm>
+</div>

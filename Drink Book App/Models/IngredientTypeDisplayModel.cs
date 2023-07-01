@@ -1,10 +1,15 @@
-﻿using DataAccess.Models.Interfaces;
+﻿using DataAccess.Models;
+using DataAccess.Models.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Drink_Book_App.Models
 {
     public class IngredientTypeDisplayModel : IIngredientTypeDataModel
     {
         public int Id { get; set; }
+        [Required]
+        [StringLength(50, ErrorMessage = "To long!")]
         public string Name { get; set; }
 
         public IngredientTypeDisplayModel(IIngredientTypeDataModel model) 
@@ -14,6 +19,14 @@ namespace Drink_Book_App.Models
         }
 
         public IngredientTypeDisplayModel() { }
+
+        public IngredientTypeDataModel DataModel 
+        { 
+            get 
+            {
+                return new IngredientTypeDataModel() { Id = Id, Name = Name };
+            } 
+        }
 
     }
 }
