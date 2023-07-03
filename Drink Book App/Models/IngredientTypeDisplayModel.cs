@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Drink_Book_App.Models
 {
-    public class IngredientTypeDisplayModel : IIngredientTypeDataModel
+	public class IngredientTypeDisplayModel : IIngredientTypeDataModel
     {
-        public int Id { get; set; }
+		
+		public int Id { get; set; }
         [Required]
-        [StringLength(50, ErrorMessage = "Too long!")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
         public string Name { get; set; }
 
         public IngredientTypeDisplayModel(IIngredientTypeDataModel model) 

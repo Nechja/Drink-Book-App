@@ -1,13 +1,23 @@
-﻿<h3>AddEditIngredientType</h3>
-
-<div class="card">
+﻿
+<div class="card" >
 	<div class="card-body">
-		<EditForm Model="@IngredientDisplay" OnValidSubmit="ValidSubmit">
+		<EditForm Model="@IngredientDisplay" class="@showInvalid" OnValidSubmit="ValidSubmit">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
+			@if(errorValid != null)
+			{
+				<label class="alert-warning">@errorValid</label>
+			}
 			<label for="Name">Name of Ingredient Type</label>
 			<InputText @bind-Value=IngredientDisplay.Name class="form-control" id="Name"></InputText>
-			<input type="submit" class="btn btn-primary" value="Add" />
+			@if (IngredientDisplay.Id == 0)
+			{
+				<input type="submit" class="btn btn-dark" value="Add" />
+			}
+			else
+			{
+				<input type="submit" class="btn btn-dark" value="Update" />
+			}
 		</EditForm>
 	</div>
 </div>
@@ -18,7 +28,7 @@
 			{
 				<li class="list-group-item d-flex justify-content-between align-items-start">
 					<NavLink>@i.Name.ToString()</NavLink>
-					<span class="badge bg-primary rounded-pill"><NavLink>edit</NavLink></span>
+					<span><Button class="badge btn btn-dark" @onclick="() => EditType(i)">edit</Button></span>
 				</li>
 			}
 		</ul>

@@ -1,0 +1,11 @@
+﻿<h3>AEIngredientCard</h3>
+
+<div class= "card">
+	<EditForm Model="@Ingredient" class="form-control">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+		<CascadingValue Value="Ingredient.Tags">
+			<Tagging TagType="@nameof(IngredientDisplayModel)"></Tagging>
+		</CascadingValue>
+	</EditForm>
+</div>

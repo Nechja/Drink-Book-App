@@ -3,6 +3,7 @@ using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -120,12 +121,15 @@ public class DrinkRepository
 
     public void AddIngredientType(IngredientTypeDataModel ingredientType)
     {
-        using (var context = _dbContextFactory.CreateDbContext())
-        {
-            context.IngredientTypes.Add(ingredientType);
-            context.SaveChanges();
-        }
-    }
+
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.IngredientTypes.Add(ingredientType);
+			context.SaveChanges();
+		}
+
+
+	}
 
     public void DeleteIngredientType(int id)
     {
@@ -136,6 +140,15 @@ public class DrinkRepository
         }
     }
 
+	//Ingredients
+
+	public List<IngredientTagDataModel> GetIngredientTags() 
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.IngredientsTags.ToList();
+		}
+	}
 
 
 }

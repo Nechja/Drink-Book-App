@@ -1,0 +1,15 @@
+﻿<h3>Tagging</h3>
+
+<div>
+	<input  @bind=_tagtext @oninput="HandleChange" class="form-control filter" />
+	<ul class ="options">
+		@if (TagsAuto.Any())
+		{
+			@foreach(TagDisplayModel tag in TagsAuto)
+			{
+				<li class="option"><span class="option-text">@tag.Value</span></li>
+			}
+			
+		}
+	</ul>
+</div>
