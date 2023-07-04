@@ -1,34 +1,61 @@
 ﻿<h3>AEIngredientCard</h3>
-
+ <MudContainer>
 <MudCard>
 
-	<EditForm Model="@Ingredient" class="form-control" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
+	<EditForm Model="@Ingredient" id="inputarea" 
+				class="form-control bg-dark border-dark" 
+				OnValidSubmit="HandleValidSubmit" 
+				OnInvalidSubmit="HandleInvalidSubmit">
 		<DataAnnotationsValidator />
 		<ValidationSummary />
 		<MudCard>
 			<MudCardContent>
 				<MudItem xs="12" sm="6" md="4">
-					<MudTextField @bind-Value="Ingredient.Name" Label="Ingredient Name" Variant="Variant.Text"></MudTextField>
+					<MudTextField @bind-Value="Ingredient.Name" Label="Ingredient Name" Variant="Variant.Text" @onkeypress=KeyStop></MudTextField>
 				</MudItem>
 			</MudCardContent>
 		</MudCard>
-		<MudDivider DividerType="DividerType.Inset" />
+			<MudDivider DividerType="DividerType.FullWidth" />
 		<CascadingValue Value="Ingredient.IngredientType">
 			<IngredientTypeDropDown OnSelectIngredient="OnSelectIngredientChange" />
 		</CascadingValue>
-		<MudDivider DividerType="DividerType.Inset" />
+		<MudDivider DividerType="DividerType.FullWidth" />
 		<CascadingValue Value="Ingredient.Tags">
 			<Tagging TagType="@nameof(IngredientDisplayModel)"
 					 OnSelectTag="OnSelectTagsChanged"></Tagging>
 		</CascadingValue>
-		<MudDivider DividerType="DividerType.Inset" />
+			<MudDivider DividerType="DividerType.FullWidth" />
 		@if (Ingredient.Id == 0)
 		{
-			<input type="submit" class="btn btn-dark" value="Add" />
+				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" @onkeypress="KeyStop" Class="ml-auto">Add</MudButton>
 		}
 		else
 		{
-			<input type="submit" class="btn btn-dark" value="Update" />
+			<input type="submit" class="btn btn-light" value="Update" @onkeypress="KeyStop" />
 		}
 	</EditForm>
 </MudCard>
+<MudCard>
+	<MudCardHeader>
+		Ingredients
+	</MudCardHeader>
+	<MudCardContent>
+	<MudStack Spacing="2" Row="true">
+	@foreach(IngredientDisplayModel i in Ingredients)
+	{
+		<MudItem xs="12" sm="6" md="4">
+			
+				<MudCard>
+					<MudCardHeader>@i.Name</MudCardHeader>
+					<MudCardActions>
+								<MudChip Color="Color.Info" Value="@i" OnClose="ChipClick" CloseIcon="@Icons.Material.Filled.Edit">>Edit</MudChip>
+								<MudChip Color="Color.Warning" Value="@i">Delete</MudChip>
+					</MudCardActions>
+				</MudCard>
+			
+		</MudItem>
+	}
+	</MudStack>
+	</MudCardContent>
+</MudCard>
+</MudContainer>

@@ -150,7 +150,7 @@ public class DrinkRepository
 		}
 	}
 
-	public List<IngredientDataModel> GetAllIngredientTags()
+	public List<IngredientDataModel> GetAllIngredient()
 	{
 		using(var context = _dbContextFactory.CreateDbContext())
 		{

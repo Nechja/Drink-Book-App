@@ -15,7 +15,7 @@
 	<MudCardActions>
 		@foreach (TagDisplayModel t in Tags)
 		{
-			<MudChip AdornmentIcon="@Icons.Material.Filled.Tag">@t.Value</MudChip>
+			<MudChip AdornmentIcon="@Icons.Material.Filled.Tag" OnClose="Closed" Text="@t.Value"></MudChip>
 		}
 	</MudCardActions>
 

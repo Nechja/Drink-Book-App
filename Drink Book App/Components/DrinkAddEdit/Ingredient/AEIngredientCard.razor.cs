@@ -2,6 +2,9 @@
 using DataAccess.Services;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
+using MudBlazor;
 
 namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 {
@@ -9,6 +12,10 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 	{
 		[Inject]
 		public DrinkRepository repo { get; set; }
+
+		private bool FakeSubmit { get; set; } = false;
+
+		private List<IngredientDisplayModel> Ingredients { get; set;} = new List<IngredientDisplayModel>();
 
 		public IngredientDisplayModel Ingredient { get; set; } = new IngredientDisplayModel();
 
@@ -30,11 +37,26 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 
 		protected override void OnInitialized()
 		{
-			base.OnInitialized();
+			var data = repo.GetAllIngredient();
+			foreach(var ingredient in data) 
+			{
+				Ingredients.Add(new IngredientDisplayModel(ingredient));
+			}
+		}
+
+		protected void KeyStop(KeyboardEventArgs e)
+		{
+			if (e.Code == "Enter" || e.Code == "NumpadEnter") FakeSubmit = true;
 		}
 
 		void HandleValidSubmit()
 		{
+			if (FakeSubmit) 
+			{
+				FakeSubmit = false;
+				return;
+			}
+			
 			return;
 		}
 
@@ -51,6 +73,16 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 		protected void OnSelectTagsChanged(List<TagDisplayModel> tags)
 		{
 			Ingredient.Tags = tags;
+		}
+
+		protected void ChipClick(MudChip chip)
+		{
+			if(chip == null) return;
+			if(chip.Value == null) return;
+			if(chip.Value is IngredientDisplayModel)
+			{
+				Ingredient = (IngredientDisplayModel)chip.Value;
+			}
 		}
 
 

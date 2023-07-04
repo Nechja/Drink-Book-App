@@ -87,6 +87,14 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 			}
 		}
 
+		protected private void Closed(MudChip chip)
+		{
+			if (chip is null) return;
+			var toremove = Tags.FirstOrDefault(t => t.Value.ToLower() == chip.Text.ToLower());
+			if (toremove != null) { Tags.Remove(toremove); }
+			StateHasChanged();
+		}
+
 		private async Task<IEnumerable<string>> TagSearch(string value)
 		{
 			await Task.Delay(5);
