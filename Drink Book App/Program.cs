@@ -5,6 +5,7 @@ using Drink_Book_App.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Default")
@@ -24,6 +25,8 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddTransient<DrinkRepository>();
 builder.Services.AddDbContextFactory<DrinkDBContext>(
 	(DbContextOptionsBuilder options) => options.UseNpgsql(connectionString));
+
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 

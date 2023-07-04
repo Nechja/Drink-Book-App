@@ -1,15 +1,18 @@
 ﻿<h3>Tagging</h3>
 
 <div>
-	<input  @bind=_tagtext @oninput="HandleChange" class="form-control filter" />
-	<ul class ="options">
-		@if (TagsAuto.Any())
-		{
-			@foreach(TagDisplayModel tag in TagsAuto)
-			{
-				<li class="option"><span class="option-text">@tag.Value</span></li>
-			}
-			
-		}
-	</ul>
+	<MudItem xs="12" sm="6" md="4">
+	<MudAutocomplete T="string" Lablel="Tags"
+		@bind-Value="TagText"
+		@bind-Text="TagText"
+		ResetValueOnEmptyText=true
+		SearchFunc="TagSearch"
+		OnKeyUp="EnterText"
+		CoerceText=true
+		AdornmentIcon="@Icons.Material.Filled.Tag" AdornmentColor="Color.Dark"/>
+	</MudItem>
+	@foreach(TagDisplayModel t in Tags)
+	{
+		<MudChip AdornmentIcon="@Icons.Material.Filled.Tag">@t.Value</MudChip>
+	}
 </div>
