@@ -3,6 +3,7 @@ using DataAccess.Services;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using static MudBlazor.CategoryTypes;
 
 namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 {
@@ -70,5 +71,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 				
 			}
 		}
-    }
+
+
+	}
 }

@@ -1,0 +1,14 @@
+﻿
+<MudCard>
+	<MudCardContent>
+	<MudItem xs="12" sm="6" md="4">
+	<MudAutocomplete T="string" Label="Ingredient Type"
+					 @bind-Value="SearchText"
+					 @bind-Text="SearchText"
+					 ResetValueOnEmptyText=true
+					 SearchFunc="Search"
+					 CoerceText=true
+					 AdornmentIcon="@Icons.Material.Filled.ArrowBackIosNew" AdornmentColor="Color.Dark" />
+	</MudItem>
+	</MudCardContent>
+</MudCard>

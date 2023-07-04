@@ -150,5 +150,13 @@ public class DrinkRepository
 		}
 	}
 
+	public List<IngredientDataModel> GetAllIngredientTags()
+	{
+		using(var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.Ingredients.ToList();
+		}
+	}
+
 
 }

@@ -1,11 +1,33 @@
 ﻿<h3>AEIngredientCard</h3>
 
-<div class= "card">
-	<EditForm Model="@Ingredient" class="form-control">
+<MudCard>
+
+	<EditForm Model="@Ingredient" class="form-control" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
 		<DataAnnotationsValidator />
 		<ValidationSummary />
+		<MudCard>
+			<MudCardContent>
+				<MudItem xs="12" sm="6" md="4">
+					<MudTextField @bind-Value="Ingredient.Name" Label="Ingredient Name" Variant="Variant.Text"></MudTextField>
+				</MudItem>
+			</MudCardContent>
+		</MudCard>
+		<MudDivider DividerType="DividerType.Inset" />
+		<CascadingValue Value="Ingredient.IngredientType">
+			<IngredientTypeDropDown OnSelectIngredient="OnSelectIngredientChange" />
+		</CascadingValue>
+		<MudDivider DividerType="DividerType.Inset" />
 		<CascadingValue Value="Ingredient.Tags">
 			<Tagging TagType="@nameof(IngredientDisplayModel)"></Tagging>
 		</CascadingValue>
+		<MudDivider DividerType="DividerType.Inset" />
+		@if (Ingredient.Id == 0)
+		{
+			<input type="submit" class="btn btn-dark" value="Add" />
+		}
+		else
+		{
+			<input type="submit" class="btn btn-dark" value="Update" />
+		}
 	</EditForm>
-</div>
+</MudCard>

@@ -9,7 +9,7 @@ namespace Drink_Book_App.Models
         public int? Oz { get; set; }
         public string? Special { get; set; }
 
-        public IngredientDisplayModel ingredient { get; set; }
+        public IngredientDisplayModel ingredient { get; set; } = new IngredientDisplayModel();
 
         public InstructionDisplayModel() { }
 

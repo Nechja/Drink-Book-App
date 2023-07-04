@@ -1,8 +1,8 @@
-﻿<h3>Tagging</h3>
-
-<div>
+﻿
+<MudCard>
+	<MudCardContent>
 	<MudItem xs="12" sm="6" md="4">
-	<MudAutocomplete T="string" Lablel="Tags"
+	<MudAutocomplete T="string" Label="Tags"
 		@bind-Value="TagText"
 		@bind-Text="TagText"
 		ResetValueOnEmptyText=true
@@ -11,8 +11,12 @@
 		CoerceText=true
 		AdornmentIcon="@Icons.Material.Filled.Tag" AdornmentColor="Color.Dark"/>
 	</MudItem>
-	@foreach(TagDisplayModel t in Tags)
-	{
-		<MudChip AdornmentIcon="@Icons.Material.Filled.Tag">@t.Value</MudChip>
-	}
-</div>
+	</MudCardContent>
+	<MudCardActions>
+		@foreach (TagDisplayModel t in Tags)
+		{
+			<MudChip AdornmentIcon="@Icons.Material.Filled.Tag">@t.Value</MudChip>
+		}
+	</MudCardActions>
+
+</MudCard>
