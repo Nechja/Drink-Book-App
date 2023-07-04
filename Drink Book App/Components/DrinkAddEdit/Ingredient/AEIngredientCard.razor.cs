@@ -11,7 +11,6 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 		public DrinkRepository repo { get; set; }
 
 		public IngredientDisplayModel Ingredient { get; set; } = new IngredientDisplayModel();
-		public IngredientTypeDataModel TypeModel { get; set; }
 
 		
 
@@ -49,6 +48,10 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 			 Ingredient.IngredientType = m;
 		}
 
+		protected void OnSelectTagsChanged(List<TagDisplayModel> tags)
+		{
+			Ingredient.Tags = tags;
+		}
 
 
 	}

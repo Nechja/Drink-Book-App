@@ -18,7 +18,8 @@
 		</CascadingValue>
 		<MudDivider DividerType="DividerType.Inset" />
 		<CascadingValue Value="Ingredient.Tags">
-			<Tagging TagType="@nameof(IngredientDisplayModel)"></Tagging>
+			<Tagging TagType="@nameof(IngredientDisplayModel)"
+					 OnSelectTag="OnSelectTagsChanged"></Tagging>
 		</CascadingValue>
 		<MudDivider DividerType="DividerType.Inset" />
 		@if (Ingredient.Id == 0)

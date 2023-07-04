@@ -33,6 +33,8 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 
 		[CascadingParameter]
 		public List<TagDisplayModel> Tags { get; set; } = new List<TagDisplayModel>();
+		[Parameter]
+		public EventCallback<List<TagDisplayModel>> OnSelectTag { get; set; }
 
 		public List<TagDisplayModel> TagsAuto { get; set; } = new List<TagDisplayModel>();
 		private List<string> _tags = new List<string>();
@@ -69,6 +71,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 				{
 					TagsAuto.Add(new TagDisplayModel() { Value = TagText });
 					Tags.Add(new TagDisplayModel() { Value = TagText });
+					await OnSelectTag.InvokeAsync(Tags);
 					TagText = "";
 				}
 				else
@@ -76,6 +79,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 					if(Tags.FirstOrDefault(t => t.Value.ToLower() == TagText.ToLower()) is null)
 					{
 						Tags.Add(TagsAuto.FirstOrDefault(t => t.Value.ToLower() == TagText.ToLower()));
+						await OnSelectTag.InvokeAsync(Tags);
 						TagText = "";
 					}
 					
