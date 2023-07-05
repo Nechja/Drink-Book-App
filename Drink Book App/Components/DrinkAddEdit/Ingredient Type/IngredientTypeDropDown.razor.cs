@@ -12,9 +12,11 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 		public DrinkRepository repo { get; set; }
 
 		[CascadingParameter]
-		public IngredientTypeDisplayModel Model { get; set; }
+		public IngredientTypeDisplayModel Model { get; set; } = new IngredientTypeDisplayModel();
 
-		
+
+
+
 
 		private string searchText = string.Empty;
 

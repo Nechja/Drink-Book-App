@@ -18,5 +18,17 @@ namespace Drink_Book_App.Models
         }
 
         public TagDisplayModel() { }
+
+        public IngredientTagDataModel IngredientTagDataModel 
+        {
+            get 
+            { 
+                return new IngredientTagDataModel() 
+                { 
+                    Id = Id,
+                    Value = Value
+                }; 
+            }
+        }
     }
 }

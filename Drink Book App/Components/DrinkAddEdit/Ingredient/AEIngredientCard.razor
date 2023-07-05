@@ -1,57 +1,57 @@
-﻿<h3>AEIngredientCard</h3>
+﻿
  <MudContainer>
-<MudCard>
-
+	<MudPaper Elevation="1" Class="py-8 px-10">
 	<EditForm Model="@Ingredient" id="inputarea" 
-				class="form-control bg-dark border-dark" 
+				class="form-control border-0" 
 				OnValidSubmit="HandleValidSubmit" 
 				OnInvalidSubmit="HandleInvalidSubmit">
 		<DataAnnotationsValidator />
 		<ValidationSummary />
-		<MudCard>
-			<MudCardContent>
+		<MudStack Spacing="3">
+		<MudCard Elevation="1" Class="py-8 px-10">
+			<MudCardHeader>Ingredient</MudCardHeader>
+			<MudCardContent >
 				<MudItem xs="12" sm="6" md="4">
 					<MudTextField @bind-Value="Ingredient.Name" Label="Ingredient Name" Variant="Variant.Text" @onkeypress=KeyStop></MudTextField>
+					<CascadingValue Value="Ingredient.IngredientType">
+						<IngredientTypeDropDown OnSelectIngredient="OnSelectIngredientChange" />
+					</CascadingValue>
 				</MudItem>
 			</MudCardContent>
 		</MudCard>
-			<MudDivider DividerType="DividerType.FullWidth" />
-		<CascadingValue Value="Ingredient.IngredientType">
-			<IngredientTypeDropDown OnSelectIngredient="OnSelectIngredientChange" />
-		</CascadingValue>
-		<MudDivider DividerType="DividerType.FullWidth" />
 		<CascadingValue Value="Ingredient.Tags">
 			<Tagging TagType="@nameof(IngredientDisplayModel)"
 					 OnSelectTag="OnSelectTagsChanged"></Tagging>
 		</CascadingValue>
+			</MudStack>
 			<MudDivider DividerType="DividerType.FullWidth" />
+
 		@if (Ingredient.Id == 0)
 		{
-				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" @onkeypress="KeyStop" Class="ml-auto">Add</MudButton>
+				<input type="submit" class="btn btn-dark" @onkeypress="KeyStop" value="Add" />
 		}
 		else
 		{
-			<input type="submit" class="btn btn-light" value="Update" @onkeypress="KeyStop" />
+				<input type="submit" class="btn btn-dark" @onkeypress="KeyStop" value="Edit" />
 		}
 	</EditForm>
-</MudCard>
-<MudCard>
+</MudPaper>
+	<MudCard Elevation="1" Class="py-8 px-10">
 	<MudCardHeader>
-		Ingredients
+		Ingredient List
 	</MudCardHeader>
 	<MudCardContent>
 	<MudStack Spacing="2" Row="true">
 	@foreach(IngredientDisplayModel i in Ingredients)
 	{
 		<MudItem xs="12" sm="6" md="4">
-			
-				<MudCard>
-					<MudCardHeader>@i.Name</MudCardHeader>
-					<MudCardActions>
-								<MudChip Color="Color.Info" Value="@i" OnClose="ChipClick" CloseIcon="@Icons.Material.Filled.Edit">>Edit</MudChip>
-								<MudChip Color="Color.Warning" Value="@i">Delete</MudChip>
-					</MudCardActions>
-				</MudCard>
+			<MudCard Elevation="4" Class="py-8 px-10">
+				<MudCardHeader><h3>@i.Name</h3></MudCardHeader>
+				<MudCardActions>
+							<MudChip Color="Color.Info" Value="@i" OnClose="ChipClick" CloseIcon="@Icons.Material.Filled.Edit" Text="Edit"/>
+							<MudChip Color="Color.Warning" Value="@i" OnClose="ChipClick" CloseIcon="@Icons.Material.Filled.Delete" Text="Delete" />
+				</MudCardActions>
+			</MudCard>
 			
 		</MudItem>
 	}

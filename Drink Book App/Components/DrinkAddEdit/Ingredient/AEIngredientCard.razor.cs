@@ -57,7 +57,10 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 				return;
 			}
 			
-			return;
+			if(Ingredient.Id == 0) 
+			{
+				repo.AddIngredient(Ingredient.DataModel);
+			}
 		}
 
 		void HandleInvalidSubmit()

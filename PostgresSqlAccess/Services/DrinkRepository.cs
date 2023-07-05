@@ -154,7 +154,31 @@ public class DrinkRepository
 	{
 		using(var context = _dbContextFactory.CreateDbContext())
 		{
-			return context.Ingredients.ToList();
+			return context.Ingredients.Include(i => i.IngredientType).Include(i => i.Tags).ToList();
+		}
+	}
+
+	public void AddIngredient(IngredientDataModel ingredient)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			if (ingredient.IngredientType.Id == 0)
+			{
+				AddIngredientType(ingredient.IngredientType);
+			}
+			var exsitingtype = context.IngredientTypes.SingleOrDefault(i => i.Name == ingredient.IngredientType.Name);
+			ingredient.IngredientType = exsitingtype;
+			context.Ingredients.Add(ingredient);
+			context.SaveChanges();
+		}
+	}
+
+	public void UpdateIngredient(IngredientDataModel ingredient)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Update(ingredient);
+			context.SaveChanges();
 		}
 	}
 
