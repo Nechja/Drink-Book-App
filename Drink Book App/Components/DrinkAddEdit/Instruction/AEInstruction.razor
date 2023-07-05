@@ -1,0 +1,38 @@
+﻿
+<MudPaper Width="100%" Elevation="0" >
+	<MudStack Justify="Justify.Center">
+		<MudContainer MaxWidth="MaxWidth.Small">
+
+			<MudPaper Elevation="2">
+				Add Instruction
+				<EditForm Model="Model" OnValidSubmit="OnValidSubmit">
+					<DataAnnotationsValidator />
+					<ValidationSummary />
+					@if (!String.IsNullOrEmpty(ErrorText))
+					{
+						<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
+					}
+
+					<CascadingValue Value="Model.Ingredient">
+						<IngredientDropDown OnSelectIngredient="OnSelectIngredientChange"></IngredientDropDown>
+					</CascadingValue>
+					<MudTextField Class="px-10" @bind-Value="Model.Oz" Label="Oz" Variant="Variant.Text"></MudTextField>
+					<MudTextField Class="px-10" @bind-Value="Model.Special" Label="Special" Variant="Variant.Text"></MudTextField>
+					<CascadingValue Value="Model.Tags">
+						<Tagging OnSelectTag="OnSelectTag"
+								 TagType="@nameof(InstructionDisplayModel)"></Tagging>
+					</CascadingValue>
+					@if (Model.Id == 0)
+					{
+						<input type="submit" class="btn btn-dark" @onkeypress="KeyStop" value="Add" />
+					}
+					else
+					{
+						<input type="submit" class="btn btn-dark" @onkeypress="KeyStop" value="Edit" />
+					}
+				</EditForm>
+			</MudPaper>
+		</MudContainer>
+	</MudStack>
+</MudPaper>
+

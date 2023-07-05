@@ -56,6 +56,15 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 						_tags.Add(tag.Value.ToLower());
 					}
 					break;
+				case $"{nameof(InstructionDisplayModel)}":
+					var it = repo.GetInstructionTags();
+					if (it.Count == 0) break;
+					foreach (var tag in it)
+					{
+						TagsAuto.Add(new TagDisplayModel(tag));
+						_tags.Add(tag.Value.ToLower());
+					}
+					break;
 				default:
 					return;
 			}
@@ -81,7 +90,8 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 					}
 					
 				}
-				TagText = null;
+				_tagText = null;
+                TagText = null;
 			}
 		}
 

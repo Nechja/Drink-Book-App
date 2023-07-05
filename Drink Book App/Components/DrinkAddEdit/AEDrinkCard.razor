@@ -1,0 +1,24 @@
+﻿<h3>AEDrinkCard</h3>
+
+<MudPaper>
+	<MudGrid>
+		<MudStack>
+
+		</MudStack>
+	</MudGrid>
+</MudPaper>
+<MudPaper>
+	<MudStack Spacing="2" Justify="Justify.Center">
+		@foreach(InstructionDisplayModel i in Drink.Instructions)
+		{
+		<MudStack>
+			@i.Ingredient.Name
+		</MudStack>
+		}
+	</MudStack>
+</MudPaper>
+<CascadingValue Value="Instruction">
+	<AEInstruction OnSelectInstruction="OnSelectInstructionChange"></AEInstruction>
+</CascadingValue>
+
+

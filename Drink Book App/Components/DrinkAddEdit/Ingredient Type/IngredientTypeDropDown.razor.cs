@@ -3,6 +3,7 @@ using DataAccess.Services;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using MudBlazor;
 
 namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 {
@@ -63,6 +64,13 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 		protected async Task EventCallbackIngredient(IngredientTypeDisplayModel m)
 		{
 			OnSelectIngredient.InvokeAsync(m);
+		}
+
+		protected void Closed(MudChip chip) 
+		{
+			SearchText = string.Empty;
+			Model = new IngredientTypeDisplayModel();
+			StateHasChanged();
 		}
 	}
 }

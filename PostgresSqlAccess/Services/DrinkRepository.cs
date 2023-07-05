@@ -212,5 +212,17 @@ public class DrinkRepository
 		}
 	}
 
+	public object GetIngredient()
+	{
+		throw new NotImplementedException();
+	}
 
+	//instructions
+	public List<InstructionTagDataModel> GetInstructionTags()
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.InstructionTags.ToList();
+		}
+	}
 }

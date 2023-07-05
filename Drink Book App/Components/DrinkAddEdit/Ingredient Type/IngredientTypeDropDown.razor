@@ -1,5 +1,4 @@
 ﻿@attribute [Authorize(Roles = "Admin")]
-
 @if(Model == null || Model.Id == 0)
 {
 
@@ -15,6 +14,6 @@
 else
 {
 
-<MudChip Text="@Model.Name"></MudChip>
+	<MudChip OnClose="Closed"><h4>@Model.Name</h4></MudChip>
 
 }
