@@ -14,6 +14,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 		public DrinkRepository repo { get; set; }
 
 		private bool FakeSubmit { get; set; } = false;
+		private string ErrorText { get; set; } = string.Empty;
 
 		private List<IngredientDisplayModel> Ingredients { get; set;} = new List<IngredientDisplayModel>();
 
@@ -56,15 +57,29 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 				FakeSubmit = false;
 				return;
 			}
-			
-			if(Ingredient.Id == 0) 
+			try
 			{
-				repo.AddIngredient(Ingredient.DataModel);
+				ErrorText = string.Empty;
+				if (Ingredient.Id == 0)
+				{
+					repo.AddIngredient(Ingredient.DataModel);
+				}
 			}
+			catch (Exception ex) 
+			{
+				ErrorText = ex.Message;
+			}
+
 		}
 
 		void HandleInvalidSubmit()
 		{
+			if (FakeSubmit)
+			{
+				FakeSubmit = false;
+				return;
+			}
+			ErrorText = string.Empty;
 			return;
 		}
 

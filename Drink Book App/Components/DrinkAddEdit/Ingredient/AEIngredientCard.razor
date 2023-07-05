@@ -7,6 +7,10 @@
 				OnInvalidSubmit="HandleInvalidSubmit">
 		<DataAnnotationsValidator />
 		<ValidationSummary />
+			@if (!String.IsNullOrEmpty(ErrorText))
+			{
+				<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
+			}
 		<MudStack Spacing="3">
 		<MudCard Elevation="1" Class="py-8 px-10">
 			<MudCardHeader>Ingredient</MudCardHeader>
@@ -41,12 +45,13 @@
 		Ingredient List
 	</MudCardHeader>
 	<MudCardContent>
-	<MudStack Spacing="2" Row="true">
+	<MudPaper Outlined="true" Class="border-dashed">
+	<MudGrid Spacing="2" Justify="Justify.Center">
 	@foreach(IngredientDisplayModel i in Ingredients)
 	{
-		<MudItem xs="12" sm="6" md="4">
-			<MudCard Elevation="4" Class="py-8 px-10">
-				<MudCardHeader><h3>@i.Name</h3></MudCardHeader>
+			<MudItem xs="3">
+				<MudCard Elevation="4" Class="d-flex flex-column align-center justify-center mud-width-full py-8">
+				<MudCardHeader><h5>@i.Name</h5></MudCardHeader>
 				<MudCardActions>
 							<MudChip Color="Color.Info" Value="@i" OnClose="ChipClick" CloseIcon="@Icons.Material.Filled.Edit" Text="Edit"/>
 							<MudChip Color="Color.Warning" Value="@i" OnClose="ChipClick" CloseIcon="@Icons.Material.Filled.Delete" Text="Delete" />
@@ -55,7 +60,9 @@
 			
 		</MudItem>
 	}
-	</MudStack>
+	</MudGrid>
+	</MudPaper>
 	</MudCardContent>
+	
 </MudCard>
 </MudContainer>

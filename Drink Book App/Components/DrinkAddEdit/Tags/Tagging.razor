@@ -3,11 +3,11 @@
 	<MudCardContent>
 	<MudItem xs="12" sm="6" md="4">
 	<MudAutocomplete T="string" Label="Tags"
-		@bind-Value="TagText"
+		@bind-Value="_tagText"
 		@bind-Text="TagText"
-		ResetValueOnEmptyText=true
 		SearchFunc="TagSearch"
-		OnKeyUp="EnterText"
+		OnKeyDown="EnterText"
+		esetValueOnEmptyText="true"
 		CoerceText=true
 		AdornmentIcon="@Icons.Material.Filled.Tag" AdornmentColor="Color.Dark"/>
 	</MudItem>

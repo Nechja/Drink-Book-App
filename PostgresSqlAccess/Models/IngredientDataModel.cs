@@ -5,10 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Models
 {
-    public class IngredientDataModel : IIngredientDataModel
+	[Index(nameof(Name), IsUnique = true)]
+	public class IngredientDataModel : IIngredientDataModel
 	{
 		[Key]
 		public int Id { get; set; }

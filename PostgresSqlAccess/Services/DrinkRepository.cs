@@ -150,6 +150,15 @@ public class DrinkRepository
 		}
 	}
 
+	public void AddIngredientTag(IngredientTagDataModel ingredientTag) 
+	{
+		using(var context = _dbContextFactory.CreateDbContext())
+		{
+			context.IngredientsTags.Add(ingredientTag);
+			context.SaveChanges();
+		}
+	}
+
 	public List<IngredientDataModel> GetAllIngredient()
 	{
 		using(var context = _dbContextFactory.CreateDbContext())
@@ -168,6 +177,27 @@ public class DrinkRepository
 			}
 			var exsitingtype = context.IngredientTypes.SingleOrDefault(i => i.Name == ingredient.IngredientType.Name);
 			ingredient.IngredientType = exsitingtype;
+
+			List<IngredientTagDataModel> dbtags = new List<IngredientTagDataModel>();
+
+			foreach(var tag in ingredient.Tags)
+			{
+				//prevent duplication
+				if(!context.IngredientsTags.Any(i => i.Value == tag.Value))
+				{
+					if (tag.Id == 0)
+					{
+						AddIngredientTag(tag);
+					}
+				}
+				var existingtag = context.IngredientsTags.SingleOrDefault(i => i.Value == tag.Value);
+				if (existingtag != null)
+				{
+					dbtags.Add(existingtag);
+				}
+			}
+			ingredient.Tags.Clear();
+			ingredient.Tags = dbtags;
 			context.Ingredients.Add(ingredient);
 			context.SaveChanges();
 		}

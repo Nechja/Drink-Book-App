@@ -14,7 +14,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 		[Inject]
 		public DrinkRepository repo { get; set; }
 
-		public string TagText 
+		public string? TagText 
 		{ get 
 			{
 				return _tagText;
@@ -26,7 +26,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 			} 
 		}
 
-		private string _tagText;
+		private string? _tagText;
 
 		private TagDisplayModel _tagdisplay { get; set; } = new TagDisplayModel();
 
@@ -64,15 +64,13 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 		private async Task EnterText(KeyboardEventArgs e) 
 		{
 			if (string.IsNullOrEmpty(TagText)) return;
-			if(e.Code == "Enter" || e.Code == "NumpadEnter") 
-			{ 
-				
+			if(e.Code == "Enter" || e.Code == "NumpadEnter" || e.Code == "Comma") 
+			{
 				if(TagsAuto.FirstOrDefault(t => t.Value.ToLower() == TagText.ToLower()) is null)
 				{
 					TagsAuto.Add(new TagDisplayModel() { Value = TagText });
 					Tags.Add(new TagDisplayModel() { Value = TagText });
 					await OnSelectTag.InvokeAsync(Tags);
-					TagText = "";
 				}
 				else
 				{
@@ -80,10 +78,10 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 					{
 						Tags.Add(TagsAuto.FirstOrDefault(t => t.Value.ToLower() == TagText.ToLower()));
 						await OnSelectTag.InvokeAsync(Tags);
-						TagText = "";
 					}
 					
 				}
+				TagText = null;
 			}
 		}
 
