@@ -1,4 +1,4 @@
-﻿using DataAccess.Models;
+using DataAccess.Models;
 using DataAccess.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,6 +8,7 @@ namespace Drink_Book_App.Models
     {
         public int Id { get; set; }
 
+
 		[Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
 		public int? Oz { get; set; }
 		[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
@@ -16,6 +17,9 @@ namespace Drink_Book_App.Models
         public IngredientDisplayModel Ingredient { get; set; } = new IngredientDisplayModel();
 
         public List<TagDisplayModel> Tags { get; set; } = new List<TagDisplayModel>();
+
+        public IngredientDisplayModel Ingredient { get; set; } = new IngredientDisplayModel();
+
 
         public InstructionDisplayModel() { }
 

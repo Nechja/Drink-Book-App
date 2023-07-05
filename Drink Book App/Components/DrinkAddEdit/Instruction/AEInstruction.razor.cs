@@ -1,7 +1,9 @@
-﻿using DataAccess.Services;
+using DataAccess.Services;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
+
 using Microsoft.AspNetCore.Components.Web;
+
 
 namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
 {
@@ -15,6 +17,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
 
         [Parameter]
         public EventCallback<InstructionDisplayModel> OnSelectInstruction { get; set; }
+
 
 		private bool FakeSubmit { get; set; } = false;
 
