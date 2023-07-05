@@ -1,4 +1,5 @@
-﻿
+﻿@attribute [Authorize(Roles = "Admin")]
+
 <div class="card" >
 	<div class="card-body">
 		<EditForm Model="@IngredientDisplay" class="@showInvalid" OnValidSubmit="ValidSubmit">
