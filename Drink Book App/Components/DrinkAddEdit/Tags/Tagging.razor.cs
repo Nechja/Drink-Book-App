@@ -81,7 +81,8 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 					}
 					
 				}
-				TagText = null;
+				_tagText = null;
+                TagText = null;
 			}
 		}
 

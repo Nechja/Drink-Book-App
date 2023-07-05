@@ -1,0 +1,19 @@
+﻿@attribute [Authorize(Roles = "Admin")]
+@if (Model == null || Model.Id == 0)
+{
+
+	<MudAutocomplete T="string" Label="Ingredient Type"
+				 @bind-Value="SearchText"
+				 @bind-Text="SearchText"
+				 ResetValueOnEmptyText=true
+				 SearchFunc="Search"
+				 CoerceText=true
+				 AdornmentIcon="@Icons.Material.Filled.ArrowBackIosNew" AdornmentColor="Color.Dark" />
+
+}
+else
+{
+
+	<MudChip OnClose="Closed"><h4>@Model.Name</h4></MudChip>
+
+}

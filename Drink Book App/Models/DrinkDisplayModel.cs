@@ -17,6 +17,8 @@ public class DrinkDisplayModel : IDrinkDataModel
 	public string Name { get; set; }
 	public string? Notes { get; set; }
 
+	public List<InstructionDisplayModel> Instructions { get; set; } = new List<InstructionDisplayModel>();
+
 	public void fromDrinkData(IDrinkDataModel drinkData)
 	{
 		this.Name = drinkData.Name;
@@ -31,7 +33,7 @@ public class DrinkDisplayModel : IDrinkDataModel
 	{ 
 		get 
 		{
-			
+			if(String.IsNullOrEmpty(this.Name)) return string.Empty;
 			TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 			string title = textInfo.ToTitleCase(Name);
 			return title; 

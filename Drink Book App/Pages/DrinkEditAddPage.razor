@@ -11,16 +11,13 @@
                     <MudButton Variant="Variant.Text" OnClick="() => menulocation = 0">Drink</MudButton>
                 </li>
                 <li class="nav-item">
-                      <MudButton Variant="Variant.Text" OnClick="() => menulocation = 1">Instruction</MudButton>
+                    <MudButton Variant="Variant.Text" OnClick="() => menulocation = 1">Glassware</MudButton>
                 </li>
                 <li class="nav-item">
                       <MudButton Variant="Variant.Text" OnClick="() => menulocation = 2">Ingredient</MudButton>
                 </li>
                 <li class="nav-item">
                     <MudButton Variant="Variant.Text" OnClick="() => menulocation = 3">Ingredient Type</MudButton>
-                </li>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="#">Glassware</NavLink>
                 </li>
             </ul>
         </div>
@@ -29,6 +26,10 @@
 
 
 <MudPaper>
+    @if (menulocation == 0)
+    {
+        <AEDrinkCard></AEDrinkCard>
+    }
     @if (menulocation == 1)
     {
         

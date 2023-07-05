@@ -212,5 +212,8 @@ public class DrinkRepository
 		}
 	}
 
-
+	public object GetIngredient()
+	{
+		throw new NotImplementedException();
+	}
 }

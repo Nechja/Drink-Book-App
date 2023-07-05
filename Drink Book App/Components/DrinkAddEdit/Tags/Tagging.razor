@@ -4,7 +4,7 @@
 	<MudCardContent>
 	<MudItem xs="12" sm="6" md="4">
 	<MudAutocomplete T="string" Label="Tags"
-		@bind-Value="_tagText"
+		@bind-Value="TagText"
 		@bind-Text="TagText"
 		SearchFunc="TagSearch"
 		OnKeyDown="EnterText"
