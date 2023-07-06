@@ -39,8 +39,14 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 
 		protected override void OnInitialized()
 		{
+			UpdateData();
+		}
+
+		protected private void UpdateData()
+		{
+			Ingredients.Clear();
 			var data = repo.GetAllIngredient();
-			foreach(var ingredient in data) 
+			foreach (var ingredient in data)
 			{
 				Ingredients.Add(new IngredientDisplayModel(ingredient));
 			}
@@ -65,6 +71,12 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 				{
 					repo.AddIngredient(Ingredient.DataModel);
 				}
+				else
+				{
+					repo.UpdateIngredient(Ingredient.DataModel);
+				}
+				Ingredient = new IngredientDisplayModel();
+				UpdateData();
 			}
 			catch (Exception ex) 
 			{

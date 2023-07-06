@@ -15,7 +15,11 @@ namespace Drink_Book_App.Models
         [Required]
         public IngredientDisplayModel Ingredient { get; set; } = new IngredientDisplayModel();
 
-        public List<TagDisplayModel> Tags { get; set; } = new List<TagDisplayModel>();
+        public FlagDisplayModel ServingFlag { get; set; } = new FlagDisplayModel();
+
+		public FlagDisplayModel ShakerFlag { get; set; } = new FlagDisplayModel();
+
+		public List<TagDisplayModel> Tags { get; set; } = new List<TagDisplayModel>();
 
         public InstructionDisplayModel() { }
 

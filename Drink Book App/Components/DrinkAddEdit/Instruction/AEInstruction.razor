@@ -16,6 +16,8 @@
 						</MudButtonGroup>
 					</MudToolBar>
 
+
+
 					@if (!String.IsNullOrEmpty(ErrorText))
 					{
 						<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
@@ -26,6 +28,53 @@
 					</CascadingValue>
 					<MudTextField Class="px-10" @bind-Value="Model.Oz" Label="Oz" Variant="Variant.Text"></MudTextField>
 					<MudTextField Class="px-10" @bind-Value="Model.Special" Label="Special" Variant="Variant.Text"></MudTextField>
+					<MudSelect Class="px-10" T="bool" Label="Optional Flags" AnchorOrigin="Origin.BottomCenter">
+						<MudSelectItem Value="@(ShakeOrServe = true)">Shake Flags</MudSelectItem>
+						<MudSelectItem Value="@(ShakeOrServe = false)">Serving Flags</MudSelectItem>
+					</MudSelect>
+					
+
+					@if (ShakeOrServe)
+					{
+						@if (ShakerFlags.Count() != 0)
+						{
+							<MudContainer>
+								<MudChipSet @bind-SelectedChip="ShakerSelected" Filter="true" Mandatory="true">
+									<MudGrid Spacing="2" Class="pa-md-6 mx-lg-auto">
+										@foreach (FlagDisplayModel f in ShakerFlags)
+										{
+											<MudChip Text="@f.Name" Value="f" />
+										}
+									</MudGrid>
+								</MudChipSet>
+							</MudContainer>
+
+						}
+						else
+						{
+							<MudText>
+								No Flags Found
+							</MudText>
+						}
+					}
+					else
+					{
+						@if (ServingFlags.Count() != 0)
+						{
+							<MudContainer>
+								<MudChipSet @bind-SelectedChip="ServingSelected" Filter="true" Mandatory="true">
+									<MudGrid Spacing="2" Class="pa-md-6 mx-lg-auto">
+										@foreach (FlagDisplayModel f in ServingFlags)
+										{
+											<MudChip Text="@f.Name" Value="f" />
+										}
+									</MudGrid>
+								</MudChipSet>
+							</MudContainer>
+						}
+					}
+
+
 					<CascadingValue Value="Model.Tags">
 						<Tagging OnSelectTag="OnSelectTag"
 								 TagType="@nameof(InstructionDisplayModel)"></Tagging>
