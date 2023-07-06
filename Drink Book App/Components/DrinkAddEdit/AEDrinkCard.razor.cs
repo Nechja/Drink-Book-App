@@ -7,7 +7,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit
         public DrinkDisplayModel Drink { get; set; } = new DrinkDisplayModel();
         public InstructionDisplayModel Instruction { get; set; } = new InstructionDisplayModel();
 
-
+        string ErrorText { get; set; } = string.Empty;
 
         protected void OnSelectInstructionChange(InstructionDisplayModel m)
         {

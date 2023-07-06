@@ -7,7 +7,15 @@
 				Add Instruction
 				<EditForm Model="Model" OnValidSubmit="OnValidSubmit">
 					<DataAnnotationsValidator />
-					<ValidationSummary />
+					<ValidationSummary /> 
+					<MudToolBar>
+						<MudButtonGroup Variant="Variant.Outlined" Class="d-flex align-center flex-grow-1" Elevation="0">
+							<MudButton  ButtonType="ButtonType.Submit" Variant="Variant.Text" Size="Size.Medium">Add</MudButton>
+							<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" OnClick="@(() => Model = new InstructionDisplayModel())" Size="Size.Medium">Reset</MudButton>
+
+						</MudButtonGroup>
+					</MudToolBar>
+
 					@if (!String.IsNullOrEmpty(ErrorText))
 					{
 						<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
@@ -22,14 +30,6 @@
 						<Tagging OnSelectTag="OnSelectTag"
 								 TagType="@nameof(InstructionDisplayModel)"></Tagging>
 					</CascadingValue>
-					@if (Model.Id == 0)
-					{
-						<input type="submit" class="btn btn-dark" @onkeypress="KeyStop" value="Add" />
-					}
-					else
-					{
-						<input type="submit" class="btn btn-dark" @onkeypress="KeyStop" value="Edit" />
-					}
 				</EditForm>
 			</MudPaper>
 		</MudContainer>

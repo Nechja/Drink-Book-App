@@ -1,24 +1,59 @@
-﻿<h3>AEDrinkCard</h3>
+﻿<MudStack Spacing="2" Justify="Justify.Center">
+	<MudPaper Elevation="0" Width="100%">
+		<MudContainer MaxWidth="MaxWidth.Small">
+			<MudPaper Elevation="2" Class="pa-4">
+				<EditForm Model="Drink">
+					<MudToolBar>
+						<MudButtonGroup Variant="Variant.Outlined" Class="d-flex align-center flex-grow-1" Elevation="0">
+							<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Size="Size.Medium">Add</MudButton>
+							<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" OnClick="@(() => Drink = new DrinkDisplayModel())" Size="Size.Medium">Reset</MudButton>
+						</MudButtonGroup>
+					</MudToolBar>
+					@if (!String.IsNullOrEmpty(ErrorText))
+					{
+						<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
+					}
+					<MudTextField Class="px-10" @bind-Value="Drink.Name" Label="Drink Name"/>
+					<MudTextField Class="px-10" @bind-Value="Drink.Ice" Label="Ice" />
+					<MudTextField Class="px-10" @bind-Value="Drink.Garnish" Label="Garnish" />
+					<MudTextField Class="px-10 pa-4" @bind-Value="Drink.Image" Label="Image" />
+					<MudPaper Elevation="0" Class="pa-4">
+						 Instructions:
+					</MudPaper>
+				</EditForm>
 
-<MudPaper>
-	<MudGrid>
-		<MudStack>
+				<MudPaper Square="true" Elevation="0" Class="pa-4">
+				<MudStack Spacing="2" Justify="Justify.Center">
+					@foreach (InstructionDisplayModel i in Drink.Instructions)
+					{
+						<MudPaper Elevation="1" Square="true">
+							<MudStack Row="true" Justify="Justify.SpaceBetween">
+								<MudPaper Elevation="0">
+										<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Ingredient.Name"></MudChip>
+										<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Oz.ToString()"></MudChip>
+								</MudPaper>
+								<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
+									<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
+									<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit"></MudIconButton>
+								</MudButtonGroup>
 
-		</MudStack>
-	</MudGrid>
-</MudPaper>
-<MudPaper>
-	<MudStack Spacing="2" Justify="Justify.Center">
-		@foreach(InstructionDisplayModel i in Drink.Instructions)
-		{
-		<MudStack>
-			@i.Ingredient.Name
-		</MudStack>
-		}
-	</MudStack>
-</MudPaper>
-<CascadingValue Value="Instruction">
-	<AEInstruction OnSelectInstruction="OnSelectInstructionChange"></AEInstruction>
-</CascadingValue>
+							</MudStack>
+							<MudPaper>
+								@i.Oz
+							</MudPaper>
+						</MudPaper>
+
+					}
+				</MudStack>
+				</MudPaper>
+			</MudPaper>
+		</MudContainer>
+	</MudPaper>
+	<MudPaper Elevation="0">
+		<CascadingValue Value="Instruction">
+			<AEInstruction OnSelectInstruction="OnSelectInstructionChange"></AEInstruction>
+		</CascadingValue>
+	</MudPaper>
+</MudStack>
 
 
