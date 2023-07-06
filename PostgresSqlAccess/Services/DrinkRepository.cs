@@ -1,5 +1,6 @@
 ﻿using DataAccess.Context;
 using DataAccess.Models;
+using DataAccess.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -217,6 +218,63 @@ public class DrinkRepository
 		throw new NotImplementedException();
 	}
 
+	//flags
+	public List<ServingFlagDataModel> GetServingFlags()
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.ServingFlags.ToList();
+		}
+	}
+
+	public List<ShakerFlagDataModel> GetShakerFlags()
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.ShakerFlags.ToList();
+		}
+	}
+
+	public void AddShakerFlag(ShakerFlagDataModel shaker)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.ShakerFlags.Add(shaker);
+			context.SaveChanges();
+		}
+	}
+
+	public void AddServingFlag(ServingFlagDataModel Serving)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.ServingFlags.Add(Serving);
+			context.SaveChanges();
+		}
+	}
+
+	public void UpdateShakerFlag(ShakerFlagDataModel shaker)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Update(shaker);
+			context.SaveChanges();
+		}
+	}
+
+	public void UpdateServingFlag(ServingFlagDataModel Serving)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Update(Serving);
+			context.SaveChanges();
+		}
+	}
+
+
+
+
+
 	//instructions
 	public List<InstructionTagDataModel> GetInstructionTags()
 	{
@@ -225,4 +283,6 @@ public class DrinkRepository
 			return context.InstructionTags.ToList();
 		}
 	}
+
+
 }

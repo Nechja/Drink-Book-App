@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DrinkDBContext))]
-    [Migration("20230705034625_MoreRequirements")]
-    partial class MoreRequirements
+    [Migration("20230706215300_Inital")]
+    partial class Inital
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -189,6 +189,12 @@ namespace DataAccess.Migrations
                     b.Property<int?>("Oz")
                         .HasColumnType("integer");
 
+                    b.Property<int>("ServingFlagid")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ShakerFlagid")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Special")
                         .HasColumnType("text");
 
@@ -197,6 +203,10 @@ namespace DataAccess.Migrations
                     b.HasIndex("DrinkId");
 
                     b.HasIndex("IngredientId");
+
+                    b.HasIndex("ServingFlagid");
+
+                    b.HasIndex("ShakerFlagid");
 
                     b.ToTable("Instructions");
                 });
@@ -216,6 +226,46 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("InstructionTags");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ServingFlagDataModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("ServingFlags");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ShakerFlagDataModel", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("ShakerFlags");
                 });
 
             modelBuilder.Entity("DrinkDataModelDrinkTagDataModel", b =>
@@ -303,9 +353,25 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DataAccess.Models.ServingFlagDataModel", "ServingFlag")
+                        .WithMany("Instructions")
+                        .HasForeignKey("ServingFlagid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccess.Models.ShakerFlagDataModel", "ShakerFlag")
+                        .WithMany("Instructions")
+                        .HasForeignKey("ShakerFlagid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Drink");
 
                     b.Navigation("Ingredient");
+
+                    b.Navigation("ServingFlag");
+
+                    b.Navigation("ShakerFlag");
                 });
 
             modelBuilder.Entity("DrinkDataModelDrinkTagDataModel", b =>
@@ -371,6 +437,16 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.IngredientTypeDataModel", b =>
                 {
                     b.Navigation("Ingredients");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ServingFlagDataModel", b =>
+                {
+                    b.Navigation("Instructions");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ShakerFlagDataModel", b =>
+                {
+                    b.Navigation("Instructions");
                 });
 #pragma warning restore 612, 618
         }

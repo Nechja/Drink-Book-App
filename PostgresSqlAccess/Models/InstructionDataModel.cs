@@ -14,6 +14,9 @@ namespace DataAccess.Models
 		public int Id { get; set; }
 		public int? Oz { get; set; }
 		public string? Special { get; set; }
+
+		public ServingFlagDataModel ServingFlag { get; set; } = new();
+		public ShakerFlagDataModel ShakerFlag { get; set; } = new();
 		public IngredientDataModel Ingredient { get; set; } = new();
 
 		public DrinkDataModel Drink { get; set; } = new();

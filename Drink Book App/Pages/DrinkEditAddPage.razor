@@ -7,6 +7,7 @@
     <MudButton Variant="Variant.Text" OnClick="() => menulocation = 1">Glassware</MudButton>
     <MudButton Variant="Variant.Text" OnClick="() => menulocation = 2">Ingredient</MudButton>
     <MudButton Variant="Variant.Text" OnClick="() => menulocation = 3">Ingredient Type</MudButton>
+    <MudButton Variant="Variant.Text" OnClick="() => menulocation = 4">Tags & Flags</MudButton>
 </MudAppBar>
 
 <MudSpacer/>
@@ -28,6 +29,10 @@
     @if (menulocation == 3)
     {
         <AEIngredientTypeCard></AEIngredientTypeCard>
+    }
+    @if (menulocation == 4)
+    {
+        <AEFlag></AEFlag>
     }
     
 </MudPaper>

@@ -1,7 +1,7 @@
 ﻿@attribute [Authorize(Roles = "Admin")]
- <MudContainer>
+ <MudPaper Elevation="0" >
 	<MudPaper Elevation="1" Class="py-8 px-10">
-	<EditForm Model="@Ingredient" id="inputarea" 
+		<EditForm Model="@Ingredient" id="inputarea" 
 				class="form-control border-0" 
 				OnValidSubmit="HandleValidSubmit" 
 				OnInvalidSubmit="HandleInvalidSubmit">
@@ -46,30 +46,29 @@
 		}
 		else
 		{
-	<MudCard Elevation="1" Class="py-8 px-10">
-		<MudCardHeader>
-			Ingredient List
-		</MudCardHeader>
-		<MudCardContent>
-			<MudPaper Outlined="true" Class="border-dashed">
-				<MudGrid Spacing="2" Justify="Justify.Center">
+	<div class="card">
+		<div class="card-body">
+			<ul class="list-group list-group-flush">
 					@foreach (IngredientDisplayModel i in Ingredients)
 					{
-						<MudItem xs="3">
-							<MudCard Elevation="4" Class="d-flex flex-column align-center justify-center mud-width-full py-8">
-								<MudCardHeader><h5>@i.Name</h5></MudCardHeader>
-								<MudCardActions>
-									<MudChip Color="Color.Info" Value="@i" OnClose="ChipClick" CloseIcon="@Icons.Material.Filled.Edit" Text="Edit" />
-									<MudChip Color="Color.Warning" Value="@i" OnClose="ChipClick" CloseIcon="@Icons.Material.Filled.Delete" Text="Delete" />
-								</MudCardActions>
-							</MudCard>
+						<MudPaper Elevation="1" Square="true">
+							<MudStack Row="true" Justify="Justify.SpaceBetween">
+								<MudPaper Elevation="0">
+									<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Name"></MudChip>
+								</MudPaper>
+								<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
+									<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
+									<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit" @onclick="() => OnEdit(i)"></MudIconButton>
+								</MudButtonGroup>
 
-						</MudItem>
+							</MudStack>
+							<MudPaper>
+							</MudPaper>
+						</MudPaper>
 					}
-				</MudGrid>
-			</MudPaper>
-		</MudCardContent>
-		</MudCard>
+			</ul>
+		</div>
+	</div>
 		}
 
-</MudContainer>
+</MudPaper>

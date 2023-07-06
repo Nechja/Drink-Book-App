@@ -3,6 +3,7 @@ using DataAccess.Services;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.JSInterop;
 using MudBlazor;
 
@@ -93,15 +94,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 			Ingredient.Tags = tags;
 		}
 
-		protected void ChipClick(MudChip chip)
-		{
-			if(chip == null) return;
-			if(chip.Value == null) return;
-			if(chip.Value is IngredientDisplayModel)
-			{
-				Ingredient = (IngredientDisplayModel)chip.Value;
-			}
-		}
+		protected void OnEdit(IngredientDisplayModel m) { Ingredient = m; }
 
 
 	}

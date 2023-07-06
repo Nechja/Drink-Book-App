@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Inital : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -76,6 +76,32 @@ namespace DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_InstructionTags", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServingFlags",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServingFlags", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShakerFlags",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShakerFlags", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,6 +209,8 @@ namespace DataAccess.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Oz = table.Column<int>(type: "integer", nullable: true),
                     Special = table.Column<string>(type: "text", nullable: true),
+                    ServingFlagid = table.Column<int>(type: "integer", nullable: false),
+                    ShakerFlagid = table.Column<int>(type: "integer", nullable: false),
                     IngredientId = table.Column<int>(type: "integer", nullable: false),
                     DrinkId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -200,6 +228,18 @@ namespace DataAccess.Migrations
                         column: x => x.IngredientId,
                         principalTable: "Ingredients",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Instructions_ServingFlags_ServingFlagid",
+                        column: x => x.ServingFlagid,
+                        principalTable: "ServingFlags",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Instructions_ShakerFlags_ShakerFlagid",
+                        column: x => x.ShakerFlagid,
+                        principalTable: "ShakerFlags",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -259,6 +299,24 @@ namespace DataAccess.Migrations
                 column: "IngredientTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ingredients_Name",
+                table: "Ingredients",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IngredientsTags_Value",
+                table: "IngredientsTags",
+                column: "Value",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IngredientTypes_Name",
+                table: "IngredientTypes",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_InstructionDataModelInstructionTagDataModel_TagsId",
                 table: "InstructionDataModelInstructionTagDataModel",
                 column: "TagsId");
@@ -272,6 +330,28 @@ namespace DataAccess.Migrations
                 name: "IX_Instructions_IngredientId",
                 table: "Instructions",
                 column: "IngredientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Instructions_ServingFlagid",
+                table: "Instructions",
+                column: "ServingFlagid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Instructions_ShakerFlagid",
+                table: "Instructions",
+                column: "ShakerFlagid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServingFlags_Name",
+                table: "ServingFlags",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShakerFlags_Name",
+                table: "ShakerFlags",
+                column: "Name",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -303,6 +383,12 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Ingredients");
+
+            migrationBuilder.DropTable(
+                name: "ServingFlags");
+
+            migrationBuilder.DropTable(
+                name: "ShakerFlags");
 
             migrationBuilder.DropTable(
                 name: "Glasses");

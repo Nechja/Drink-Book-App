@@ -24,6 +24,10 @@ namespace DataAccess.Context
 
 		public DbSet<IngredientTagDataModel> IngredientsTags { get; set;}
 
+		public DbSet<ServingFlagDataModel> ServingFlags { get; set; }
+
+		public DbSet<ShakerFlagDataModel> ShakerFlags { get; set; }
+
 
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -48,6 +52,12 @@ namespace DataAccess.Context
 
 			modelBuilder.Entity<InstructionDataModel>()
 				.HasOne(e => e.Ingredient)
+				.WithMany(e => e.Instructions);
+			modelBuilder.Entity<InstructionDataModel>()
+				.HasOne(e => e.ShakerFlag)
+				.WithMany(e => e.Instructions);
+			modelBuilder.Entity<InstructionDataModel>()
+				.HasOne(e => e.ServingFlag)
 				.WithMany(e => e.Instructions);
 			modelBuilder.Entity<InstructionDataModel>()
 				.HasMany(e => e.Tags)
