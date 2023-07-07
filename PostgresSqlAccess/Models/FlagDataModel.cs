@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace DataAccess.Models
 {
     [Index(nameof(Name), IsUnique = true)]
-	public class ShakerFlagDataModel : IFlagDataModel
+	public class FlagDataModel : IFlagDataModel
 	{
 		[Key]
 		public int id { get; set; }

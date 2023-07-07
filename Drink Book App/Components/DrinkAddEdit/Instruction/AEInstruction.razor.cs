@@ -18,8 +18,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
         [Parameter]
         public EventCallback<InstructionDisplayModel> OnSelectInstruction { get; set; }
 
-		private List<FlagDisplayModel> ShakerFlags { get; set; } = new List<FlagDisplayModel>();
-		private List<FlagDisplayModel> ServingFlags { get; set; } = new List<FlagDisplayModel>();
+		private List<FlagDisplayModel> Flags { get; set; } = new List<FlagDisplayModel>();
 
 		private bool FakeSubmit { get; set; } = false;
 
@@ -47,25 +46,16 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
 			set
 			{
 				servingSelected = value;
-				if (servingSelected != null)
-				{
-					ServingChipChanged(value);
-				}
 			}
 		}
 		private bool ShakeOrServe { get; set; } = true;
 
 		protected override void OnInitialized()
 		{
-			var seflags = repo.GetServingFlags();
-			var shflags = repo.GetShakerFlags();
-			foreach(var flag in seflags)
+			var flagdata = repo.GetFlags();
+			foreach(var flag in flagdata)
 			{
-				ServingFlags.Add(new FlagDisplayModel(flag));
-			}
-			foreach(var flag in shflags)
-			{
-				ShakerFlags.Add(new FlagDisplayModel(flag));
+				Flags.Add(new FlagDisplayModel(flag));
 			}
 		}
 
@@ -103,12 +93,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
 
 		protected void ShakerChipChanged(MudChip chip)
 		{
-			
-		}
-
-		protected void  ServingChipChanged(MudChip chip)
-		{
-
+			Model.Flag = (FlagDisplayModel)chip.Value;
 		}
 	}
 }

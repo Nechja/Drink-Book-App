@@ -11,13 +11,13 @@ namespace Drink_Book_App.Models
 		[Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
 		public int? Oz { get; set; }
 		[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
+		public string? DropShopOptions { get; set; }
+		[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
 		public string? Special { get; set; }
         [Required]
         public IngredientDisplayModel Ingredient { get; set; } = new IngredientDisplayModel();
 
-        public FlagDisplayModel ServingFlag { get; set; } = new FlagDisplayModel();
-
-		public FlagDisplayModel ShakerFlag { get; set; } = new FlagDisplayModel();
+		public FlagDisplayModel Flag { get; set; } = new FlagDisplayModel();
 
 		public List<TagDisplayModel> Tags { get; set; } = new List<TagDisplayModel>();
 
@@ -53,6 +53,20 @@ namespace Drink_Book_App.Models
                 }
                 
                 return instruction;
+            }
+        }
+
+        public InstructionDataModel DataModel
+        {
+            get
+            {
+                return new InstructionDataModel()
+                {
+                     Id = Id,
+                     Oz = Oz,
+                     Special = Special,
+                     DropShopOptions = DropShopOptions,
+                };
             }
         }
 

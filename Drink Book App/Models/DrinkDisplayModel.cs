@@ -3,6 +3,7 @@
 
 using DataAccess.Models;
 using DataAccess.Models.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
 namespace Drink_Book_App.Models;
@@ -14,8 +15,12 @@ public class DrinkDisplayModel : IDrinkDataModel
 	public string? Ice { get; set; }
 	public int Id { get; set; }
 	public Uri? Image { get; set; }
+	[Required]
+	[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
 	public string Name { get; set; }
 	public string? Notes { get; set; }
+	[Required]
+	public GlassDisplayModel Glass { get; set; }
 
 	public List<InstructionDisplayModel> Instructions { get; set; } = new List<InstructionDisplayModel>();
 

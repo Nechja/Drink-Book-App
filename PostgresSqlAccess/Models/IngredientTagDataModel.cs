@@ -16,6 +16,7 @@ namespace DataAccess.Models
 		[Key]
 		public int Id { get; set; }
 		public string Value { get; set; }
+		public string Mod { get; set; }
 		public List<IngredientDataModel> Ingredients { get; set; } = new();
 	}
 }

@@ -2,8 +2,11 @@
 	<MudPaper Elevation="0" Width="100%">
 		<MudContainer MaxWidth="MaxWidth.Small">
 			<MudPaper Elevation="2" Class="pa-4">
-				<EditForm Model="Drink">
+				<EditForm Model="Drink" OnValidSubmit="OnValidSubmit">
+					<DataAnnotationsValidator />
+					<ValidationSummary />
 					<MudToolBar>
+
 						<MudButtonGroup Variant="Variant.Outlined" Class="d-flex align-center flex-grow-1" Elevation="0">
 							<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Size="Size.Medium">Add</MudButton>
 							<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" OnClick="@(() => Drink = new DrinkDisplayModel())" Size="Size.Medium">Reset</MudButton>
@@ -17,7 +20,15 @@
 					<MudTextField Class="px-10" @bind-Value="Drink.Ice" Label="Ice" />
 					<MudTextField Class="px-10" @bind-Value="Drink.Garnish" Label="Garnish" />
 					<MudTextField Class="px-10 pa-4" @bind-Value="Drink.Image" Label="Image" />
+					<MudSelect Class="px-10" T="GlassDisplayModel" @bind-Value="@Drink.Glass" Label="Glassware" AnchorOrigin="Origin.BottomCenter">
+						@foreach(GlassDisplayModel g in Glassware)
+						{
+							<MudSelectItem Value="g">@g.Name (@g.Oz)</MudSelectItem>
+						}
+						
+					</MudSelect>
 					<MudPaper Elevation="0" Class="pa-4">
+
 						 Instructions:
 					</MudPaper>
 				</EditForm>

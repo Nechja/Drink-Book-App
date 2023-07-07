@@ -1,20 +1,17 @@
 ﻿@attribute [Authorize(Roles = "Admin")]
 
-
 <div class="card">
 	<div class="card-body">
-		<EditForm Model="@FlagDisplay" OnValidSubmit="OnValidSubmit" class="form-control border-0">
+		<EditForm Model="@Glass" class="@showInvalid" OnValidSubmit="OnValidSubmit">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
-			@if (ErrorText != null)
+			@if (errorValid != null)
 			{
-				<label class="alert-warning">@ErrorText</label>
+				<label class="alert-warning">@errorValid</label>
 			}
-			<MudTextField @bind-Value=FlagDisplay.Name Variant="Variant.Text"  Label="Name"/>
-			<MudTextField @bind-Value=FlagDisplay.OpeningStatement Variant="Variant.Text" Label="Opening" />
-			<MudTextField @bind-Value=FlagDisplay.ClosingStatment Variant="Variant.Text" Label="Closing" />
-			<MudTextField @bind-Value=FlagDisplay.InlineStatement Variant="Variant.Text" Label="Inline" />
-			@if (FlagDisplay.id == 0)
+			<MudTextField Label="Name" @bind-Value=Glass.Name Variant="Variant.Text"></MudTextField>
+			<MudNumericField @bind-Value="Glass.Oz" Label="Standard" Variant="Variant.Text" Min="0" Max="41" />
+			@if (Glass.Id == 0)
 			{
 				<input type="submit" class="btn btn-dark" value="Add" />
 			}
@@ -25,7 +22,7 @@
 		</EditForm>
 	</div>
 </div>
-@if (Flags is null)
+@if (Glassware is null)
 {
 	<MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
 }
@@ -34,7 +31,7 @@ else
 	<div class="card">
 		<div class="card-body">
 			<ul class="list-group list-group-flush">
-				@foreach(FlagDisplayModel i in Flags)
+				@foreach (GlassDisplayModel i in Glassware)
 				{
 					<MudPaper Elevation="1" Square="true">
 						<MudStack Row="true" Justify="Justify.SpaceBetween">
@@ -43,7 +40,7 @@ else
 							</MudPaper>
 							<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
 								<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
-								<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit" @onclick="() => EditFlag(i)"></MudIconButton>
+								<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit" @onclick="() => OnEdit(i)"></MudIconButton>
 							</MudButtonGroup>
 
 						</MudStack>
@@ -55,3 +52,4 @@ else
 		</div>
 	</div>
 }
+

@@ -24,9 +24,7 @@ namespace DataAccess.Context
 
 		public DbSet<IngredientTagDataModel> IngredientsTags { get; set;}
 
-		public DbSet<ServingFlagDataModel> ServingFlags { get; set; }
-
-		public DbSet<ShakerFlagDataModel> ShakerFlags { get; set; }
+		public DbSet<FlagDataModel> Flags { get; set; }
 
 
 
@@ -54,10 +52,7 @@ namespace DataAccess.Context
 				.HasOne(e => e.Ingredient)
 				.WithMany(e => e.Instructions);
 			modelBuilder.Entity<InstructionDataModel>()
-				.HasOne(e => e.ShakerFlag)
-				.WithMany(e => e.Instructions);
-			modelBuilder.Entity<InstructionDataModel>()
-				.HasOne(e => e.ServingFlag)
+				.HasOne(e => e.Flag)
 				.WithMany(e => e.Instructions);
 			modelBuilder.Entity<InstructionDataModel>()
 				.HasMany(e => e.Tags)

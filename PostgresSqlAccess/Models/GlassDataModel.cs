@@ -13,7 +13,7 @@ namespace DataAccess.Models
         [Key]
         public int Id { get; set; }
 
-        public int Name { get; set; }
+        public string Name { get; set; }
         public int? Oz { get; set; }
 
         public Uri? Image { get; set; }

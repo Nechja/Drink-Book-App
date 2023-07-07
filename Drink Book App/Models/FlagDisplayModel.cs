@@ -34,7 +34,7 @@ namespace Drink_Book_App.Models
 			{
 				Flag = FlagType.Serving;
 			}
-			if (flagData is ShakerFlagDataModel)
+			if (flagData is FlagDataModel)
 			{
 				Flag = FlagType.Shaker;
 			}

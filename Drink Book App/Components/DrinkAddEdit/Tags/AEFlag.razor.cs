@@ -39,13 +39,8 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
         protected private void UpdateFlags()
         {
             Flags.Clear();
-			var muddled = repo.GetServingFlags();
-			var shakered = repo.GetShakerFlags();
-			foreach (var flag in muddled)
-			{
-				Flags.Add(new FlagDisplayModel(flag));
-			}
-			foreach (var flag in shakered)
+			var flaglist = repo.GetFlags();
+			foreach (var flag in flaglist)
 			{
 				Flags.Add(new FlagDisplayModel(flag));
 			}
@@ -56,53 +51,27 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
         {
             if(FlagDisplay.id  == 0)
             {
-				if (FlagDisplay.Flag == FlagType.Shaker)
+
+				repo.AddFlag(new FlagDataModel
 				{
-					repo.AddShakerFlag(new ShakerFlagDataModel
-					{
-						id = FlagDisplay.id,
-						Name = FlagDisplay.Name,
-						OpeningStatement = FlagDisplay.OpeningStatement,
-						ClosingStatment = FlagDisplay.ClosingStatment,
-						InlineStatement = FlagDisplay.InlineStatement
-					});
-				}
-				if (FlagDisplay.Flag == FlagType.Serving)
-				{
-					repo.AddServingFlag(new ServingFlagDataModel
-					{
-						id = FlagDisplay.id,
-						Name = FlagDisplay.Name,
-						OpeningStatement = FlagDisplay.OpeningStatement,
-						ClosingStatment = FlagDisplay.ClosingStatment,
-						InlineStatement = FlagDisplay.InlineStatement
-					});
-				}
+					id = FlagDisplay.id,
+					Name = FlagDisplay.Name,
+					OpeningStatement = FlagDisplay.OpeningStatement,
+					ClosingStatment = FlagDisplay.ClosingStatment,
+					InlineStatement = FlagDisplay.InlineStatement
+				});
+				
 			}
 			else
 			{
-				if (FlagDisplay.Flag == FlagType.Shaker)
+				repo.UpdateFlag(new FlagDataModel
 				{
-					repo.UpdateShakerFlag(new ShakerFlagDataModel
-					{
-						id = FlagDisplay.id,
-						Name = FlagDisplay.Name,
-						OpeningStatement = FlagDisplay.OpeningStatement,
-						ClosingStatment = FlagDisplay.ClosingStatment,
-						InlineStatement = FlagDisplay.InlineStatement
-					});
-				}
-				if (FlagDisplay.Flag == FlagType.Serving)
-				{
-					repo.UpdateServingFlag(new ServingFlagDataModel
-					{
-						id = FlagDisplay.id,
-						Name = FlagDisplay.Name,
-						OpeningStatement = FlagDisplay.OpeningStatement,
-						ClosingStatment = FlagDisplay.ClosingStatment,
-						InlineStatement = FlagDisplay.InlineStatement
-					});
-				}
+					id = FlagDisplay.id,
+					Name = FlagDisplay.Name,
+					OpeningStatement = FlagDisplay.OpeningStatement,
+					ClosingStatment = FlagDisplay.ClosingStatment,
+					InlineStatement = FlagDisplay.InlineStatement
+				});
 			}
 
 

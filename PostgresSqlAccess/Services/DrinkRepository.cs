@@ -1,13 +1,6 @@
 ﻿using DataAccess.Context;
 using DataAccess.Models;
-using DataAccess.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Services;
 
@@ -219,41 +212,26 @@ public class DrinkRepository
 	}
 
 	//flags
-	public List<ServingFlagDataModel> GetServingFlags()
+
+	public List<FlagDataModel> GetFlags()
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
-			return context.ServingFlags.ToList();
+			return context.Flags.ToList();
 		}
 	}
 
-	public List<ShakerFlagDataModel> GetShakerFlags()
+	public void AddFlag(FlagDataModel shaker)
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
-			return context.ShakerFlags.ToList();
-		}
-	}
-
-	public void AddShakerFlag(ShakerFlagDataModel shaker)
-	{
-		using (var context = _dbContextFactory.CreateDbContext())
-		{
-			context.ShakerFlags.Add(shaker);
+			context.Flags.Add(shaker);
 			context.SaveChanges();
 		}
 	}
 
-	public void AddServingFlag(ServingFlagDataModel Serving)
-	{
-		using (var context = _dbContextFactory.CreateDbContext())
-		{
-			context.ServingFlags.Add(Serving);
-			context.SaveChanges();
-		}
-	}
 
-	public void UpdateShakerFlag(ShakerFlagDataModel shaker)
+	public void UpdateFlag(FlagDataModel shaker)
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
@@ -262,14 +240,6 @@ public class DrinkRepository
 		}
 	}
 
-	public void UpdateServingFlag(ServingFlagDataModel Serving)
-	{
-		using (var context = _dbContextFactory.CreateDbContext())
-		{
-			context.Update(Serving);
-			context.SaveChanges();
-		}
-	}
 
 
 
@@ -284,5 +254,30 @@ public class DrinkRepository
 		}
 	}
 
+	//glassware
+	public List<GlassDataModel> GetGlassware() 
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.Glasses.ToList();
+		}
+	}
 
+	public void AddGlass(GlassDataModel glass)
+	{
+		using(var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Glasses.Add(glass);
+			context.SaveChanges();
+		}
+	}
+
+	public void UpdateGlass(GlassDataModel glass)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Update(glass);
+			context.SaveChanges();
+		}
+	}
 }
