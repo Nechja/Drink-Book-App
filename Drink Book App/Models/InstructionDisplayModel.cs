@@ -31,8 +31,13 @@ namespace Drink_Book_App.Models
 
             if(model is InstructionDataModel)
             {
-                var m = (InstructionDataModel)model;
+                InstructionDataModel m = (InstructionDataModel)model;
                 Ingredient = new IngredientDisplayModel(m.Ingredient);
+                if(m.Flag.Name != null)
+                {
+                    Flag = new FlagDisplayModel(m.Flag);
+                }
+                
             }
         }
 
@@ -60,12 +65,13 @@ namespace Drink_Book_App.Models
         {
             get
             {
-				return new InstructionDataModel{
-				    Id = this.Id,
-			        Oz = this.Oz,
-			        Special = this.Special,
+                return new InstructionDataModel {
+                    Id = this.Id,
+                    Oz = this.Oz,
+                    Special = this.Special,
                     Ingredient = this.Ingredient.DataModel,
-			        DropShopOptions = this.DropShopOptions
+                    DropShopOptions = this.DropShopOptions,
+                    Flag = Flag.ToDataModel()
 		        };
 			}
         }

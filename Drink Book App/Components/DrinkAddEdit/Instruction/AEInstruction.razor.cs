@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore.Metadata;
 using MudBlazor;
+using static MudBlazor.CategoryTypes;
 
 namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
 {
@@ -68,6 +69,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
                 ErrorText = "Ingredient Required";
                 return;
             }
+            
             await OnSelectInstruction.InvokeAsync(Model);
             Model = new InstructionDisplayModel();
 		}

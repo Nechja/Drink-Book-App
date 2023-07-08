@@ -32,6 +32,18 @@ namespace Drink_Book_App.Models
 
 		}
 
+		public FlagDataModel ToDataModel()
+		{
+			return new FlagDataModel
+			{
+				Name = Name,
+				ClosingStatment = ClosingStatment,
+				InlineStatement = InlineStatement,
+				OpeningStatement = OpeningStatement, 
+				id = id
+			};
+		}
+
 		public static implicit operator FlagDisplayModel(MudChip v)
 		{
 			throw new NotImplementedException();

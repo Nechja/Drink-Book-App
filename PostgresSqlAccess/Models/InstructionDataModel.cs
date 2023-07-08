@@ -29,6 +29,7 @@ namespace DataAccess.Models
 			Oz = dataModel.Oz;
 			Special = dataModel.Special;
 			Ingredient = dataModel.Ingredient;
+			Flag = dataModel.Flag;
 			
 		}
 

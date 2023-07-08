@@ -44,11 +44,12 @@ public class DrinkRepository
 			var ins = new List<InstructionDataModel>();
 			foreach (InstructionDataModel instruction in drink.Instructions)
 			{
-				if(instruction.Flag is not null)
+				if(instruction.Flag.id != 0)
 				{
 					var flag = context.Flags.FirstOrDefault(f => f.id == instruction.Flag.id);
 					instruction.Flag = flag;
 				}
+				else { instruction.Flag = null; }
 
 				var ingredient = context.Ingredients.FirstOrDefault(i => i.Id == instruction.Ingredient.Id);
 				instruction.Ingredient = ingredient;
@@ -101,10 +102,14 @@ public class DrinkRepository
 		{
 			try
 			{
-				return context.Drinks.Include(r => r.Instructions)
+				return context.Drinks
+					.Include(i => i.Glass)
+                    .Include(r => r.Instructions)
 					.ThenInclude(i => i.Ingredient)
 					.ThenInclude(i => i.IngredientType)
-					.SingleOrDefault(drink => drink.Id == id)!;
+                    .Include(i => i.Instructions)
+					.ThenInclude(i => i.Flag)
+                    .SingleOrDefault(drink => drink.Id == id)!;
 			}
 			catch
 			{
@@ -127,7 +132,13 @@ public class DrinkRepository
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
-			return context.Drinks.ToList();
+			return context.Drinks
+                    .Include(i => i.Glass)
+                    .Include(r => r.Instructions)
+                    .ThenInclude(i => i.Ingredient)
+                    .ThenInclude(i => i.IngredientType)
+                    .Include(i => i.Instructions)
+                    .ThenInclude(i => i.Flag).ToList();
 		}
 	}
 

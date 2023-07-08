@@ -24,7 +24,7 @@ public class DrinkDisplayModel : IDrinkDataModel
 
 	public List<InstructionDisplayModel> Instructions { get; set; } = new List<InstructionDisplayModel>();
 
-	public void fromDrinkData(IDrinkDataModel drinkData)
+	public void fromDrinkData(DrinkDataModel drinkData)
 	{
 		this.Name = drinkData.Name;
 		this.Notes = drinkData.Notes;
@@ -32,6 +32,8 @@ public class DrinkDisplayModel : IDrinkDataModel
 		this.Image = drinkData.Image;
 		this.Ice = drinkData.Ice;
 		this.Garnish = drinkData.Garnish;
+		this.Glass = new GlassDisplayModel(drinkData.Glass);
+
 	}
 
 	public DrinkDataModel DataModel
@@ -75,8 +77,8 @@ public class DrinkDisplayModel : IDrinkDataModel
 			foreach(TagDisplayModel tag in model.Tags)
 			{
 				data.Tags.Add(tag.InstructionTagDataModel);
-			}
 
+			}
 			instructions.Add(data);
 		}
 		return instructions;

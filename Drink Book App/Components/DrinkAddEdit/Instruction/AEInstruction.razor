@@ -32,19 +32,13 @@
 						@if (Flags.Count() != 0)
 						{
 							<MudContainer>
-							<MudStack Row="true" Class="pa-md-6 mx-lg-auto">
-								<MudText>Flags</MudText>
-								<MudButton OnClick="() => ChipSelected = new MudChip()">Reset Flags</MudButton>
-							</MudStack>
-								
-							<MudChipSet @bind-SelectedChip="ChipSelected" Filter="true" Mandatory="true">
-									<MudGrid Spacing="2" Class="pa-md-6 mx-lg-auto">
-										@foreach (FlagDisplayModel f in Flags)
-										{
-											<MudChip Text="@f.Name" Value="f" />
-										}
-									</MudGrid>
-								</MudChipSet>
+							<MudSelect @bind-Value="Model.Flag" Label="Flags" AnchorOrigin="Origin.BottomCenter">
+								@foreach(var flag in Flags)
+								{
+									<MudSelectItem Value="flag">@flag.Name</MudSelectItem>
+								}
+							</MudSelect>
+
 								
 							</MudContainer>
 
