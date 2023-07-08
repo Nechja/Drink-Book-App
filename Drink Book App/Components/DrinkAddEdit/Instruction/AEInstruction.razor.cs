@@ -83,5 +83,10 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
 		{
 			Model.Flag = (FlagDisplayModel)chip.Value;
 		}
+
+		protected void SelectedFlag(FlagDisplayModel f)
+		{
+			Model.Flag = f;
+		}
 	}
 }

@@ -41,6 +41,14 @@ namespace Drink_Book_App.Models
             }
         }
 
+        public string OzString
+        {
+            get
+            {
+                return $"{Oz.ToString()}ᵒᶻ";
+            }
+        }
+
         public string InstructionText
         {
             get 

@@ -1,9 +1,15 @@
-﻿<div class="card">
-  <div class="card-body">
-        <h5 class="card-title">@DrinkDisplay.DrinkTitleLong</h5>
-        <div class="card-body">
-            <Instructions instructions="InstructionsList"></Instructions>
-        </div>
-  </div>
-</div>
+﻿<MudCard>
+    <MudCardHeader Class="pb-n5 mb-n5">
+        <MudText Typo="Typo.h4">@DrinkDisplay.DrinkTitleLong</MudText>
+    </MudCardHeader>
+    <MudCardContent>
+        <Instructions instructions="InstructionsList"></Instructions>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButtonGroup>
+
+             <MudButton></MudButton>
+        </MudButtonGroup>
+    </MudCardActions>
+</MudCard>
 

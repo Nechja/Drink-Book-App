@@ -1,32 +1,46 @@
 ﻿<MudPaper Elevation="0">
-    <MudList Class="list-group">
+    <MudItem xs="12">
+    <MudList Class="list-group" Dense="true">
         @if (FlagingItems.Any())
         {
             @foreach(var item in FlagingItems)
             {
-                <MudListItem Text="@item.decoration.OpeningStatement"/>
-                <MudList>
-                    @foreach(var i in item.items)
+                    <MudDivider />
+                    <MudListSubheader Class="pb-n5 mb-n5">@item.decoration.OpeningStatement</MudListSubheader>
+
+                    @foreach (var i in item.items)
                     {
-                        <MudListItem>
-                            @if (i.Special != null)
-                            {
-                                <MudText>@i.Special </MudText>
-                            }
-                            @if (i.Oz != null)
-                            {
-                                <MudText>@i.Oz.Value.ToString() </MudText>
-                            }
-                            <MudText>@i.Ingredient.Name</MudText>
+                        <MudListItem Class="ml-5">
+                            <MudStack Row="true" Spacing="0">
+
+                                @if (i.Special != null)
+                                {
+                                    <MudChip Label="true" Color="Color.Primary" Style="color:black;">@i.Special</MudChip>
+                                }
+                                @if (i.Oz != null)
+                                {
+                                    <MudChip Label="true" Color="Color.Warning" Style="color:black;">@i.OzString</MudChip>
+                                }
+                                <MudTooltip Text="@i.Ingredient.IngredientType.Name" Arrow="true" Placement="Placement.Right">
+                                    <MudChip Label="true" Variant="Variant.Outlined">@i.Ingredient.Name</MudChip>
+                                </MudTooltip>
+
+                            </MudStack>
                         </MudListItem>
                     }
-                </MudList>
 
 
-            }
+                    @if (!String.IsNullOrEmpty(item.decoration.ClosingStatment))
+                    {
+                        <MudListSubheader>@item.decoration.ClosingStatment</MudListSubheader>
+                    }
+                    <MudDivider />
+
+        }
         }
 
     </MudList>
+    </MudItem>
 </MudPaper>
 
 
