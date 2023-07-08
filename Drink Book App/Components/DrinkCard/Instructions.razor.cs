@@ -62,14 +62,14 @@ namespace Drink_Book_App.Components.DrinkCard
                 var flagsworking = flaginjest.ToList();
                 foreach ( var instruction in flagsworking)
                 {
-                    if(instruction.Flag == flag) 
+                    if(instruction.Flag.id == flag.id) 
                     {
                         SortingList.Add(instruction);
                         flaginjest.Remove(instruction);
                     }
                 }
-                flagsgoing.Add(SortingList);
-                flagsgoing = FlagFormater(flaginjest, flagsgoing);
+				flagsgoing.Add(SortingList);
+				flagsgoing = FlagFormater(flaginjest, flagsgoing);
                 return flagsgoing;
             }
             else
