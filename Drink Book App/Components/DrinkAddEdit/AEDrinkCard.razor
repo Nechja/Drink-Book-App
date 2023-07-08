@@ -1,7 +1,8 @@
 ﻿<MudStack Spacing="2" Justify="Justify.Center">
 	<MudPaper Elevation="0" Width="100%">
-		<MudContainer MaxWidth="MaxWidth.Small">
-			<MudPaper Elevation="2" Class="pa-4">
+		<MudContainer Elevation="0">
+			<MudPaper Elevation="0" Class="pa-4">
+				<MudText Class="d-flex align-center flex-grow-1">Add Instruction</MudText>
 				<EditForm Model="Drink" OnValidSubmit="OnValidSubmit">
 					<DataAnnotationsValidator />
 					<ValidationSummary />
@@ -41,7 +42,12 @@
 							<MudStack Row="true" Justify="Justify.SpaceBetween">
 								<MudPaper Elevation="0">
 										<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Ingredient.Name"></MudChip>
-										<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Oz.ToString()"></MudChip>
+										@if(i.Oz != null)
+										{
+											<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@($"{i.Oz.Value.ToString()} oz")"></MudChip>
+
+										}
+										<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Flag.Name"></MudChip>
 								</MudPaper>
 								<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
 									<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>

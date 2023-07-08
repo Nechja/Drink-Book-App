@@ -24,31 +24,17 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
 
         string ErrorText { get; set; } = string.Empty;
 
-		private MudChip shakerSelected;
-		private MudChip ShakerSelected
-		{
-			get { return shakerSelected; }
-			set
-			{
-				shakerSelected = value;
-				if (shakerSelected != null)
-				{
-					ShakerChipChanged(value);
-				}
-			}
-		}
+		private MudChip chipSelected;
 
-		private MudChip servingSelected;
-
-		private MudChip ServingSelected 
+		private MudChip ChipSelected 
 		{ 
-			get { return servingSelected; }
+			get { return chipSelected; }
 			set
 			{
-				servingSelected = value;
+				chipSelected = value;
+				ChipChanged(value);
 			}
 		}
-		private bool ShakeOrServe { get; set; } = true;
 
 		protected override void OnInitialized()
 		{
@@ -91,7 +77,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
             Model.Tags = tags;
         }
 
-		protected void ShakerChipChanged(MudChip chip)
+		protected void ChipChanged(MudChip chip)
 		{
 			Model.Flag = (FlagDisplayModel)chip.Value;
 		}

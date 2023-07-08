@@ -33,7 +33,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 			}
 			if(Drink.Id == 0)
 			{
-				 
+				repo.AddDrink(Drink.GetDataModel());
 			}
 		}
 

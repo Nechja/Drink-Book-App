@@ -88,7 +88,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 
         protected void ChipChanged(MudChip chip)
         {
-            FlagDisplay.SetFlagString(chip.Text);
+
         }
     }
 }

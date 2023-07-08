@@ -30,5 +30,17 @@ namespace Drink_Book_App.Models
                 }; 
             }
         }
-    }
+
+		public InstructionTagDataModel InstructionTagDataModel
+		{
+			get
+			{
+				return new InstructionTagDataModel()
+				{
+					Id = Id,
+					Value = Value
+				};
+			}
+		}
+	}
 }

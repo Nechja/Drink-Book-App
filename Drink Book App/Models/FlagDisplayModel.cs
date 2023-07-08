@@ -1,5 +1,6 @@
 ﻿using DataAccess.Models;
 using DataAccess.Models.Interfaces;
+using MudBlazor;
 using System.ComponentModel.DataAnnotations;
 using static MudBlazor.Colors;
 
@@ -12,8 +13,6 @@ namespace Drink_Book_App.Models
 		[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
 		public string Name { get; set; }
 
-		[Required]
-		public FlagType? Flag { get; set; }
 		[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
 		public string? OpeningStatement { get; set; }
 		[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
@@ -30,49 +29,12 @@ namespace Drink_Book_App.Models
 			ClosingStatment = flagData.ClosingStatment;
 			InlineStatement = flagData.InlineStatement;
 			OpeningStatement = flagData.OpeningStatement;
-			if (flagData is ServingFlagDataModel)
-			{
-				Flag = FlagType.Serving;
-			}
-			if (flagData is FlagDataModel)
-			{
-				Flag = FlagType.Shaker;
-			}
 
 		}
 
-		public void SetFlagString(string value)
+		public static implicit operator FlagDisplayModel(MudChip v)
 		{
-			switch (value)
-			{
-				case "Serving":
-					Flag = FlagType.Serving; break;
-				case "Shaker":
-					Flag = FlagType.Shaker; break;
-				default:
-					return;
-			}
-
+			throw new NotImplementedException();
 		}
-
-		public string FlagString
-		{
-			get 
-			{
-				switch (Flag)
-				{
-					case FlagType.Serving:
-						return "Serving";
-					case FlagType.Shaker:
-						return "Shaker";
-				}
-				return "";
-			}
-		}
-	}
-	public enum FlagType
-	{
-		Serving,
-		Shaker
 	}
 }

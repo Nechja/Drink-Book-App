@@ -1,6 +1,6 @@
 ﻿@attribute [Authorize(Roles = "Admin")]
  <MudPaper Elevation="0" >
-	<MudPaper Elevation="1" Class="py-8 px-10">
+	<MudPaper Elevation="0">
 		<EditForm Model="@Ingredient" id="inputarea" 
 				class="form-control border-0" 
 				OnValidSubmit="HandleValidSubmit" 
@@ -12,17 +12,15 @@
 				<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
 			}
 		<MudStack Spacing="3">
-		<MudCard Elevation="1" Class="py-8 px-10">
+		<MudPaper Elevation="0">
 			<MudCardHeader>Ingredient</MudCardHeader>
 			<MudCardContent >
-				<MudItem xs="12" sm="6" md="4">
 					<MudTextField @bind-Value="Ingredient.Name" Label="Ingredient Name" Variant="Variant.Text" @onkeypress=KeyStop></MudTextField>
 					<CascadingValue Value="Ingredient.IngredientType">
 						<IngredientTypeDropDown OnSelectIngredient="OnSelectIngredientChange" />
 					</CascadingValue>
-				</MudItem>
 			</MudCardContent>
-		</MudCard>
+		</MudPaper>
 		<CascadingValue Value="Ingredient.Tags">
 			<Tagging TagType="@nameof(IngredientDisplayModel)"
 					 OnSelectTag="OnSelectTagsChanged"></Tagging>

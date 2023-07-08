@@ -16,7 +16,81 @@ public class DrinkRepository
 	{
 		using(var context = _dbContextFactory.CreateDbContext())
 		{
+			//repackthatdrink
+
+
+			//glass
+			var glass = context.Glasses.FirstOrDefault(g => g.Id == drink.Glass.Id!);
+			drink.Glass = glass;
+
+			//tags
+			var drinktags = new List<DrinkTagDataModel>();
+			foreach (var tag in drink.Tags)
+			{
+				if (tag.Id == 0)
+				{
+					AddDrinkTag(tag);
+				}
+				var existingtag = context.DrinkTags.SingleOrDefault(i => i.Value == tag.Value);
+				if (existingtag != null)
+				{
+					drinktags.Add(existingtag);
+				}
+			}
+			drink.Tags.Clear();
+			drink.Tags = drinktags;
+
+			//unwinding and repacking instructions
+			var ins = new List<InstructionDataModel>();
+			foreach (InstructionDataModel instruction in drink.Instructions)
+			{
+				if(instruction.Flag is not null)
+				{
+					var flag = context.Flags.FirstOrDefault(f => f.id == instruction.Flag.id);
+					instruction.Flag = flag;
+				}
+
+				var ingredient = context.Ingredients.FirstOrDefault(i => i.Id == instruction.Ingredient.Id);
+				instruction.Ingredient = ingredient;
+
+				var instags = new List<InstructionTagDataModel>();
+				foreach (var tag in instruction.Tags)
+				{
+					if (tag.Id == 0)
+					{
+						AddInstructionTag(tag);
+					}
+					var existingtag = context. InstructionTags.SingleOrDefault(i => i.Value == tag.Value);
+					if (existingtag != null)
+					{
+						instags.Add(existingtag);
+					}
+				}
+				instruction.Tags = instags;
+				ins.Add(instruction);
+			}
+			drink.Instructions.Clear();
+			drink.Instructions = ins;
+
 			context.Drinks.Add(drink);
+			context.SaveChanges();
+		}
+	}
+
+	private void AddInstructionTag(InstructionTagDataModel tag)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.InstructionTags.Add(tag);
+			context.SaveChanges();
+		}
+	}
+
+	public void AddDrinkTag(DrinkTagDataModel drinkTag)
+	{
+		using(var context = _dbContextFactory.CreateDbContext())
+		{
+			context.DrinkTags.Add(drinkTag);
 			context.SaveChanges();
 		}
 	}

@@ -16,12 +16,21 @@ namespace DataAccess.Models
 		public string? Special { get; set; }
 		public string? DropShopOptions { get; set; }
 
-		public FlagDataModel Flag { get; set; } = new();
+		public FlagDataModel? Flag { get; set; } = new();
 		public IngredientDataModel Ingredient { get; set; } = new();
 
 		public DrinkDataModel Drink { get; set; } = new();
 
 		public List<InstructionTagDataModel>? Tags { get; set; } = new();
+
+		public InstructionDataModel(InstructionDataModel dataModel) 
+		{
+			Id = dataModel.Id;
+			Oz = dataModel.Oz;
+			Special = dataModel.Special;
+			Ingredient = dataModel.Ingredient;
+			
+		}
 
 		public InstructionDataModel() { }
 	}

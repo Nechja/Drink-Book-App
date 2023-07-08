@@ -17,7 +17,7 @@ namespace Drink_Book_App.Models
         [Required]
         public IngredientDisplayModel Ingredient { get; set; } = new IngredientDisplayModel();
 
-		public FlagDisplayModel Flag { get; set; } = new FlagDisplayModel();
+		public FlagDisplayModel? Flag { get; set; } = new FlagDisplayModel();
 
 		public List<TagDisplayModel> Tags { get; set; } = new List<TagDisplayModel>();
 
@@ -56,19 +56,20 @@ namespace Drink_Book_App.Models
             }
         }
 
-        public InstructionDataModel DataModel
+		public InstructionDataModel DataModel
         {
             get
             {
-                return new InstructionDataModel()
-                {
-                     Id = Id,
-                     Oz = Oz,
-                     Special = Special,
-                     DropShopOptions = DropShopOptions,
-                };
-            }
+				return new InstructionDataModel{
+				    Id = this.Id,
+			        Oz = this.Oz,
+			        Special = this.Special,
+                    Ingredient = this.Ingredient.DataModel,
+			        DropShopOptions = this.DropShopOptions
+		        };
+			}
         }
 
-    }
+
+	}
 }

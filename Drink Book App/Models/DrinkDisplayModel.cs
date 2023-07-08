@@ -34,6 +34,54 @@ public class DrinkDisplayModel : IDrinkDataModel
 		this.Garnish = drinkData.Garnish;
 	}
 
+	public DrinkDataModel DataModel
+	{
+		get
+		{
+			return new DrinkDataModel
+			{
+				Name = this.Name,
+				Notes = this.Notes,
+				Id = this.Id,
+				Image = this.Image,
+				Ice = this.Ice,
+				Garnish = this.Garnish,
+				Glass = this.Glass.DataModel,
+				Instructions = ParseInstructions()
+
+			};
+		}
+	}
+
+	public DrinkDataModel GetDataModel()
+	{
+		DrinkDataModel drink = new DrinkDataModel();
+		drink.Name = this.Name;
+		drink.Notes = this.Notes;
+	    drink.Id = this.Id;
+		drink.Image = this.Image;
+		drink.Ice = this.Ice;
+		drink.Glass = this.Glass.DataModel;
+	    drink.Instructions = ParseInstructions();
+		return drink;
+	}
+
+	protected List<InstructionDataModel> ParseInstructions()
+	{
+		List<InstructionDataModel> instructions = new List<InstructionDataModel>();
+		foreach (InstructionDisplayModel model in Instructions)
+		{
+			InstructionDataModel data = new InstructionDataModel(model.DataModel);
+			foreach(TagDisplayModel tag in model.Tags)
+			{
+				data.Tags.Add(tag.InstructionTagDataModel);
+			}
+
+			instructions.Add(data);
+		}
+		return instructions;
+	}
+
 	public string DrinkTitleLong
 	{ 
 		get 
