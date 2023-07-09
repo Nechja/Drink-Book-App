@@ -1,69 +1,71 @@
-﻿<MudStack Spacing="2" Justify="Justify.Center">
-	<MudPaper Elevation="0" Width="100%">
-		<MudContainer Elevation="0">
-			<MudPaper Elevation="0" Class="pa-4">
-				<MudText Class="d-flex align-center flex-grow-1">Add Instruction</MudText>
-				<EditForm Model="Drink" OnValidSubmit="OnValidSubmit">
+﻿<MudStack Spacing="2" Justify="Justify.FlexStart">
+	<MudPaper Elevation="0" Width="100%" Class="start-0">
+			<MudPaper Elevation="0" Class="">
+				<MudText Class="d-flex flex-grow-1">Add Instruction</MudText>
+				<EditForm Model="Drink" OnValidSubmit="OnValidSubmit" >
 					<DataAnnotationsValidator />
 					<ValidationSummary />
 					<MudToolBar>
 
 						<MudButtonGroup Variant="Variant.Outlined" Class="d-flex align-center flex-grow-1" Elevation="0">
-							<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Size="Size.Medium">Add</MudButton>
-							<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" OnClick="@(() => Drink = new DrinkDisplayModel())" Size="Size.Medium">Reset</MudButton>
+						<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Size="Size.Medium">Add</MudButton>
+							<MudButton ButtonType="ButtonType.Reset" Variant="Variant.Text" OnClick="@(() => Drink = new DrinkDisplayModel())" Size="Size.Medium">Reset</MudButton>
 						</MudButtonGroup>
 					</MudToolBar>
 					@if (!String.IsNullOrEmpty(ErrorText))
 					{
 						<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
 					}
-					<MudTextField Class="px-10" @bind-Value="Drink.Name" Label="Drink Name"/>
+					<MudTextField Class="px-10" @bind-Value="Drink.Name" Label="Drink Name" />
 					<MudTextField Class="px-10" @bind-Value="Drink.Ice" Label="Ice" />
 					<MudTextField Class="px-10" @bind-Value="Drink.Garnish" Label="Garnish" />
 					<MudTextField Class="px-10 pa-4" @bind-Value="Drink.Image" Label="Image" />
 					<MudSelect Class="px-10" T="GlassDisplayModel" @bind-Value="@Drink.Glass" Label="Glassware" AnchorOrigin="Origin.BottomCenter">
-						@foreach(GlassDisplayModel g in Glassware)
+						@foreach (GlassDisplayModel g in Glassware)
 						{
 							<MudSelectItem Value="g">@g.Name (@g.Oz)</MudSelectItem>
 						}
-						
 					</MudSelect>
+				<CascadingValue Value="Drink.Tags">
+					<Tagging OnSelectTag="OnSelectTag"
+							 TagType="@nameof(InstructionDisplayModel)"
+							 EnterInterup="OnEnterStop"></Tagging>
+				</CascadingValue>
 					<MudPaper Elevation="0" Class="pa-4">
 
-						 Instructions:
+						Instructions:
 					</MudPaper>
 				</EditForm>
 
 				<MudPaper Square="true" Elevation="0" Class="pa-4">
-				<MudStack Spacing="2" Justify="Justify.Center">
-					@foreach (InstructionDisplayModel i in Drink.Instructions)
-					{
-						<MudPaper Elevation="1" Square="true">
-							<MudStack Row="true" Justify="Justify.SpaceBetween">
-								<MudPaper Elevation="0">
+					<MudStack Spacing="2" Justify="Justify.Center">
+						@foreach (InstructionDisplayModel i in Drink.Instructions)
+						{
+							<MudPaper Elevation="1" Square="true">
+								<MudStack Row="true" Justify="Justify.SpaceBetween">
+									<MudPaper Elevation="0">
 										<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Ingredient.Name"></MudChip>
-										@if(i.Oz != null)
+										@if (i.Oz != null)
 										{
 											<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@($"{i.Oz.Value.ToString()} oz")"></MudChip>
 
 										}
 										<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Flag.Name"></MudChip>
+									</MudPaper>
+									<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
+										<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
+										<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit"></MudIconButton>
+									</MudButtonGroup>
+
+								</MudStack>
+								<MudPaper>
 								</MudPaper>
-								<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
-									<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
-									<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit"></MudIconButton>
-								</MudButtonGroup>
-
-							</MudStack>
-							<MudPaper>
 							</MudPaper>
-						</MudPaper>
 
-					}
-				</MudStack>
+						}
+					</MudStack>
 				</MudPaper>
 			</MudPaper>
-		</MudContainer>
 	</MudPaper>
 	<MudPaper Elevation="0">
 		<CascadingValue Value="Instruction">

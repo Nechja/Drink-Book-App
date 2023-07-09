@@ -20,8 +20,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
         public EventCallback<InstructionDisplayModel> OnSelectInstruction { get; set; }
 
 		private List<FlagDisplayModel> Flags { get; set; } = new List<FlagDisplayModel>();
-
-		private bool FakeSubmit { get; set; } = false;
+		private bool FakeSubmit { get; set; }
 
         string ErrorText { get; set; } = string.Empty;
 
@@ -78,6 +77,10 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
         {
             Model.Tags = tags;
         }
+		private void OnEnterStop(bool s)
+		{
+			FakeSubmit = s;
+		}
 
 		protected void ChipChanged(MudChip chip)
 		{

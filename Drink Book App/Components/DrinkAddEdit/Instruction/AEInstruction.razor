@@ -1,65 +1,68 @@
 ﻿
-<MudPaper Width="100%" Elevation="0" >
-	<MudStack Justify="Justify.FlexStart">
-
-			<MudPaper Elevation="1">
-				<MudText Class="d-flex align-center flex-grow-1">Add Instruction</MudText>
-				<EditForm Model="Model" OnValidSubmit="OnValidSubmit">
-					<DataAnnotationsValidator />
-					<ValidationSummary /> 
-					<MudStack Row=true Justify="Justify.SpaceEvenly">
 
 
+<MudText Class="d-flex align-center flex-grow-1">Add Instruction</MudText>
+<EditForm Model="Model" OnValidSubmit="OnValidSubmit">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+	@if (!String.IsNullOrEmpty(ErrorText))
+	{
+		<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
+	}
+	<div>
+		<MudGrid Justify="Justify.FlexStart" Spacing="1" Class="m-2 p-2">
 
-
-					@if (!String.IsNullOrEmpty(ErrorText))
-					{
-						<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
-					}
-
-					<CascadingValue Value="Model.Ingredient">
-						<IngredientDropDown OnSelectIngredient="OnSelectIngredientChange"></IngredientDropDown>
-					</CascadingValue>
-					<MudTextField @bind-Value="Model.Oz" Label="Oz" Variant="Variant.Text"></MudTextField>
-					<MudTextField @bind-Value="Model.Special" Label="Special" Variant="Variant.Text"></MudTextField>
-					
-						@if (Flags.Count() != 0)
-						{
-							<MudContainer>
-							<MudSelect T="FlagDisplayModel" ValueChanged="SelectedFlag" Label="Flags" AnchorOrigin="Origin.BottomCenter">
-								@foreach(var flag in Flags)
-								{
-									<MudSelectItem Value="flag">@flag.Name</MudSelectItem>
-								}
-							</MudSelect>
-
-								
-							</MudContainer>
-
-						}
-						else
-						{
-							<MudText>
-								No Flags Found
-							</MudText>
-						}
-					</MudStack>
-				<MudStack Row="true" Justify="Justify.SpaceBetween">
-					<CascadingValue Value="Model.Tags">
-						<Tagging OnSelectTag="OnSelectTag"
-								 TagType="@nameof(InstructionDisplayModel)"></Tagging>
-					</CascadingValue>
-					
-					<MudStack Row="true" Justify="Justify.FlexEnd">
-						<MudButtonGroup Variant="Variant.Outlined" Class="d-flex align-center flex-grow-1" Elevation="0">
-							<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Size="Size.Medium">Add</MudButton>
-							<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" OnClick="@(() => Model = new InstructionDisplayModel())" Size="Size.Medium">Reset</MudButton>
-
-						</MudButtonGroup>
-					</MudStack>
-				</MudStack>
-				</EditForm>
+			<MudPaper MinWidth="225px" MaxWidth="400px" Elevation="0" Class="d-flex flex-wrap">
+				<CascadingValue Value="Model.Ingredient">
+					<IngredientDropDown OnSelectIngredient="OnSelectIngredientChange"></IngredientDropDown>
+				</CascadingValue>
 			</MudPaper>
+			<MudPaper MinWidth="50px" Elevation="0" MaxWidth="100px" Class="d-flex flex-wrap gap-4 pl-2">
+				<MudNumericField @bind-Value="Model.Oz" Label="Oz" Variant="Variant.Text"></MudNumericField>
+			</MudPaper>
+			<MudPaper Elevation="0" MinWidth="225px" MaxWidth="300px" Class="d-flex flex-wrap gap-4 pl-2">
+				<MudTextField @bind-Value="Model.Special" Label="Special" Variant="Variant.Text"></MudTextField>
+			</MudPaper>
+			<MudPaper Elevation="0" MinWidth="225px" MaxWidth="300px" Class="d-flex flex-wrap gap-4 pl-2">
+				@if (Flags.Count() != 0)
+				{
+					<MudPaper Elevation="0" MinWidth="100px">
+						<MudSelect T="FlagDisplayModel" ValueChanged="SelectedFlag" Label="Flags" AnchorOrigin="Origin.BottomCenter">
+							@foreach (var flag in Flags)
+							{
+								<MudSelectItem Value="flag">@flag.Name</MudSelectItem>
+							}
+						</MudSelect>
+
+
+					</MudPaper>
+
+				}
+				else
+				{
+					<MudText>
+						No Flags Found
+					</MudText>
+				}
+			</MudPaper>
+		</MudGrid>
+	</div>
+	<MudStack Row="true" Justify="Justify.SpaceBetween" Class="pl-10">
+		<CascadingValue Value="Model.Tags">
+			<Tagging OnSelectTag="OnSelectTag"
+					 TagType="@nameof(InstructionDisplayModel)"
+					 EnterInterup="OnEnterStop"></Tagging>
+		</CascadingValue>
+
+		<MudStack Row="true" Justify="Justify.FlexEnd">
+			<MudButtonGroup Variant="Variant.Outlined" Class="d-flex align-center flex-grow-1 pr-8" Elevation="0">
+				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Size="Size.Medium">Add</MudButton>
+				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" OnClick="@(() => Model = new InstructionDisplayModel())" Size="Size.Medium">Reset</MudButton>
+
+			</MudButtonGroup>
+		</MudStack>
 	</MudStack>
-</MudPaper>
+</EditForm>
+
+
 

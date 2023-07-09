@@ -1,13 +1,14 @@
 ﻿@attribute [Authorize(Roles = "Admin")]
 
-<MudStack Elevation="0" Spacing="3" Row="true" Class="px-3 py-3">
+<MudStack Elevation="0" Spacing="3" Row="true" Class="px-3 py-3" @onkeydown="KeyStop">
 	<MudPaper Elevation="0">
 	<MudAutocomplete T="string" Label="Tags"
 		@bind-Value="TagText"
 		@bind-Text="TagText"
+		
 		SearchFunc="TagSearch"
 		OnKeyDown="EnterText"
-		esetValueOnEmptyText="true"
+		ResetValueOnEmptyText="true"
 		CoerceText=true
 		AdornmentIcon="@Icons.Material.Filled.Tag" AdornmentColor="Color.Dark"/>
 	</MudPaper>

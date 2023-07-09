@@ -24,6 +24,8 @@ public class DrinkDisplayModel : IDrinkDataModel
 
 	public List<InstructionDisplayModel> Instructions { get; set; } = new List<InstructionDisplayModel>();
 
+	public List<TagDisplayModel> Tags { get; set; } = new List<TagDisplayModel>();
+
 	public void fromDrinkData(DrinkDataModel drinkData)
 	{
 		this.Name = drinkData.Name;

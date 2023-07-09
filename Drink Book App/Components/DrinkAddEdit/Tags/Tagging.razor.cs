@@ -35,6 +35,8 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 		public List<TagDisplayModel> Tags { get; set; } = new List<TagDisplayModel>();
 		[Parameter]
 		public EventCallback<List<TagDisplayModel>> OnSelectTag { get; set; }
+		[Parameter]
+		public EventCallback<bool> EnterInterup { get; set; }
 
 		public List<TagDisplayModel> TagsAuto { get; set; } = new List<TagDisplayModel>();
 		private List<string> _tags = new List<string>();
@@ -65,6 +67,15 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 						_tags.Add(tag.Value.ToLower());
 					}
 					break;
+				case $"{nameof(DrinkDisplayModel)}":
+					var dt = repo.GetDrinkTags();
+					if (dt.Count == 0) break;
+					foreach (var tag in dt)
+					{
+						TagsAuto.Add(new TagDisplayModel(tag));
+						_tags.Add(tag.Value.ToLower());
+					}
+					break;
 				default:
 					return;
 			}
@@ -73,7 +84,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 		private async Task EnterText(KeyboardEventArgs e) 
 		{
 			if (string.IsNullOrEmpty(TagText)) return;
-			if(e.Code == "Enter" || e.Code == "NumpadEnter" || e.Code == "Comma") 
+			if(e.Code == "Enter" || e.Code == "NumpadEnter") 
 			{
 				if(TagsAuto.FirstOrDefault(t => t.Value.ToLower() == TagText.ToLower()) is null)
 				{
@@ -108,6 +119,11 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 			await Task.Delay(5);
 			if (string.IsNullOrEmpty(value)) return new string[0];
 			return _tags.Distinct().Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+		}
+
+		protected async Task KeyStop(KeyboardEventArgs e)
+		{
+			if (e.Code == "Enter" || e.Code == "NumpadEnter") await EnterInterup.InvokeAsync(true);
 		}
 
 	}

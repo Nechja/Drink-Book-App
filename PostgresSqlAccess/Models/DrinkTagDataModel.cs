@@ -18,6 +18,12 @@ namespace DataAccess.Models
 		public List<DrinkDataModel> Drinks { get; set; } = new();
 		public DrinkTagDataModel() { }
 
+		public DrinkTagDataModel(DrinkTagDataModel m) 
+		{ 
+			Id = m.Id;
+			Value = m.Value;
+		}
+
 		public DrinkTagDataModel(string value)
 		{
 			Value = value;

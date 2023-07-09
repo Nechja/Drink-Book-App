@@ -96,6 +96,14 @@ public class DrinkRepository
 		}
 	}
 
+	public List<DrinkTagDataModel> GetDrinkTags()
+	{
+		using(var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.DrinkTags.ToList();
+		}
+	}
+
 	public DrinkDataModel GetDrinkById(int id)
 	{
 		using(var context = _dbContextFactory.CreateDbContext())
