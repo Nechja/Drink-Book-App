@@ -72,6 +72,10 @@ namespace DataAccess.Context
 				.HasMany(e => e.Tags)
 				.WithMany(e => e.Ingredients);
 
+			modelBuilder.Entity<IceDataModel>();
+			modelBuilder.Entity<GarnishDataModel>();
+			modelBuilder.Entity<GarnishDataModel>();
+
 		}
 
 	}

@@ -14,8 +14,8 @@ namespace Drink_Book_App.Models
         public TagDisplayModel(ITagDataModel tagDataModel)
         {
             if (tagDataModel == null) return;
-            if(Id != 0) Id = tagDataModel.Id;
-            if(!String.IsNullOrEmpty(Value)) Value = tagDataModel.Value;
+            Id = tagDataModel.Id;
+            Value = tagDataModel.Value;
         }
 
         public TagDisplayModel() { }

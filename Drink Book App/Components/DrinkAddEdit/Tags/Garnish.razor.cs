@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 {
-	public partial class Ice
+	public partial class Garnish
 	{
 		[Inject]
 		public DrinkRepository repo { get; set; }
@@ -30,9 +30,9 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 			{
 				if (Model.Id == 0)
 				{
-					repo.AddIce(Model.IceDataModel);
+					repo.AddGarnish(Model.GarnishDataModel);
 				}
-				else { repo.UpdateIce(Model.IceDataModel); }
+				else { repo.UpdateGarnish(Model.GarnishDataModel); }
 
 				Model = new TagDisplayModel();
 				getUpdates();
@@ -58,8 +58,8 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 
 		private void getUpdates()
 		{
-			var typesdata = repo.GetIceTypes();
-			foreach (IceDataModel dataModel in typesdata)
+			var typesdata = repo.GetGarnishTypes();
+			foreach (GarnishDataModel dataModel in typesdata)
 			{
 				var toadd = new TagDisplayModel(dataModel);
 				if (Types.FirstOrDefault(i => i.Id == dataModel.Id) is null)
@@ -69,8 +69,5 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 
 			}
 		}
-
-
 	}
 }
-

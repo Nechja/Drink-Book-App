@@ -117,7 +117,9 @@ public class DrinkRepository
 					.ThenInclude(i => i.IngredientType)
                     .Include(i => i.Instructions)
 					.ThenInclude(i => i.Flag)
-                    .SingleOrDefault(drink => drink.Id == id)!;
+					.Include(i => i.Garnish)
+					.Include(i => i.Ice)
+					.SingleOrDefault(drink => drink.Id == id)!;
 			}
 			catch
 			{
@@ -370,6 +372,62 @@ public class DrinkRepository
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			context.Update(glass);
+			context.SaveChanges();
+		}
+	}
+
+	//ice
+
+	public List<IceDataModel> GetIceTypes ()
+	{
+		using(var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.IceTypes.ToList();
+		}
+	}
+
+	public void AddIce(IceDataModel ice) 
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.IceTypes.Add(ice);
+			context.SaveChanges();
+		}
+	}
+
+	public void UpdateIce(IceDataModel ice)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Update(ice);
+			context.SaveChanges();
+		}
+	}
+
+	//garnish
+
+	public List<GarnishDataModel> GetGarnishTypes()
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.GarnishTypes.Include(i => i.Value).ToList();
+		}
+	}
+
+	public void AddGarnish(GarnishDataModel garnish)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.GarnishTypes.Add(garnish);
+			context.SaveChanges();
+		}
+	}
+
+	public void UpdateGarnish(GarnishDataModel garnish)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Update(garnish);
 			context.SaveChanges();
 		}
 	}
