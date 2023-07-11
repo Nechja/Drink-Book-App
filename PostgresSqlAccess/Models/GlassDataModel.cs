@@ -14,7 +14,7 @@ namespace DataAccess.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
-        public int? Oz { get; set; }
+        public float? Oz { get; set; }
 
         public Uri? Image { get; set; }
 

@@ -2,8 +2,6 @@
 {
     public interface IDrinkDataModel
     {
-        string? Garnish { get; set; }
-        string? Ice { get; set; }
         int Id { get; set; }
         Uri? Image { get; set; }
 

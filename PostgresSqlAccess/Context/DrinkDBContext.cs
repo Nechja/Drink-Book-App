@@ -26,6 +26,9 @@ namespace DataAccess.Context
 
 		public DbSet<FlagDataModel> Flags { get; set; }
 
+		public DbSet<IceDataModel> IceTypes { get; set; }
+		public DbSet<GarnishDataModel> GarnishTypes { get; set; }
+
 
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -47,8 +50,13 @@ namespace DataAccess.Context
 				.IncludeProperties(p => p.Id);
 			modelBuilder.Entity<DrinkDataModel>()
 				.HasOne(p => p.Glass).WithMany(p => p.Drinks);
+			modelBuilder.Entity<DrinkDataModel>()
+				.HasOne(p => p.Garnish).WithMany(p => p.Drinks);
+            modelBuilder.Entity<DrinkDataModel>()
+				.HasOne(p => p.Ice).WithMany(p => p.Drinks);
 
-			modelBuilder.Entity<InstructionDataModel>()
+
+            modelBuilder.Entity<InstructionDataModel>()
 				.HasOne(e => e.Ingredient)
 				.WithMany(e => e.Instructions);
 			modelBuilder.Entity<InstructionDataModel>()

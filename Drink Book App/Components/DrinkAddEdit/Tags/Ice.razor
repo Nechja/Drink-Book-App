@@ -1,21 +1,18 @@
 ﻿@attribute [Authorize(Roles = "Admin")]
-@page "/drinktools/flags"
-
+@page "/drinktools/ingredient-types"
 
 <div class="card">
 	<div class="card-body">
-		<EditForm Model="@FlagDisplay" OnValidSubmit="OnValidSubmit" class="form-control border-0">
+		<EditForm Model="@IngredientDisplay" class="@showInvalid" OnValidSubmit="ValidSubmit">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
-			@if (ErrorText != null)
+			@if (errorValid != null)
 			{
-				<label class="alert-warning">@ErrorText</label>
+				<label class="alert-warning">@errorValid</label>
 			}
-			<MudTextField @bind-Value=FlagDisplay.Name Variant="Variant.Text"  Label="Name"/>
-			<MudTextField @bind-Value=FlagDisplay.OpeningStatement Variant="Variant.Text" Label="Opening" />
-			<MudTextField @bind-Value=FlagDisplay.ClosingStatment Variant="Variant.Text" Label="Closing" />
-			<MudTextField @bind-Value=FlagDisplay.InlineStatement Variant="Variant.Text" Label="Inline" />
-			@if (FlagDisplay.id == 0)
+			<label for="Name">Name of Ingredient Type</label>
+			<InputText @bind-Value=IngredientDisplay.Name class="form-control" id="Name"></InputText>
+			@if (IngredientDisplay.Id == 0)
 			{
 				<input type="submit" class="btn btn-dark" value="Add" />
 			}
@@ -26,7 +23,7 @@
 		</EditForm>
 	</div>
 </div>
-@if (Flags is null)
+@if (ingredientTypes is null)
 {
 	<MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
 }
@@ -35,7 +32,7 @@ else
 	<div class="card">
 		<div class="card-body">
 			<ul class="list-group list-group-flush">
-				@foreach(FlagDisplayModel i in Flags)
+				@foreach (IngredientTypeDisplayModel i in ingredientTypes)
 				{
 					<MudPaper Elevation="1" Square="true">
 						<MudStack Row="true" Justify="Justify.SpaceBetween">
@@ -44,7 +41,7 @@ else
 							</MudPaper>
 							<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
 								<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
-								<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit" @onclick="() => EditFlag(i)"></MudIconButton>
+								<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit" @onclick="() => EditType(i)"></MudIconButton>
 							</MudButtonGroup>
 
 						</MudStack>

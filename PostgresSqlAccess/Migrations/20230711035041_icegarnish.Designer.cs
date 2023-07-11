@@ -3,6 +3,7 @@ using System;
 using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DrinkDBContext))]
-    partial class DrinkDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230711035041_icegarnish")]
+    partial class icegarnish
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,7 +136,7 @@ namespace DataAccess.Migrations
                     b.HasIndex("Value")
                         .IsUnique();
 
-                    b.ToTable("GarnishTypes");
+                    b.ToTable("GarnishDataModel");
                 });
 
             modelBuilder.Entity("DataAccess.Models.GlassDataModel", b =>
@@ -176,7 +179,7 @@ namespace DataAccess.Migrations
                     b.HasIndex("Value")
                         .IsUnique();
 
-                    b.ToTable("IceTypes");
+                    b.ToTable("IceDataModel");
                 });
 
             modelBuilder.Entity("DataAccess.Models.IngredientDataModel", b =>

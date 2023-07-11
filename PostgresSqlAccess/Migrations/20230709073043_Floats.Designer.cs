@@ -3,6 +3,7 @@ using System;
 using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DrinkDBContext))]
-    partial class DrinkDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230709073043_Floats")]
+    partial class Floats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,14 +33,14 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("GarnishId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Garnish")
+                        .HasColumnType("text");
 
                     b.Property<int?>("GlassId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("IceId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Ice")
+                        .HasColumnType("text");
 
                     b.Property<string>("Image")
                         .HasColumnType("text");
@@ -54,16 +57,11 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GarnishId");
-
                     b.HasIndex("GlassId");
-
-                    b.HasIndex("IceId");
 
                     b.HasIndex("ModId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name");
 
                     NpgsqlIndexBuilderExtensions.IncludeProperties(b.HasIndex("Name"), new[] { "Id" });
 
@@ -116,26 +114,6 @@ namespace DataAccess.Migrations
                     b.ToTable("Flags");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.GarnishDataModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Value")
-                        .IsUnique();
-
-                    b.ToTable("GarnishTypes");
-                });
-
             modelBuilder.Entity("DataAccess.Models.GlassDataModel", b =>
                 {
                     b.Property<int>("Id")
@@ -157,26 +135,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Glasses");
-                });
-
-            modelBuilder.Entity("DataAccess.Models.IceDataModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Value")
-                        .IsUnique();
-
-                    b.ToTable("IceTypes");
                 });
 
             modelBuilder.Entity("DataAccess.Models.IngredientDataModel", b =>
@@ -299,9 +257,6 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Value")
-                        .IsUnique();
-
                     b.ToTable("InstructionTags");
                 });
 
@@ -352,27 +307,15 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.DrinkDataModel", b =>
                 {
-                    b.HasOne("DataAccess.Models.GarnishDataModel", "Garnish")
-                        .WithMany("Drinks")
-                        .HasForeignKey("GarnishId");
-
                     b.HasOne("DataAccess.Models.GlassDataModel", "Glass")
                         .WithMany("Drinks")
                         .HasForeignKey("GlassId");
-
-                    b.HasOne("DataAccess.Models.IceDataModel", "Ice")
-                        .WithMany("Drinks")
-                        .HasForeignKey("IceId");
 
                     b.HasOne("DataAccess.Models.DrinkDataModel", "Mod")
                         .WithMany()
                         .HasForeignKey("ModId");
 
-                    b.Navigation("Garnish");
-
                     b.Navigation("Glass");
-
-                    b.Navigation("Ice");
 
                     b.Navigation("Mod");
                 });
@@ -468,17 +411,7 @@ namespace DataAccess.Migrations
                     b.Navigation("Instructions");
                 });
 
-            modelBuilder.Entity("DataAccess.Models.GarnishDataModel", b =>
-                {
-                    b.Navigation("Drinks");
-                });
-
             modelBuilder.Entity("DataAccess.Models.GlassDataModel", b =>
-                {
-                    b.Navigation("Drinks");
-                });
-
-            modelBuilder.Entity("DataAccess.Models.IceDataModel", b =>
                 {
                     b.Navigation("Drinks");
                 });

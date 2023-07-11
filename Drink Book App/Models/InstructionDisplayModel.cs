@@ -8,8 +8,9 @@ namespace Drink_Book_App.Models
     {
         public int Id { get; set; }
 
-		[Range(0, int.MaxValue, ErrorMessage = "Please enter valid integer Number")]
-		public int? Oz { get; set; }
+		[Range(0, float.MaxValue, ErrorMessage = "Please enter valid Number")]
+		[RegularExpression(@"^\d+(\.\d{1,2})?$")]
+		public float? Oz { get; set; }
 		[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
 		public string? DropShopOptions { get; set; }
 		[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]

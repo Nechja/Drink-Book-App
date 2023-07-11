@@ -63,7 +63,6 @@ namespace DataAccess.Services.Tests
 			drinkTag.Value = "Basic";
 
 			drink.Name = "Rum & Coke";
-			drink.Ice = "Yes";
 			drink.Tags.Add(drinkTag);
 
 			this._drink = drink;
@@ -180,7 +179,6 @@ namespace DataAccess.Services.Tests
 			{
 				DrinkRepositoryNoFactory repo = new DrinkRepositoryNoFactory(dbContext);
 				DrinkDataModel drink = repo.GetDrinkByName(_drink.Name);
-				drink.Garnish = "Lime";
 				drink.Name = "Cuba Libre";
 				repo.UpdateDrink(drink);
 				DrinkDataModel moddeddrink = repo.GetDrinkByName(drink.Name);

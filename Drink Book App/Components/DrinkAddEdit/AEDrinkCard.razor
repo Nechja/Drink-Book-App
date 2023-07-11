@@ -1,4 +1,9 @@
-﻿<MudStack Spacing="2" Justify="Justify.FlexStart">
+﻿@attribute [Authorize(Roles = "Admin")]
+@page "/drinktools/adddrink"
+@page "/drinktools/editdrink"
+
+
+<MudStack Spacing="2" Justify="Justify.FlexStart">
 	<MudPaper Elevation="0" Width="100%" Class="start-0">
 			<MudPaper Elevation="0" Class="">
 				<MudText Class="d-flex flex-grow-1">Add Instruction</MudText>

@@ -1,15 +1,17 @@
 ﻿using DataAccess.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataAccess.Models
 {
-	public class DrinkDataModel : IDrinkDataModel
+    [Index(nameof(Name), IsUnique = true)]
+    public class DrinkDataModel : IDrinkDataModel
 	{
 		[Key]
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public string? Ice { get; set; }
-		public string? Garnish { get; set; }
+		public IceDataModel? Ice { get; set; }
+		public GarnishDataModel? Garnish { get; set; }
 		public string? Notes { get; set; }
 
 		public DrinkDataModel? Mod { get; set; }

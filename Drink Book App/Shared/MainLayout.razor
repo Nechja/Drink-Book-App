@@ -9,9 +9,11 @@
     <NavMenu />
 </header>
 
-<div class="content px-4">
-    @Body
-</div>
+<MudLayout>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
 
 @code {
     private MudTheme _theme = new();

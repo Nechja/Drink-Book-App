@@ -1,4 +1,5 @@
 ﻿@attribute [Authorize(Roles = "Admin")]
+@page "/drinktools/glassware"
 
 <div class="card">
 	<div class="card-body">
@@ -10,7 +11,7 @@
 				<label class="alert-warning">@errorValid</label>
 			}
 			<MudTextField Label="Name" @bind-Value=Glass.Name Variant="Variant.Text"></MudTextField>
-			<MudNumericField @bind-Value="Glass.Oz" Label="Standard" Variant="Variant.Text" Min="0" Max="41" />
+			<MudNumericField @bind-Value="Glass.Oz" Label="Oz" Variant="Variant.Text" Min="0" Max="41" />
 			@if (Glass.Id == 0)
 			{
 				<input type="submit" class="btn btn-dark" value="Add" />

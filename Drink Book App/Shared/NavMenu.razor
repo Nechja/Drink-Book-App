@@ -1,53 +1,49 @@
-﻿<nav class="navbar navbar-expand-xl navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="">Drink Book</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-            <ul class="navbar-nav align-items-center ml-auto">
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="DrinkList">
-                        <span class="oi oi-excerpt" aria-hidden="true"></span> Drink List
-                    </NavLink>
-                </li>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="fetchdata">
-                        <span class="oi oi-beaker" aria-hidden="true"></span> Random Drink
-                    </NavLink>
-                </li>
-                <li class="nav-item">
-                    <NavLink class="nav-link" href="fetchdata">
-                        <span class="oi oi-script" aria-hidden="true"></span> Menu Maker
-                    </NavLink>
-                </li>
-                <li class="nav-item">
-                    <AuthorizeView Roles="Admin">
-                        <NavLink class="nav-link" href="adddrink">
-                            <span class="oi oi-plus" aria-hidden="true"></span> Add Drink
-                        </NavLink>
-                    </AuthorizeView>
-                </li>
-                <li class="nav-item">
-                    <AuthStatus></AuthStatus>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+﻿<MudLayout>
+    <MudAppBar Color="Color.Dark" Dense="true">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        <MudChip Color="Color.Dark" Variant="Variant.Filled" Label="true" Text="Drink Book" Size="Size.Large"></MudChip>
+        <MudSpacer />
+        <AuthStatus></AuthStatus>
+    </MudAppBar>
+    <MudDrawer @bind-Open="@open" Anchor="Anchor.Start" Elevation="1" Variant="@DrawerVariant.Temporary" Color="Color.Dark">
+        <MudDrawerHeader>
+        </MudDrawerHeader>
+        <MudNavMenu>
+            <MudNavLink Icon="@Icons.Material.Filled.Book" Href="/DrinkList">Drink List</MudNavLink>
+            <AuthorizeView Roles="Admin">
+                <MudNavGroup Title="Drink Tools" Icon="@Icons.Material.Filled.Add" Expanded="false">
+                    <MudNavLink Icon="@Icons.Material.Filled.LocalDrink" Href="/drinktools/adddrink">Add Drink</MudNavLink>
+                    <MudNavGroup Title="Ingredients" Icon="@Icons.Material.Filled.Add" Expanded="true">
+                        <MudNavLink Href="/drinktools/ingredients">Ingredients</MudNavLink>
+                        <MudNavLink Href="/drinktools/ingredient-types">Ingredient Types</MudNavLink>
+                    </MudNavGroup>
+                    <MudNavGroup Title="Serving Info" Icon="@Icons.Material.Filled.Add" Expanded="true">
+                        <MudNavLink Href="/drinktools/glassware">Glassware</MudNavLink>
+                        <MudNavLink Href="/drinktools/flags">Ice</MudNavLink>
+                        <MudNavLink Href="/drinktools/flags">Garnish</MudNavLink>
+                        <MudNavLink Href="/drinktools/flags">Serving Flags</MudNavLink>
+                    </MudNavGroup>
+                    <MudNavLink Icon="@Icons.Material.Filled.Tag" Href="/drinktools/flags">Tags</MudNavLink>
+                </MudNavGroup>
 
+                <MudNavGroup Title="Data And Reports" Icon="@Icons.Material.Filled.DataExploration" Expanded="false">
 
+                </MudNavGroup>
+            </AuthorizeView>
+        </MudNavMenu>
+    </MudDrawer>
+
+</MudLayout>
 
 
 @code {
-        bool collapseNavMenu = true;
+    bool open = false;
 
-        string baseMenuClass = "navbar-collapse d-sm-inline-flex flex-sm-row-reverse";
 
-        string NavMenuCssClass => baseMenuClass + (collapseNavMenu ? " collapse" : "");
+    void ToggleDrawer()
+    {
+        open = !open;
+    }
+}
 
-        void ToggleNavMenu()
-        {
-            collapseNavMenu = !collapseNavMenu;
-        }
- }
+

@@ -1,21 +1,22 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Authentication
 
-
+<MudNavMenu>
 <AuthorizeView>
+    
     <Authorized>
-        <NavLink class="nav-link" href="logout">
-            <span class="oi oi-account-logout" aria-hidden="true"></span>Log out
-        </NavLink>
+        <MudNavLink Href="logout">
+            <MudIcon Icon="@Icons.Material.Filled.Logout"></MudIcon>Log out
+        </MudNavLink>
     </Authorized>
     <NotAuthorized>
-        <NavLink class="nav-link" href="login?redirectUri=/">
-            <span class="oi oi-account-login" aria-hidden="true"></span>Log in
-        </NavLink>
+        <MudNavLink Href="/login?redirectUri=/">
+            <MudIcon Icon="@Icons.Material.Filled.Login"></MudIcon>Log in
+        </MudNavLink>
         
     </NotAuthorized>
 </AuthorizeView>
-
+</MudNavMenu>
 @code {
 
 }

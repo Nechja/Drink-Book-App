@@ -13,8 +13,9 @@ namespace Drink_Book_App.Models
 
         public TagDisplayModel(ITagDataModel tagDataModel)
         {
-            Id = tagDataModel.Id;
-            Value = tagDataModel.Value;
+            if (tagDataModel == null) return;
+            if(Id != 0) Id = tagDataModel.Id;
+            if(!String.IsNullOrEmpty(Value)) Value = tagDataModel.Value;
         }
 
         public TagDisplayModel() { }
@@ -42,5 +43,41 @@ namespace Drink_Book_App.Models
 				};
 			}
 		}
-	}
+
+        public DrinkTagDataModel DrinkTagDataModel
+        {
+            get
+            {
+                return new DrinkTagDataModel()
+                {
+                    Id = Id,
+                    Value = Value
+                };
+            }
+        }
+
+        public GarnishDataModel GarnishDataModel
+        {
+            get
+            {
+                return new GarnishDataModel()
+                {
+                    Id = Id,
+                    Value = Value
+                };
+            }
+        }
+
+        public IceDataModel IceDataModel
+        {
+            get
+            {
+                return new IceDataModel()
+                {
+                    Id = Id,
+                    Value = Value
+                };
+            }
+        }
+    }
 }

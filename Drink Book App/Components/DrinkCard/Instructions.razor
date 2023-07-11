@@ -10,6 +10,7 @@
 
                     @foreach (var i in item.items)
                     {
+                        
                         <MudListItem Class="ml-5">
                             <MudStack Row="true" Spacing="0">
 
@@ -30,6 +31,8 @@
                     }
 
 
+
+
                     @if (!String.IsNullOrEmpty(item.decoration.ClosingStatment))
                     {
                         <MudListSubheader>@item.decoration.ClosingStatment</MudListSubheader>
@@ -38,6 +41,26 @@
 
         }
         }
+            @foreach (var i in NoFlagInstructions)
+            {
+                
+                <MudListItem>
+                    <MudStack Row="true" Spacing="0">
+                        @if (i.Special != null)
+                        {
+                            <MudChip Label="true" Color="Color.Primary" Style="color:black;">@i.Special</MudChip>
+                        }
+                        @if (i.Oz != null)
+                        {
+                            <MudChip Label="true" Color="Color.Warning" Style="color:black;">@i.OzString</MudChip>
+                        }
+                        <MudTooltip Text="@i.Ingredient.IngredientType.Name" Arrow="true" Placement="Placement.Right">
+                            <MudChip Label="true" Variant="Variant.Outlined">@i.Ingredient.Name</MudChip>
+                        </MudTooltip>
+
+                    </MudStack>
+                </MudListItem>
+            }
 
     </MudList>
     </MudItem>
