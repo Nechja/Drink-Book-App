@@ -6,7 +6,7 @@
 <MudStack Spacing="2" Justify="Justify.FlexStart">
 	<MudPaper Elevation="0" Width="100%" Class="start-0">
 			<MudPaper Elevation="0" Class="">
-				<MudText Class="d-flex flex-grow-1">Add Instruction</MudText>
+				<MudText Class="d-flex ml-4 flex-grow-1">Add Instruction</MudText>
 				<EditForm Model="Drink" OnValidSubmit="OnValidSubmit" >
 					<DataAnnotationsValidator />
 					<ValidationSummary />
@@ -22,11 +22,25 @@
 						<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
 					}
 					<MudTextField Class="px-10" @bind-Value="Drink.Name" Label="Drink Name" />
-					<MudSelect Class="px-10" T="TagDisplayModel" @bind-Value="@Drink.Ice" Label="Ice" AnchorOrigin="Origin.BottomCenter">
-
+					<MudSelect Class="px-10" T="TagDisplayModel" @bind-Value="@Drink.Rim" Label="Rim" AnchorOrigin="Origin.BottomCenter">
+					@foreach (var rim in RimTypes)
+					{
+						<MudSelectItem Value="rim">@rim.Value</MudSelectItem>
+					}
 					</MudSelect>
-					<MudSelect Class="px-10" T="TagDisplayModel" @bind-Values="@Drink.Garnishes" Label="Garnish" AnchorOrigin="Origin.BottomCenter">
-					
+				<MudSelect Class="px-10" T="TagDisplayModel" @bind-Value="@Drink.Ice"  Label="Ice" AnchorOrigin="Origin.BottomCenter">
+					@foreach (var ice in IceTypes)
+					{
+						<MudSelectItem Value="ice">@ice.Value</MudSelectItem>
+					}
+				</MudSelect>
+					<MudSelect Class="px-10" T="TagDisplayModel"
+						   MultiSelection="true" @bind-Values="@Drink.Garnishes" Label="Garnish" AnchorOrigin="Origin.BottomCenter">
+					@foreach(var gt in GarnishTypes)
+					{
+						<MudSelectItem Value="gt">@gt.Value</MudSelectItem>
+					}
+
 					</MudSelect>
 					<MudTextField Class="px-10 pa-4" @bind-Value="Drink.Image" Label="Image" />
 					<MudSelect Class="px-10" T="GlassDisplayModel" @bind-Value="@Drink.Glass" Label="Glassware" AnchorOrigin="Origin.BottomCenter">
@@ -35,12 +49,14 @@
 							<MudSelectItem Value="g">@g.Name (@g.Oz)</MudSelectItem>
 						}
 					</MudSelect>
+				<MudItem Class="px-10">
 				<CascadingValue Value="Drink.Tags">
 					<Tagging OnSelectTag="OnSelectTag"
 							 TagType="@nameof(InstructionDisplayModel)"
 							 EnterInterup="OnEnterStop"></Tagging>
 				</CascadingValue>
-					<MudPaper Elevation="0" Class="pa-4">
+				</MudItem>
+					<MudPaper Elevation="0" Class="pa-4 ml-4">
 
 						Instructions:
 					</MudPaper>

@@ -119,6 +119,7 @@ public class DrinkRepository
 					.ThenInclude(i => i.Flag)
 					.Include(i => i.Garnishes)
 					.Include(i => i.Ice)
+					.Include(i => i.Rim)
 					.SingleOrDefault(drink => drink.Id == id)!;
 			}
 			catch
@@ -410,7 +411,7 @@ public class DrinkRepository
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
-			return context.GarnishTypes.Include(i => i.Value).ToList();
+			return context.GarnishTypes.ToList();
 		}
 	}
 
@@ -428,6 +429,35 @@ public class DrinkRepository
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			context.Update(garnish);
+			context.SaveChanges();
+		}
+	}
+
+
+	//rims
+
+	public List<RimDataModel> GetRimTypes()
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.RimTypes.ToList();
+		}
+	}
+
+	public void AddRim(RimDataModel rim)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.RimTypes.Add(rim);
+			context.SaveChanges();
+		}
+	}
+
+	public void UpdateRim(RimDataModel rim)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Update(rim);
 			context.SaveChanges();
 		}
 	}

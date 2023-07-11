@@ -1,4 +1,5 @@
-﻿using DataAccess.Services;
+﻿using DataAccess.Models.Interfaces;
+using DataAccess.Services;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -13,6 +14,12 @@ namespace Drink_Book_App.Components.DrinkAddEdit
         public InstructionDisplayModel Instruction { get; set; } = new InstructionDisplayModel();
 		public List<GlassDisplayModel> Glassware { get; set; } = new List<GlassDisplayModel>();
 
+		public List<TagDisplayModel> GarnishTypes { get; set; } = new List<TagDisplayModel>();
+
+		public List<TagDisplayModel> RimTypes { get; set; } = new List<TagDisplayModel>();
+
+		public List<TagDisplayModel> IceTypes { get; set; } = new List<TagDisplayModel>();
+
 		bool FakeSubmit = false;
 
 		string ErrorText { get; set; } = string.Empty;
@@ -23,6 +30,21 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 			foreach (var glass in glassdata) 
 			{
 				Glassware.Add(new GlassDisplayModel(glass));
+			}
+			var garnishdata = repo.GetGarnishTypes();
+			foreach(var garnish in garnishdata)
+			{
+				GarnishTypes.Add(new TagDisplayModel(garnish));
+			}
+			var icedata = repo.GetIceTypes();
+			foreach (var ice in icedata)
+			{
+				IceTypes.Add(new TagDisplayModel(ice));
+			}
+			var rimdata = repo.GetRimTypes();
+			foreach (var rim in rimdata)
+			{
+				IceTypes.Add(new TagDisplayModel(rim));
 			}
 		}
 

@@ -1,0 +1,55 @@
+﻿@attribute [Authorize(Roles = "Admin")]
+@page "/drinktools/rim"
+
+<MudCard>
+	<MudCardContent>
+		<EditForm Model="@Model" class="@showInvalid" OnValidSubmit="ValidSubmit">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+			@if (errorValid != null)
+			{
+				<label class="alert-warning">@errorValid</label>
+			}
+			<label for="Name">Rim</label>
+			<InputText @bind-Value=Model.Value class="form-control" id="Value"></InputText>
+			@if (Model.Id == 0)
+			{
+				<input type="submit" class="btn btn-dark" value="Add" />
+			}
+			else
+			{
+				<input type="submit" class="btn btn-dark" value="Update" />
+			}
+		</EditForm>
+	</MudCardContent>
+</MudCard>
+@if (Types is null)
+{
+	<MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
+}
+else
+{
+	<MudCard>
+		<MudCardContent>
+			<MudList>
+				@foreach (TagDisplayModel i in Types)
+				{
+					<MudPaper Elevation="1" Square="true">
+						<MudStack Row="true" Justify="Justify.SpaceBetween">
+							<MudPaper Elevation="0">
+								<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Value"></MudChip>
+							</MudPaper>
+							<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
+								<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
+								<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit" @onclick="() => EditType(i)"></MudIconButton>
+							</MudButtonGroup>
+
+						</MudStack>
+						<MudPaper>
+						</MudPaper>
+					</MudPaper>
+				}
+			</MudList>
+		</MudCardContent>
+	</MudCard>
+}

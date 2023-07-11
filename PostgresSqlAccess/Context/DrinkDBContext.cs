@@ -29,6 +29,8 @@ namespace DataAccess.Context
 		public DbSet<IceDataModel> IceTypes { get; set; }
 		public DbSet<GarnishDataModel> GarnishTypes { get; set; }
 
+		public DbSet<RimDataModel> RimTypes { get; set; }
+
 
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -74,7 +76,7 @@ namespace DataAccess.Context
 
 			modelBuilder.Entity<IceDataModel>();
 			modelBuilder.Entity<GarnishDataModel>();
-			modelBuilder.Entity<GarnishDataModel>();
+			modelBuilder.Entity<RimDataModel>();
 
 		}
 

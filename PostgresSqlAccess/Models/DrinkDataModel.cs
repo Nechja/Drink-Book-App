@@ -11,7 +11,7 @@ namespace DataAccess.Models
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public IceDataModel? Ice { get; set; }
-		public List<GarnishDataModel>? Garnishes { get; set; }
+		public List<GarnishDataModel>? Garnishes { get; set; } = new();
 
 		public RimDataModel? Rim { get; set; }
 		public string? Notes { get; set; }
