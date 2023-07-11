@@ -11,8 +11,10 @@ namespace Drink_Book_App.Models
 		[Range(0, float.MaxValue, ErrorMessage = "Please enter valid Number")]
 		[RegularExpression(@"^\d+(\.\d{1,2})?$")]
 		public float? Oz { get; set; }
-		[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
-		public string? DropShopOptions { get; set; }
+
+		[Range(0, 5, ErrorMessage = "Please enter 1-5")]
+		public int? DisplayWeight { get; set; }
+
 		[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
 		public string? Special { get; set; }
         [Required]
@@ -29,6 +31,7 @@ namespace Drink_Book_App.Models
             Id = model.Id;
             Oz = model.Oz;
             Special = model.Special;
+            DisplayWeight = model.DisplayWeight;
 
             if(model is InstructionDataModel)
             {
@@ -79,7 +82,7 @@ namespace Drink_Book_App.Models
                     Oz = this.Oz,
                     Special = this.Special,
                     Ingredient = this.Ingredient.DataModel,
-                    DropShopOptions = this.DropShopOptions,
+                    DisplayWeight = this.DisplayWeight,
                     Flag = Flag.ToDataModel()
 		        };
 			}

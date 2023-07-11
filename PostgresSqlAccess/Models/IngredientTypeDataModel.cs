@@ -11,5 +11,7 @@ namespace DataAccess.Models
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public List<IngredientDataModel> Ingredients { get; set; } = new();
+
+		public DateTime? Created { get; set; }
 	}
 }

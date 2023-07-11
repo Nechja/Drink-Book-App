@@ -5,6 +5,7 @@
         int Id { get; set; }
         float? Oz { get; set; }
         string? Special { get; set; }
-		public string? DropShopOptions { get; set; }
+
+		public int? DisplayWeight { get; set; }
 	}
 }

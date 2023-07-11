@@ -22,6 +22,8 @@ namespace DataAccess.Models
 
 		public string? InlineStatement { get; set; }
 
+		public DateTime? Created { get; set; }
+
 		public List<InstructionDataModel> Instructions { get; set; } = new();
 	}
 }

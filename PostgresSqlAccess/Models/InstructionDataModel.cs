@@ -14,7 +14,7 @@ namespace DataAccess.Models
 		public int Id { get; set; }
 		public float? Oz { get; set; }
 		public string? Special { get; set; }
-		public string? DropShopOptions { get; set; }
+		public int? DisplayWeight { get; set; }
 
 		public FlagDataModel? Flag { get; set; } = new();
 		public IngredientDataModel Ingredient { get; set; } = new();
@@ -22,6 +22,8 @@ namespace DataAccess.Models
 		public DrinkDataModel Drink { get; set; } = new();
 
 		public List<InstructionTagDataModel>? Tags { get; set; } = new();
+
+		public DateTime? Created { get; set; }
 
 		public InstructionDataModel(InstructionDataModel dataModel) 
 		{

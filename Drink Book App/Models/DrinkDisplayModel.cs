@@ -11,8 +11,10 @@ namespace Drink_Book_App.Models;
 
 public class DrinkDisplayModel : IDrinkDataModel
 {
-	public TagDisplayModel? Garnish { get; set; }
+	public List<TagDisplayModel>? Garnishes { get; set; } = new List<TagDisplayModel>();
 	public TagDisplayModel? Ice { get; set; }
+
+	public TagDisplayModel Rim { get; set; }
 	public int Id { get; set; }
 	public Uri? Image { get; set; }
 	[Required]
@@ -33,12 +35,18 @@ public class DrinkDisplayModel : IDrinkDataModel
 		this.Id = drinkData.Id;
 		this.Image = drinkData.Image;
 		this.Ice = new TagDisplayModel(drinkData.Ice);
-		this.Garnish = new TagDisplayModel(drinkData.Garnish);
 		this.Glass = new GlassDisplayModel(drinkData.Glass);
+		this.Rim = new TagDisplayModel(drinkData.Rim);
+
+		foreach (GarnishDataModel g in drinkData.Garnishes)
+		{
+			Garnishes.Add(new TagDisplayModel(g));
+		}
 		foreach(DrinkTagDataModel t in drinkData.Tags)
 		{
 			Tags.Add(new TagDisplayModel(t));
 		}
+
 	}
 
 
@@ -50,7 +58,10 @@ public class DrinkDisplayModel : IDrinkDataModel
 	    drink.Id = this.Id;
 		drink.Image = this.Image;
 		drink.Ice = this.Ice.IceDataModel;
-		drink.Garnish = this.Garnish.GarnishDataModel;
+		foreach (TagDisplayModel t in Garnishes)
+		{
+			drink.Garnishes.Add(t.GarnishDataModel);
+		}
 		drink.Glass = this.Glass.DataModel;
 	    drink.Instructions = ParseInstructions();
 		foreach(TagDisplayModel t in Tags)
@@ -83,9 +94,10 @@ public class DrinkDisplayModel : IDrinkDataModel
 			if(String.IsNullOrEmpty(this.Name)) return string.Empty;
 			TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 			string title = textInfo.ToTitleCase(Name);
-			string servingstyle;
-			string garnish;
-			return title;
+			string style;
+			if (String.IsNullOrEmpty(Ice.Value)) style = $"({Glass.Name} {Ice.Value})";
+			else style = $"({Glass.Name})";
+			return title + style;
 		}
 	}
 }

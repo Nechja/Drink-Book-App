@@ -18,6 +18,8 @@ namespace DataAccess.Models
 
         public Uri? Image { get; set; }
 
-        public List<DrinkDataModel> Drinks { get; set; } = new();
+		public DateTime? Created { get; set; }
+
+		public List<DrinkDataModel> Drinks { get; set; } = new();
     }
 }

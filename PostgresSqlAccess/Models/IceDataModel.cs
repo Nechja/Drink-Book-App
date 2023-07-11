@@ -20,7 +20,11 @@ namespace DataAccess.Models
 
         public List<DrinkDataModel> Drinks { get; set; } = default;
 
-        public IceDataModel() { }
+		public DateTime? Created { get; set; }
+
+		public IceDataModel() { }
+
+
 
     }
 }

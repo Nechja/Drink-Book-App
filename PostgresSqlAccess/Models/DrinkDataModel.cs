@@ -11,8 +11,12 @@ namespace DataAccess.Models
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public IceDataModel? Ice { get; set; }
-		public GarnishDataModel? Garnish { get; set; }
+		public List<GarnishDataModel>? Garnishes { get; set; }
+
+		public RimDataModel? Rim { get; set; }
 		public string? Notes { get; set; }
+
+		public DateTime? Created { get; set; }
 
 		public DrinkDataModel? Mod { get; set; }
 

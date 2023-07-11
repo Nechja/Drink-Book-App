@@ -79,5 +79,17 @@ namespace Drink_Book_App.Models
                 };
             }
         }
-    }
+
+		public RimDataModel RimDataModel
+		{
+			get
+			{
+				return new RimDataModel()
+				{
+					Id = Id,
+					Value = Value
+				};
+			}
+		}
+	}
 }

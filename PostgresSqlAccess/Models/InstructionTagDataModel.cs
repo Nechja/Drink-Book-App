@@ -21,6 +21,8 @@ namespace DataAccess.Models
 
 		public InstructionTagDataModel() { }
 
+		public DateTime? Created { get; set; }
+
 		public InstructionTagDataModel(string value)
 		{
 			Value = value;

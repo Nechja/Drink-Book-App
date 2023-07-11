@@ -117,7 +117,7 @@ public class DrinkRepository
 					.ThenInclude(i => i.IngredientType)
                     .Include(i => i.Instructions)
 					.ThenInclude(i => i.Flag)
-					.Include(i => i.Garnish)
+					.Include(i => i.Garnishes)
 					.Include(i => i.Ice)
 					.SingleOrDefault(drink => drink.Id == id)!;
 			}

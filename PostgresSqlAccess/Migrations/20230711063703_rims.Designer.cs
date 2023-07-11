@@ -3,6 +3,7 @@ using System;
 using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DrinkDBContext))]
-    partial class DrinkDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230711063703_rims")]
+    partial class rims
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +32,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int?>("GlassId")
                         .HasColumnType("integer");
@@ -81,9 +81,6 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("text");
@@ -103,9 +100,6 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("ClosingStatment")
                         .HasColumnType("text");
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("InlineStatement")
                         .HasColumnType("text");
@@ -133,9 +127,6 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("text");
@@ -155,9 +146,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Image")
                         .HasColumnType("text");
@@ -182,9 +170,6 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("text");
@@ -204,9 +189,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("IngredientTypeId")
                         .HasColumnType("integer");
@@ -233,9 +215,6 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Mod")
                         .IsRequired()
                         .HasColumnType("text");
@@ -260,9 +239,6 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -282,9 +258,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int?>("DisplayWeight")
                         .HasColumnType("integer");
@@ -323,9 +296,6 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("text");
@@ -345,9 +315,6 @@ namespace DataAccess.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Value")
                         .IsRequired()

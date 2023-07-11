@@ -19,7 +19,9 @@ namespace DataAccess.Models
 
         public List<DrinkDataModel> Drinks { get; set; } = default;
 
-        public GarnishDataModel() { }
+		public DateTime? Created { get; set; }
+
+		public GarnishDataModel() { }
 
     }
 }

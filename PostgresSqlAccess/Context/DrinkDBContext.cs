@@ -51,7 +51,7 @@ namespace DataAccess.Context
 			modelBuilder.Entity<DrinkDataModel>()
 				.HasOne(p => p.Glass).WithMany(p => p.Drinks);
 			modelBuilder.Entity<DrinkDataModel>()
-				.HasOne(p => p.Garnish).WithMany(p => p.Drinks);
+				.HasMany(p => p.Garnishes).WithMany(p => p.Drinks);
             modelBuilder.Entity<DrinkDataModel>()
 				.HasOne(p => p.Ice).WithMany(p => p.Drinks);
 
