@@ -31,5 +31,10 @@ namespace Drink_Book_App.Pages
 		{
 			navi.NavigateTo($"/Drink/{Name}/{Id}");
 		}
-	}
+
+        public void EditDrink(string Name, int Id)
+        {
+            navi.NavigateTo($"/drinktools/editdrink/{Id}");
+        }
+    }
 }

@@ -1,6 +1,6 @@
 ﻿@attribute [Authorize(Roles = "Admin")]
-@page "/drinktools/adddrink"
-@page "/drinktools/editdrink"
+@page "/drinktools/adddrinkpage"
+@page "/drinktools/editdrink/{DrinkId:int}"
 
 
 <MudDrawer @bind-Open="@OpenGarnish" Width="60%" Anchor="Anchor.Start" Elevation="1" Variant="@DrawerVariant.Temporary">
@@ -9,7 +9,7 @@
 
 <MudDrawer @bind-Open="@OpenIce" Width="60%" Anchor="Anchor.Start" Elevation="1" Variant="@DrawerVariant.Temporary">
 	<Ice></Ice>
-</MudDrawer> 
+</MudDrawer>
 
 <MudDrawer @bind-Open="@OpenGlass" Width="60%" Anchor="Anchor.Start" Elevation="1" Variant="@DrawerVariant.Temporary">
 	<AEGlassware></AEGlassware>
@@ -40,29 +40,36 @@
 				}
 				<MudTextField Class="px-10" @bind-Value="Drink.Name" Label="Drink Name" />
 				<MudStack Class="px-10" Row="true" Spacing="0" Justify="Justify.FlexStart">
-				<MudSelect T="TagDisplayModel" @bind-Value="@Drink.Rim" Label="Rim" AnchorOrigin="Origin.BottomCenter">
-					@foreach (var rim in RimTypes)
-					{
-						<MudSelectItem Value="rim">@rim.Value</MudSelectItem>
-					}
-				</MudSelect>
+					<MudSelect T="TagDisplayModel" @bind-Value="@Drink.Rim" Label="Rim" AnchorOrigin="Origin.BottomCenter">
+						@if (Drink.Id != 0 & Drink.Rim != null)
+						{
+							<MudSelectItem Value="Drink.Rim">Saved: @Drink.Rim.Value</MudSelectItem>
+						}
+						@foreach (var rim in RimTypes)
+						{
+							<MudSelectItem Value="rim">@rim.Value</MudSelectItem>
+						}
+					</MudSelect>
 					<MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => OpenRim = !OpenRim)" />
 
 				</MudStack>
 				<MudStack Class="px-10" Row="true" Spacing="0" Justify="Justify.FlexStart">
-				<MudSelect T="TagDisplayModel" @bind-Value="@Drink.Ice" Label="Ice" AnchorOrigin="Origin.BottomCenter">
-					@foreach (var ice in IceTypes)
-					{
-						<MudSelectItem Value="ice">@ice.Value</MudSelectItem>
-					}
-				</MudSelect>
-				<MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => OpenIce = !OpenIce)" />
+					<MudSelect T="TagDisplayModel" @bind-Value="@Drink.Ice" Label="Ice" AnchorOrigin="Origin.BottomCenter">
+						@if (Drink.Id != 0 & Drink.Ice != null)
+						{
+							<MudSelectItem Value="Drink.Ice">Saved: @Drink.Ice.Value</MudSelectItem>
+						}
+						@foreach (var ice in IceTypes)
+						{
+							<MudSelectItem Value="ice">@ice.Value</MudSelectItem>
+						}
+					</MudSelect>
+					<MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => OpenIce = !OpenIce)" />
 
 				</MudStack>
 				<MudPaper Elevation="0" Class="pt-3">
 					<MudText Class="px-10">Garnishes<MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => OpenGarnish = !OpenGarnish)" /></MudText>
 					<MudChipSet Class="px-10" MultiSelection="true" @bind-SelectedChips="@Selected" Filter="true">
-
 						@foreach (var gt in GarnishTypes)
 						{
 							<MudChip Value="gt" Text="@gt.Value" />
@@ -73,12 +80,16 @@
 				</MudPaper>
 				<MudTextField Class="px-10 pa-4" @bind-Value="Drink.Image" Label="Image" />
 				<MudStack Class="px-10" Row="true" Spacing="0" Justify="Justify.FlexStart">
-				<MudSelect T="GlassDisplayModel" @bind-Value="@Drink.Glass" Label="Glassware" AnchorOrigin="Origin.BottomCenter">
-					@foreach (GlassDisplayModel g in Glassware)
-					{
-						<MudSelectItem Value="g">@g.Name (@g.Oz)</MudSelectItem>
-					}
-				</MudSelect>
+					<MudSelect T="GlassDisplayModel" @bind-Value="@Drink.Glass" Label="Glassware" AnchorOrigin="Origin.BottomCenter">
+						@if (Drink.Id != 0)
+						{
+							<MudSelectItem Value="Drink.Glass">Saved: @Drink.Glass.Name (@Drink.Glass.Oz)</MudSelectItem>
+						}
+						@foreach (GlassDisplayModel g in Glassware)
+						{
+							<MudSelectItem Value="g">@g.Name (@g.Oz)</MudSelectItem>
+						}
+					</MudSelect>
 					<MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => OpenGlass = !OpenGlass)" />
 
 				</MudStack>

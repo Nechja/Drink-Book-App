@@ -2,6 +2,7 @@
 using DataAccess.Services;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using MudBlazor;
 
@@ -20,6 +21,9 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 		public List<TagDisplayModel> RimTypes { get; set; } = new List<TagDisplayModel>();
 
 		public List<TagDisplayModel> IceTypes { get; set; } = new List<TagDisplayModel>();
+
+		[Parameter]
+		public int? DrinkId { get; set; }
 
 
 
@@ -44,6 +48,21 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 		protected override void OnInitialized()
 		{
 			DataUpdate();
+			if (DrinkId != null || DrinkId == 0)
+			{
+				var d = repo.GetDrinkById(DrinkId.Value);
+				if (d != null) Drink.fromDrinkData(d);
+				if (Drink.Garnishes.Any())
+				{
+					List<MudChip> selection = new();
+					foreach (var g in Drink.Garnishes)
+					{
+						selection.Add(new MudChip() { Value = g });
+					}
+					Selected = selection.ToArray();
+				}
+
+			}
 		}
 
 		public void DataUpdate()
@@ -170,6 +189,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 			if (Drink.Id == 0)
 			{
 				repo.AddDrink(Drink.GetDataModel());
+				Drink = new DrinkDisplayModel();
 			}
 		}
 

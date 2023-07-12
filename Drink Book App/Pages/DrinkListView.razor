@@ -6,15 +6,21 @@
 }
 else
 {
-  <div class="container">
-    <h1>Drink List</h1>
-    <ul class="list-group">
-            @foreach(DrinkDisplayModel drink in drinks)
+    <MudContainer>
+        <MudText>Drink List</MudText>
+        <MudList>
+            @foreach (DrinkDisplayModel drink in drinks)
             {
-                <li class="list-group-item">
-                    <NavLink class="nav-link" @onclick="() => NavTo(drink.Name,drink.Id)">@drink.Name</NavLink>
-                </li>
+                <MudStack Row="true" Justify="Justify.SpaceBetween">
+                    <MudLink @onclick="() => NavTo(drink.Name,drink.Id)">@drink.Name</MudLink>
+                    <AuthorizeView Roles="Admin">
+                        <MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit" @onclick="() => EditDrink(drink.Name,drink.Id)" aria-label="edit"></MudIconButton>
+                        </MudButtonGroup>
+                    </AuthorizeView>
+                </MudStack>
             }
-    </ul>
-  </div>
+        </MudList>
+    </MudContainer>
 }

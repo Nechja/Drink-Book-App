@@ -40,6 +40,35 @@ public class DrinkRepository
 			drink.Tags.Clear();
 			drink.Tags = drinktags;
 
+			//ice
+			if(drink.Ice != null)
+			{
+				var ice = context.IceTypes.FirstOrDefault(i => i.Id == drink.Ice.Id!);
+				drink.Ice = ice;
+			}
+
+			//
+			if (drink.Rim != null)
+			{
+				var rim = context.RimTypes.FirstOrDefault(r => r.Id == drink.Rim.Id!);
+				drink.Rim = rim;
+			}
+
+
+			//Garnishes
+			var garnishtags = new List<GarnishDataModel>();
+			foreach (var tag in drink.Garnishes)
+			{
+				var garnish = context.GarnishTypes.SingleOrDefault(i => i.Value == tag.Value);
+				if (garnish != null)
+				{
+					garnishtags.Add(garnish);
+				}
+			}
+			drink.Garnishes.Clear();
+			drink.Garnishes = garnishtags;
+
+
 			//unwinding and repacking instructions
 			var ins = new List<InstructionDataModel>();
 			foreach (InstructionDataModel instruction in drink.Instructions)

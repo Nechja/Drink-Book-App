@@ -34,15 +34,15 @@ public class DrinkDisplayModel : IDrinkDataModel
 		this.Notes = drinkData.Notes;
 		this.Id = drinkData.Id;
 		this.Image = drinkData.Image;
-		this.Ice = new TagDisplayModel(drinkData.Ice);
-		this.Glass = new GlassDisplayModel(drinkData.Glass);
-		this.Rim = new TagDisplayModel(drinkData.Rim);
+		if(drinkData.Ice != null) this.Ice = new TagDisplayModel(drinkData.Ice);
+		if(drinkData.Glass != null) this.Glass = new GlassDisplayModel(drinkData.Glass);
+		if(drinkData.Rim != null) this.Rim = new TagDisplayModel(drinkData.Rim);
 
-		foreach (GarnishDataModel g in drinkData.Garnishes)
+		if(drinkData.Garnishes.Any()) foreach (GarnishDataModel g in drinkData.Garnishes)
 		{
 			Garnishes.Add(new TagDisplayModel(g));
 		}
-		foreach(DrinkTagDataModel t in drinkData.Tags)
+		if (drinkData.Tags.Any()) foreach (DrinkTagDataModel t in drinkData.Tags)
 		{
 			Tags.Add(new TagDisplayModel(t));
 		}

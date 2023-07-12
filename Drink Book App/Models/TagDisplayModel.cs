@@ -90,6 +90,13 @@ namespace Drink_Book_App.Models
 					Value = Value
 				};
 			}
+
+		}
+
+		public override string ToString()
+		{
+            if (String.IsNullOrEmpty(Value)) return String.Empty;
+			return Value.ToString();
 		}
 	}
 }
