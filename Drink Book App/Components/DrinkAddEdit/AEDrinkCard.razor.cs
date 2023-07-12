@@ -4,6 +4,7 @@ using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using MudBlazor;
 
 namespace Drink_Book_App.Components.DrinkAddEdit
@@ -16,7 +17,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit
         public InstructionDisplayModel Instruction { get; set; } = new InstructionDisplayModel();
 		public List<GlassDisplayModel> Glassware { get; set; } = new List<GlassDisplayModel>();
 
-		public List<TagDisplayModel> GarnishTypes { get; set; } = new List<TagDisplayModel>();
+		public List<(TagDisplayModel garnish, bool selected)> GarnishTypes { get; set; } = new List<(TagDisplayModel, bool)>();
 
 		public List<TagDisplayModel> RimTypes { get; set; } = new List<TagDisplayModel>();
 
@@ -47,22 +48,14 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 
 		protected override void OnInitialized()
 		{
-			DataUpdate();
+			
 			if (DrinkId != null || DrinkId == 0)
 			{
 				var d = repo.GetDrinkById(DrinkId.Value);
 				if (d != null) Drink.fromDrinkData(d);
-				if (Drink.Garnishes.Any())
-				{
-					List<MudChip> selection = new();
-					foreach (var g in Drink.Garnishes)
-					{
-						selection.Add(new MudChip() { Value = g });
-					}
-					Selected = selection.ToArray();
-				}
 
 			}
+			DataUpdate();
 		}
 
 		public void DataUpdate()
@@ -117,9 +110,25 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 		{
 			GarnishTypes.Clear();
 			var garnishdata = repo.GetGarnishTypes();
+			List<TagDisplayModel> selectedgarnish = new List<TagDisplayModel>();
+			if(Drink.Garnishes.Any())
+			{
+				foreach(var g in Drink.Garnishes)
+				{
+					selectedgarnish.Add(g);
+				}
+			}
 			foreach (var garnish in garnishdata)
 			{
-				GarnishTypes.Add(new TagDisplayModel(garnish));
+				if(selectedgarnish.FirstOrDefault(i => i.Id == garnish.Id) is null)
+				{
+					GarnishTypes.Add((new TagDisplayModel(garnish), false));
+				}
+				else
+				{
+					GarnishTypes.Add((new TagDisplayModel(garnish), true));
+				}
+				
 			}
 		}
 
@@ -190,6 +199,12 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 			{
 				repo.AddDrink(Drink.GetDataModel());
 				Drink = new DrinkDisplayModel();
+			}
+			else
+			{
+				repo.UpdateDrink(Drink.GetDataModel());
+				Drink = new DrinkDisplayModel();
+				DataUpdate();
 			}
 		}
 

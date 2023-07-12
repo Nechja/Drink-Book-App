@@ -8,13 +8,13 @@ public class DrinkRepository
 {
 	private readonly IDbContextFactory<DrinkDBContext> _dbContextFactory;
 
-	public DrinkRepository(IDbContextFactory<DrinkDBContext> dbContextFactory) 
+	public DrinkRepository(IDbContextFactory<DrinkDBContext> dbContextFactory)
 	{
 		this._dbContextFactory = dbContextFactory;
 	}
 	public void AddDrink(DrinkDataModel drink)
 	{
-		using(var context = _dbContextFactory.CreateDbContext())
+		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			//repackthatdrink
 
@@ -41,7 +41,7 @@ public class DrinkRepository
 			drink.Tags = drinktags;
 
 			//ice
-			if(drink.Ice != null)
+			if (drink.Ice != null)
 			{
 				var ice = context.IceTypes.FirstOrDefault(i => i.Id == drink.Ice.Id!);
 				drink.Ice = ice;
@@ -73,7 +73,7 @@ public class DrinkRepository
 			var ins = new List<InstructionDataModel>();
 			foreach (InstructionDataModel instruction in drink.Instructions)
 			{
-				if(instruction.Flag.id != 0)
+				if (instruction.Flag.id != 0)
 				{
 					var flag = context.Flags.FirstOrDefault(f => f.id == instruction.Flag.id);
 					instruction.Flag = flag;
@@ -90,7 +90,7 @@ public class DrinkRepository
 					{
 						AddInstructionTag(tag);
 					}
-					var existingtag = context. InstructionTags.SingleOrDefault(i => i.Value == tag.Value);
+					var existingtag = context.InstructionTags.SingleOrDefault(i => i.Value == tag.Value);
 					if (existingtag != null)
 					{
 						instags.Add(existingtag);
@@ -118,7 +118,7 @@ public class DrinkRepository
 
 	public void AddDrinkTag(DrinkTagDataModel drinkTag)
 	{
-		using(var context = _dbContextFactory.CreateDbContext())
+		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			context.DrinkTags.Add(drinkTag);
 			context.SaveChanges();
@@ -127,7 +127,7 @@ public class DrinkRepository
 
 	public List<DrinkTagDataModel> GetDrinkTags()
 	{
-		using(var context = _dbContextFactory.CreateDbContext())
+		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			return context.DrinkTags.ToList();
 		}
@@ -135,16 +135,16 @@ public class DrinkRepository
 
 	public DrinkDataModel GetDrinkById(int id)
 	{
-		using(var context = _dbContextFactory.CreateDbContext())
+		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			try
 			{
 				return context.Drinks
 					.Include(i => i.Glass)
-                    .Include(r => r.Instructions)
+					.Include(r => r.Instructions)
 					.ThenInclude(i => i.Ingredient)
 					.ThenInclude(i => i.IngredientType)
-                    .Include(i => i.Instructions)
+					.Include(i => i.Instructions)
 					.ThenInclude(i => i.Flag)
 					.Include(i => i.Garnishes)
 					.Include(i => i.Ice)
@@ -155,13 +155,13 @@ public class DrinkRepository
 			{
 				return new DrinkDataModel();
 			}
-			
+
 		}
 	}
 
 	public DrinkDataModel GetDrinkByName(string name)
 	{
-		using(var context = _dbContextFactory.CreateDbContext())
+		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			return context.Drinks.FirstOrDefault(drink => drink.Name == name)!;
 		}
@@ -173,12 +173,12 @@ public class DrinkRepository
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			return context.Drinks
-                    .Include(i => i.Glass)
-                    .Include(r => r.Instructions)
-                    .ThenInclude(i => i.Ingredient)
-                    .ThenInclude(i => i.IngredientType)
-                    .Include(i => i.Instructions)
-                    .ThenInclude(i => i.Flag).ToList();
+					.Include(i => i.Glass)
+					.Include(r => r.Instructions)
+					.ThenInclude(i => i.Ingredient)
+					.ThenInclude(i => i.IngredientType)
+					.Include(i => i.Instructions)
+					.ThenInclude(i => i.Flag).ToList();
 		}
 	}
 
@@ -195,14 +195,14 @@ public class DrinkRepository
 				return new List<DrinkDataModel>();
 			}
 		}
-			
+
 	}
 
 
 
 	public async Task UpdateDrink(DrinkDataModel drink)
 	{
-		using(var context = _dbContextFactory.CreateDbContext())
+		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			context.Update(drink);
 			context.SaveChanges();
@@ -211,35 +211,35 @@ public class DrinkRepository
 
 	public void DeleteDrink(int id)
 	{
-		using(var context = _dbContextFactory.CreateDbContext())
+		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			context.Remove(context.Drinks.SingleOrDefault(drink => drink.Id == id)!);
 			context.SaveChanges();
 		}
 	}
 
-    //Ingredient types
+	//Ingredient types
 
 
-    public List<IngredientTypeDataModel> GetIngredientTypes()
-    {
-        using (var context = _dbContextFactory.CreateDbContext())
-        {
-            return context.IngredientTypes.ToList();
-        }
-    }
+	public List<IngredientTypeDataModel> GetIngredientTypes()
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.IngredientTypes.ToList();
+		}
+	}
 
-    public void UpdateIngredientType(IngredientTypeDataModel ingredientType)
-    {
-        using (var context = _dbContextFactory.CreateDbContext())
-        {
-            context.Update(ingredientType);
-            context.SaveChanges();
-        }
-    }
+	public void UpdateIngredientType(IngredientTypeDataModel ingredientType)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Update(ingredientType);
+			context.SaveChanges();
+		}
+	}
 
-    public void AddIngredientType(IngredientTypeDataModel ingredientType)
-    {
+	public void AddIngredientType(IngredientTypeDataModel ingredientType)
+	{
 
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
@@ -250,18 +250,18 @@ public class DrinkRepository
 
 	}
 
-    public void DeleteIngredientType(int id)
-    {
-        using (var context = _dbContextFactory.CreateDbContext())
-        {
-            context.Remove(context.IngredientTypes.SingleOrDefault(t => t.Id == id)!);
-            context.SaveChanges();
-        }
-    }
+	public void DeleteIngredientType(int id)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Remove(context.IngredientTypes.SingleOrDefault(t => t.Id == id)!);
+			context.SaveChanges();
+		}
+	}
 
 	//Ingredients
 
-	public List<IngredientTagDataModel> GetIngredientTags() 
+	public List<IngredientTagDataModel> GetIngredientTags()
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
@@ -269,9 +269,9 @@ public class DrinkRepository
 		}
 	}
 
-	public void AddIngredientTag(IngredientTagDataModel ingredientTag) 
+	public void AddIngredientTag(IngredientTagDataModel ingredientTag)
 	{
-		using(var context = _dbContextFactory.CreateDbContext())
+		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			context.IngredientsTags.Add(ingredientTag);
 			context.SaveChanges();
@@ -280,7 +280,7 @@ public class DrinkRepository
 
 	public List<IngredientDataModel> GetAllIngredient()
 	{
-		using(var context = _dbContextFactory.CreateDbContext())
+		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			return context.Ingredients.Include(i => i.IngredientType).Include(i => i.Tags).ToList();
 		}
@@ -299,10 +299,10 @@ public class DrinkRepository
 
 			List<IngredientTagDataModel> dbtags = new List<IngredientTagDataModel>();
 
-			foreach(var tag in ingredient.Tags)
+			foreach (var tag in ingredient.Tags)
 			{
 				//prevent duplication
-				if(!context.IngredientsTags.Any(i => i.Value == tag.Value))
+				if (!context.IngredientsTags.Any(i => i.Value == tag.Value))
 				{
 					if (tag.Id == 0)
 					{
@@ -380,7 +380,7 @@ public class DrinkRepository
 	}
 
 	//glassware
-	public List<GlassDataModel> GetGlassware() 
+	public List<GlassDataModel> GetGlassware()
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
@@ -390,7 +390,7 @@ public class DrinkRepository
 
 	public void AddGlass(GlassDataModel glass)
 	{
-		using(var context = _dbContextFactory.CreateDbContext())
+		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			context.Glasses.Add(glass);
 			context.SaveChanges();
@@ -408,15 +408,15 @@ public class DrinkRepository
 
 	//ice
 
-	public List<IceDataModel> GetIceTypes ()
+	public List<IceDataModel> GetIceTypes()
 	{
-		using(var context = _dbContextFactory.CreateDbContext())
+		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			return context.IceTypes.ToList();
 		}
 	}
 
-	public void AddIce(IceDataModel ice) 
+	public void AddIce(IceDataModel ice)
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{

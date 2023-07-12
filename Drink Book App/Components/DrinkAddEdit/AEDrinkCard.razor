@@ -30,7 +30,7 @@
 				<MudToolBar>
 
 					<MudButtonGroup Variant="Variant.Outlined" Class="d-flex align-center flex-grow-1" Elevation="0">
-						<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Size="Size.Medium">Add</MudButton>
+						<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Size="Size.Medium">@if (Drink.Id == 0) {<MudText>Add</MudText>}else{<MudText>Edit</MudText>}</MudButton>
 						<MudButton ButtonType="ButtonType.Reset" Variant="Variant.Text" OnClick="@(() => Drink = new DrinkDisplayModel())" Size="Size.Medium">Reset</MudButton>
 					</MudButtonGroup>
 				</MudToolBar>
@@ -72,7 +72,7 @@
 					<MudChipSet Class="px-10" MultiSelection="true" @bind-SelectedChips="@Selected" Filter="true">
 						@foreach (var gt in GarnishTypes)
 						{
-							<MudChip Value="gt" Text="@gt.Value" />
+							<MudChip Value="gt.garnish" Default="@gt.selected" Text="@gt.garnish.Value" />
 						}
 
 					</MudChipSet>

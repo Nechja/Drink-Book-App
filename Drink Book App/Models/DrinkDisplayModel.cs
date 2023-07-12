@@ -46,6 +46,10 @@ public class DrinkDisplayModel : IDrinkDataModel
 		{
 			Tags.Add(new TagDisplayModel(t));
 		}
+		foreach (var i in drinkData.Instructions)
+		{
+			Instructions.Add(new InstructionDisplayModel(i));
+		}
 
 	}
 
@@ -58,6 +62,7 @@ public class DrinkDisplayModel : IDrinkDataModel
 	    drink.Id = this.Id;
 		drink.Image = this.Image;
 		drink.Ice = this.Ice.IceDataModel;
+		drink.Rim = this.Rim.RimDataModel;
 		foreach (TagDisplayModel t in Garnishes)
 		{
 			drink.Garnishes.Add(t.GarnishDataModel);
