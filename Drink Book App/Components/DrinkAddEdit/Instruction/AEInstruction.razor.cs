@@ -24,6 +24,10 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
 
         string ErrorText { get; set; } = string.Empty;
 
+		private bool OpenIngredient;
+
+
+
 		private MudChip chipSelected;
 
 		private MudChip ChipSelected 

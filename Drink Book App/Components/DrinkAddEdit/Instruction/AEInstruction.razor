@@ -1,7 +1,7 @@
 ﻿
 
 
-<MudText Class="d-flex align-center flex-grow-1">Add Instruction</MudText>
+<MudText Class="d-flex align-center flex-grow-1 pl-6">Add Instruction</MudText>
 <EditForm Model="Model" OnValidSubmit="OnValidSubmit">
 	<DataAnnotationsValidator />
 	<ValidationSummary />
@@ -16,6 +16,7 @@
 				<CascadingValue Value="Model.Ingredient">
 					<IngredientDropDown OnSelectIngredient="OnSelectIngredientChange"></IngredientDropDown>
 				</CascadingValue>
+
 			</MudPaper>
 			<MudPaper MinWidth="50px" Elevation="0" MaxWidth="100px" Class="d-flex flex-wrap gap-4 pl-2">
 				<MudNumericField @bind-Value="Model.Oz" Label="Oz" Variant="Variant.Text"></MudNumericField>

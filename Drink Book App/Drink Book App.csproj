@@ -28,4 +28,8 @@
     <ProjectReference Include="..\PostgresSqlAccess\DataAccess.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Tools\" />
+  </ItemGroup>
+
 </Project>

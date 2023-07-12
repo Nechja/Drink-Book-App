@@ -15,7 +15,20 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 		[CascadingParameter]
 		public IngredientTypeDisplayModel Model { get; set; } = new IngredientTypeDisplayModel();
 
+		private bool openIngredient;
 
+		private bool OpenIngredient
+		{
+			get => openIngredient;
+			set
+			{
+				openIngredient = value;
+				if (!openIngredient)
+				{
+					GetData();
+				}
+			}
+		}
 
 
 
@@ -43,6 +56,14 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 
 		protected override void OnInitialized()
 		{
+			GetData();
+			base.OnInitialized();
+		}
+
+		protected private void GetData()
+		{
+			ingredientTypes.Clear();
+			IngredientTypeNames.Clear();
 			var typesdata = repo.GetIngredientTypes();
 			foreach (IngredientTypeDataModel dataModel in typesdata)
 			{
@@ -51,7 +72,6 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 
 
 			}
-			base.OnInitialized();
 		}
 
 		private async Task<IEnumerable<string>> Search(string value)

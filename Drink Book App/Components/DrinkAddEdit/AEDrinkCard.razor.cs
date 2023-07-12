@@ -3,6 +3,7 @@ using DataAccess.Services;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using MudBlazor;
 
 namespace Drink_Book_App.Components.DrinkAddEdit
 {
@@ -20,31 +21,135 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 
 		public List<TagDisplayModel> IceTypes { get; set; } = new List<TagDisplayModel>();
 
+
+
+		private MudChip[] _selected;
+
+		private MudChip[] Selected
+		{
+			get => _selected;
+			set
+			{
+				_selected= value;
+				OnSelectGarnish(value);
+			}
+		}
+
+
+
 		bool FakeSubmit = false;
 
 		string ErrorText { get; set; } = string.Empty;
 
 		protected override void OnInitialized()
 		{
+			DataUpdate();
+		}
+
+		public void DataUpdate()
+		{
+			GlassUpdate();
+			GarnishUpdate();
+			IceUpdate();
+			RimUpdate();
+		}
+
+		private bool openGlass;
+
+		private bool OpenGlass
+		{
+			get => openGlass;
+			set
+			{
+				openGlass = value;
+				if (!openGlass)
+				{
+					GlassUpdate();
+				}
+			}
+		}
+
+		public void GlassUpdate()
+		{
+			Glassware.Clear();
 			var glassdata = repo.GetGlassware();
-			foreach (var glass in glassdata) 
+			foreach (var glass in glassdata)
 			{
 				Glassware.Add(new GlassDisplayModel(glass));
 			}
+		}
+
+		private bool openGarnish;
+
+		private bool OpenGarnish
+		{
+			get => openGarnish;
+			set 
+			{ 
+				openGarnish = value;
+				if(!openGarnish) 
+				{
+					GarnishUpdate();
+				}
+			}
+		}
+
+		public void GarnishUpdate()
+		{
+			GarnishTypes.Clear();
 			var garnishdata = repo.GetGarnishTypes();
-			foreach(var garnish in garnishdata)
+			foreach (var garnish in garnishdata)
 			{
 				GarnishTypes.Add(new TagDisplayModel(garnish));
 			}
+		}
+
+		private bool openIce;
+
+		private bool OpenIce
+		{
+			get => openIce;
+			set
+			{
+				openIce = value;
+				if (!openIce)
+				{
+					IceUpdate();
+				}
+			}
+		}
+
+		public void IceUpdate()
+		{
+			IceTypes.Clear();
 			var icedata = repo.GetIceTypes();
 			foreach (var ice in icedata)
 			{
 				IceTypes.Add(new TagDisplayModel(ice));
 			}
+		}
+
+		private bool openRim;
+
+		private bool OpenRim
+		{
+			get => openRim;
+			set
+			{
+				openRim = value;
+				if (!openRim)
+				{
+					RimUpdate();
+				}
+			}
+		}
+
+		public void RimUpdate()
+		{
 			var rimdata = repo.GetRimTypes();
 			foreach (var rim in rimdata)
 			{
-				IceTypes.Add(new TagDisplayModel(rim));
+				RimTypes.Add(new TagDisplayModel(rim));
 			}
 		}
 
@@ -77,6 +182,17 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 		private void OnSelectTag(List<TagDisplayModel> tags)
 		{
 			Drink.Tags = tags;
+		}
+
+		private void OnSelectGarnish(MudChip[] garnish)
+		{
+			Drink.Garnishes.Clear();
+			var glist = new List<TagDisplayModel>();
+			foreach (MudChip g in garnish)
+			{
+				glist.Add((TagDisplayModel)g.Value);
+			}
+			 Drink.Garnishes = glist;
 		}
 		private void OnEnterStop(bool s)
 		{

@@ -1,21 +1,28 @@
 ﻿@attribute [Authorize(Roles = "Admin")]
+<MudDrawer @bind-Open="@OpenIngredient" Width="60%" Anchor="Anchor.Start" Elevation="1" Variant="@DrawerVariant.Temporary">
+	<AEIngredientCard />
+</MudDrawer>
+
 @if (Model == null || Model.Id == 0)
 {
-
+	<MudStack Row="true" Class="px-10" Justify="Justify.FlexStart">
 	<MudAutocomplete T="string" Label="Ingredient Type"
 				 @bind-Value="SearchText"
 				 @bind-Text="SearchText"
 				 Variant="Variant.Text" 
-				 Class="px-10"
+				 
 				 ResetValueOnEmptyText=true
 				 SearchFunc="Search"
 				 CoerceText=true
 				 AdornmentIcon="@Icons.Material.Filled.ArrowBackIosNew" AdornmentColor="Color.Dark" />
+		<MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => OpenIngredient = !OpenIngredient)" />
+
+	</MudStack>
 
 }
 else
 {
 
-	<MudChip OnClose="Closed"><h4>@Model.Name</h4></MudChip>
+	<MudChip Label="true" Class"pl-4" OnClose="Closed"><h4>@Model.Name</h4></MudChip>
 
 }

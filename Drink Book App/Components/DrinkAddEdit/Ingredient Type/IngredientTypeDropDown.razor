@@ -1,7 +1,11 @@
 ﻿@attribute [Authorize(Roles = "Admin")]
+<MudDrawer @bind-Open="@OpenIngredient" Width="60%" Anchor="Anchor.Start" Elevation="1" Variant="@DrawerVariant.Temporary">
+	<AEIngredientTypeCard />
+</MudDrawer>
+
 @if(Model == null || Model.Id == 0)
 {
-
+	<MudStack Row="true" Justify="Justify.FlexStart">
 	<MudAutocomplete T="string" Label="Ingredient Type"
 					@bind-Value="SearchText"
 					@bind-Text="SearchText"
@@ -9,7 +13,9 @@
 					SearchFunc="Search"
 					CoerceText=true
 					AdornmentIcon="@Icons.Material.Filled.ArrowBackIosNew" AdornmentColor="Color.Dark" />
-
+		<MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => OpenIngredient = !OpenIngredient)" />
+	</MudStack>
+	
 }
 else
 {

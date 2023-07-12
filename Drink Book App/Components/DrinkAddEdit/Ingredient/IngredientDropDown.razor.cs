@@ -25,6 +25,21 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 
 		private string searchText = string.Empty;
 
+		private bool openIngredient;
+
+		private bool OpenIngredient
+		{
+			get => openIngredient;
+			set
+			{
+				openIngredient = value;
+				if (!openIngredient)
+				{
+					GetData();
+				}
+			}
+		}
+
 		private string SearchText
 		{
 			get { return searchText; }
@@ -43,15 +58,23 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 
 		protected override void OnInitialized()
 		{
+			GetData();
+			base.OnInitialized();
+		}
+
+		protected private void GetData()
+		{
+			ingredient.Clear();
+			IngredientNames.Clear();
 			var typesdata = repo.GetAllIngredient();
-			foreach(IngredientDataModel dataModel in typesdata)
+			foreach (IngredientDataModel dataModel in typesdata)
 			{
 				ingredient.Add(new IngredientDisplayModel(dataModel));
 				IngredientNames.Add(dataModel.Name);
 
 
 			}
-			base.OnInitialized();
+
 		}
 
 		private async Task<IEnumerable<string>> Search(string value)
