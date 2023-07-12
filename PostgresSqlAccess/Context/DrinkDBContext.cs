@@ -77,7 +77,9 @@ namespace DataAccess.Context
 				.WithMany(e => e.Ingredients);
 
 			modelBuilder.Entity<IceDataModel>();
-			modelBuilder.Entity<GarnishDataModel>();
+			modelBuilder.Entity<GarnishDataModel>()
+				.HasMany(e => e.Drinks)
+				.WithMany(e => e.Garnishes);
 			modelBuilder.Entity<RimDataModel>();
 
 		}

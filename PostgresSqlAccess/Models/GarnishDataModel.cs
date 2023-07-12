@@ -21,6 +21,7 @@ namespace DataAccess.Models
 
 		public DateTime? Created { get; set; }
 
+
 		public GarnishDataModel() { }
 
     }

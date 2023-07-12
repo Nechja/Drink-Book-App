@@ -204,8 +204,25 @@ public class DrinkRepository
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
-			context.Update(drink);
+			var updater = context.Drinks.Include(e => e.Garnishes).FirstOrDefault(d => d.Id == drink.Id);
+			updater.Name = drink.Name;
+			updater.Ice = drink.Ice;
+			updater.Rim = drink.Rim;
+			updater.Garnishes.Clear();
+			context.ChangeTracker.DetectChanges();
+			var debug1 = context.ChangeTracker.DebugView.ShortView;
 			context.SaveChanges();
+			foreach (var garnish in drink.Garnishes)
+			{
+				var attachedGarnish = context.GarnishTypes.Local.FirstOrDefault(g => g.Id == garnish.Id)
+					?? context.GarnishTypes.Attach(garnish).Entity;
+				updater.Garnishes.Add(attachedGarnish);
+			}
+			context.ChangeTracker.DetectChanges();
+			var debug2 = context.ChangeTracker.DebugView.ShortView;
+			context.SaveChanges();
+
+
 		}
 	}
 
