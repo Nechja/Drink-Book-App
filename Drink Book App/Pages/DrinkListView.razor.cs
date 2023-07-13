@@ -36,5 +36,10 @@ namespace Drink_Book_App.Pages
         {
             navi.NavigateTo($"/drinktools/editdrink/{Id}");
         }
+
+		public void DeleteDrink(int id)
+		{
+			repo.DeleteDrink(id);
+		}
     }
 }

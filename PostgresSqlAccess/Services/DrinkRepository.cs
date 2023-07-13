@@ -285,7 +285,7 @@ public class DrinkRepository
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
-			context.Remove(context.Instructions.SingleOrDefault(i => i.Id == id)!);
+			context.Remove(context.Instructions.Single(i => i.Id == id)!);
 			context.SaveChanges();
 		}
 	}
@@ -326,7 +326,7 @@ public class DrinkRepository
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
-			context.Remove(context.IngredientTypes.SingleOrDefault(t => t.Id == id)!);
+			context.Remove(context.IngredientTypes.Single(t => t.Id == id)!);
 			context.SaveChanges();
 		}
 	}

@@ -72,6 +72,20 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 			}
 		}
 
+		protected void DeleteType(int id)
+		{
+			try
+			{
+				repo.DeleteIngredientType(id);
+			}
+			catch (Exception e)
+			{
+				errorValid = e.Message;
+			}
+			
+		}
+
+
 
 	}
 }

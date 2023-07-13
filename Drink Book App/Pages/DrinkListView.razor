@@ -15,7 +15,7 @@ else
                     <MudLink @onclick="() => NavTo(drink.Name,drink.Id)">@drink.Name</MudLink>
                     <AuthorizeView Roles="Admin">
                         <MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
-                            <MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
+                            <MudIconButton Icon="@Icons.Material.Filled.Delete" @onclick="() => DeleteDrink(drink.Id)" aria-label="delete"></MudIconButton>
                             <MudIconButton Icon="@Icons.Material.Filled.Edit" @onclick="() => EditDrink(drink.Name,drink.Id)" aria-label="edit"></MudIconButton>
                         </MudButtonGroup>
                     </AuthorizeView>
