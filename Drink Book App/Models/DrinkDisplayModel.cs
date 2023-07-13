@@ -100,7 +100,7 @@ public class DrinkDisplayModel : IDrinkDataModel
 			TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 			string title = textInfo.ToTitleCase(Name);
 			string style;
-			if (Ice is null) style = $"({Glass.Name} {Ice.Value})";
+			if (Ice != null)style = $"({Glass.Name} {Ice.Value})";
 			else style = $"({Glass.Name})";
 			return title + style;
 		}
