@@ -239,11 +239,24 @@ public class DrinkRepository
 				}
 				else
 				{
-					var newInstruction = instruction;
-					// Add new instruction
-					context.Ingredients.Attach(instruction.Ingredient);
-					context.Flags.Attach(instruction.Flag);
+					var newInstruction = new InstructionDataModel
+					{
+						Oz = instruction.Oz,
+						Special = instruction.Special,
+						DisplayWeight = instruction.DisplayWeight,
+						Ingredient = context.Ingredients.Attach(instruction.Ingredient).Entity,
+					};
+
+					if (instruction.Flag != null)
+					{
+						newInstruction.Flag = context.Flags.Attach(instruction.Flag).Entity;
+					}
+
 					updater.Instructions.Add(newInstruction);
+
+
+
+
 				}
 			}
 			try

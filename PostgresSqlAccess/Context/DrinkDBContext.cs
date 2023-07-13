@@ -55,9 +55,9 @@ namespace DataAccess.Context
 			modelBuilder.Entity<DrinkDataModel>()
 				.HasMany(p => p.Garnishes).WithMany(p => p.Drinks);
 			modelBuilder.Entity<DrinkDataModel>()
-				.HasOne(p => p.Rim).WithMany(p => p.Drinks);
+				.HasOne(p => p.Rim).WithMany(p => p.Drinks).IsRequired(false);
 			modelBuilder.Entity<DrinkDataModel>()
-				.HasOne(p => p.Ice).WithMany(p => p.Drinks);
+				.HasOne(p => p.Ice).WithMany(p => p.Drinks).IsRequired(false);
 
 
             modelBuilder.Entity<InstructionDataModel>()
@@ -65,7 +65,8 @@ namespace DataAccess.Context
 				.WithMany(e => e.Instructions);
 			modelBuilder.Entity<InstructionDataModel>()
 				.HasOne(e => e.Flag)
-				.WithMany(e => e.Instructions);
+				.WithMany(e => e.Instructions)
+				.IsRequired(false);
 			modelBuilder.Entity<InstructionDataModel>()
 				.HasMany(e => e.Tags)
 				.WithMany(e => e.Instructions);
@@ -75,6 +76,7 @@ namespace DataAccess.Context
 			modelBuilder.Entity<IngredientDataModel>()
 				.HasMany(e => e.Tags)
 				.WithMany(e => e.Ingredients);
+
 
 			modelBuilder.Entity<IceDataModel>();
 			modelBuilder.Entity<GarnishDataModel>()

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Models.Interfaces;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.Models
 {
@@ -16,9 +17,9 @@ namespace DataAccess.Models
 		public string? Special { get; set; }
 		public int? DisplayWeight { get; set; }
 
-		public FlagDataModel? Flag { get; set; } = new();
+		[ForeignKey("Flagid")]
+		public FlagDataModel? Flag { get; set; }
 		public IngredientDataModel Ingredient { get; set; } = new();
-
 		public DrinkDataModel Drink { get; set; } = new();
 
 		public List<InstructionTagDataModel>? Tags { get; set; } = new();

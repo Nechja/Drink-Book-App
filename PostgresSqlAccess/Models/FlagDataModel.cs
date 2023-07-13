@@ -14,7 +14,7 @@ namespace DataAccess.Models
 	{
 		[Key]
 		public int id { get; set; }
-		public string Name { get; set; } = string.Empty;
+		public string? Name { get; set; }
 
 		public string? OpeningStatement { get; set; }
 
@@ -24,6 +24,8 @@ namespace DataAccess.Models
 
 		public DateTime? Created { get; set; }
 
-		public List<InstructionDataModel> Instructions { get; set; } = new();
+		public List<InstructionDataModel>? Instructions { get; set; } = new();
+
+		public FlagDataModel() { }
 	}
 }

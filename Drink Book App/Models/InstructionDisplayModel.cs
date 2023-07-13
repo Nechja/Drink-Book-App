@@ -37,7 +37,7 @@ namespace Drink_Book_App.Models
             {
                 InstructionDataModel m = (InstructionDataModel)model;
                 Ingredient = new IngredientDisplayModel(m.Ingredient);
-                if(m.Flag.Name != null)
+                if(m.Flag != null)
                 {
                     Flag = new FlagDisplayModel(m.Flag);
                 }
