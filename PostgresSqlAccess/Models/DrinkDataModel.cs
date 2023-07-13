@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace DataAccess.Models
 {
     [Index(nameof(Name), IsUnique = true)]
-    public class DrinkDataModel : IDrinkDataModel
+    public class DrinkDataModel : IDrinkDataModel, ISoftDelete
 	{
 		[Key]
 		public int Id { get; set; }
@@ -25,8 +25,8 @@ namespace DataAccess.Models
 
 		public List<DrinkTagDataModel>? Tags { get; set; } = new();
 		public List<InstructionDataModel> Instructions { get; set; } = new();
-
-
+		public bool IsDeleted { get; set; }
+		public DateTime? DeletedAt { get; set; }
 
 		public DrinkDataModel() { }
 

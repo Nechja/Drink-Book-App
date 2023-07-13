@@ -36,6 +36,7 @@ namespace DataAccess.Context
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseNpgsql("Username=postgres;Password=2244;Host=172.31.48.1;Port=5432;DataBase=DrinkBook;Pooling=true;Include Error Detail=true;");
+			optionsBuilder.AddInterceptors(new SoftDeleteInterceptor());
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -58,6 +59,8 @@ namespace DataAccess.Context
 				.HasOne(p => p.Rim).WithMany(p => p.Drinks).IsRequired(false);
 			modelBuilder.Entity<DrinkDataModel>()
 				.HasOne(p => p.Ice).WithMany(p => p.Drinks).IsRequired(false);
+			modelBuilder.Entity<DrinkDataModel>()
+				.HasQueryFilter(x => x.IsDeleted == false);
 
 
             modelBuilder.Entity<InstructionDataModel>()

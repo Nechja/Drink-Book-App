@@ -22,5 +22,25 @@ else
                 </MudStack>
             }
         </MudList>
+        
     </MudContainer>
+    <AuthorizeView Roles="Admin">
+        <MudContainer>
+            <MudText>Drinks Deleted</MudText>
+            <MudList>
+                @foreach (DrinkDisplayModel drink in softdeldrinks)
+                {
+                    <MudStack Row="true" Justify="Justify.SpaceBetween">
+                        <MudLink @onclick="() => NavTo(drink.Name,drink.Id)">@drink.Name</MudLink>
+
+                        <MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
+                            <MudIconButton Icon="@Icons.Material.Filled.DeleteForever" @onclick="() => DeleteDrink(drink.Id)" aria-label="delete"></MudIconButton>
+                            <MudIconButton Icon="@Icons.Material.Filled.RestoreFromTrash" @onclick="() => UndoDel(drink.Id)" aria-label="edit"></MudIconButton>
+                        </MudButtonGroup>
+
+                    </MudStack>
+                }
+            </MudList>
+        </MudContainer>
+    </AuthorizeView>
 }

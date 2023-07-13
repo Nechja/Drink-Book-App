@@ -15,17 +15,36 @@ namespace Drink_Book_App.Pages
 
 		private List<DrinkDisplayModel> drinks { get; set; } = new();
 
+		private List<DrinkDisplayModel> softdeldrinks { get; set; } = new();
+
 		protected override void OnInitialized()
 		{
+			UpdateData();
+		}
+
+		protected private void UpdateData()
+		{
 			var drinkdata = repo.GetDrinks();
-			foreach(DrinkDataModel d in drinkdata)
+			foreach (DrinkDataModel d in drinkdata)
 			{
 				DrinkDisplayModel ddm = new DrinkDisplayModel();
 				ddm.fromDrinkData(d);
 				drinks.Add(ddm);
 			}
 
+			var softdata = repo.GetAllDrinks();
+			foreach (DrinkDataModel d in softdata)
+			{
+				if(d.IsDeleted)
+				{
+					DrinkDisplayModel ddm = new DrinkDisplayModel();
+					ddm.fromDrinkData(d);
+					softdeldrinks.Add(ddm);
+				}
+
+			}
 		}
+
 
 		public void NavTo(string Name, int Id)
 		{
@@ -40,6 +59,11 @@ namespace Drink_Book_App.Pages
 		public void DeleteDrink(int id)
 		{
 			repo.DeleteDrink(id);
+		}
+
+		private void UndoDel(int id)
+		{
+			repo.UndoSoftDeleteDrink(id);
 		}
     }
 }

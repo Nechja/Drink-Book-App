@@ -182,6 +182,34 @@ public class DrinkRepository
 		}
 	}
 
+	public List<DrinkDataModel> GetAllDrinks()
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			return context.Drinks.IgnoreQueryFilters()
+					.Include(i => i.Glass)
+					.Include(r => r.Instructions)
+					.ThenInclude(i => i.Ingredient)
+					.ThenInclude(i => i.IngredientType)
+					.Include(i => i.Instructions)
+					.ThenInclude(i => i.Flag).ToList();
+		}
+	}
+
+	public void UndoSoftDeleteDrink(int id)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			var updater = context.Drinks.IgnoreQueryFilters().FirstOrDefault(d => d.Id == id);
+			if (updater != null)
+			{
+				updater.IsDeleted = false;
+				updater.DeletedAt = null;
+				context.SaveChanges();
+			}
+		}
+	}
+
 	public List<DrinkDataModel> GetAllDrinksByName(string name)
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
