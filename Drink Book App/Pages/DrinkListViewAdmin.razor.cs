@@ -8,7 +8,7 @@ using static MudBlazor.CategoryTypes;
 
 namespace Drink_Book_App.Pages
 {
-	public partial class DrinkListView
+	public partial class DrinkListViewAdmin
 	{
 		[Inject]
 		NavigationManager navi { get; set; }
