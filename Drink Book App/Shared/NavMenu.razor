@@ -3,12 +3,16 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
         <MudChip Color="Color.Dark" Variant="Variant.Filled" Label="true" Text="Drink Book" Size="Size.Large"></MudChip>
         <MudSpacer />
+
+
         <AuthStatus></AuthStatus>
     </MudAppBar>
     <MudDrawer @bind-Open="@open" Anchor="Anchor.Start" Elevation="1" Variant="@DrawerVariant.Temporary" Color="Color.Dark">
         <MudDrawerHeader>
+
         </MudDrawerHeader>
         <MudNavMenu>
+
             <MudNavLink Icon="@Icons.Material.Filled.Book" Href="/DrinkList">Drink List</MudNavLink>
             <AuthorizeView Roles="Admin">
                 <MudNavGroup Title="Drink Tools" Icon="@Icons.Material.Filled.Add" Expanded="false">
@@ -33,6 +37,8 @@
                 <MudNavGroup Title="Data And Reports" Icon="@Icons.Material.Filled.DataExploration" Expanded="false">
 
                 </MudNavGroup>
+
+
             </AuthorizeView>
         </MudNavMenu>
     </MudDrawer>
@@ -41,13 +47,8 @@
 
 
 @code {
-    bool open = false;
 
 
-    void ToggleDrawer()
-    {
-        open = !open;
-    }
 }
 
 

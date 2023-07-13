@@ -105,4 +105,6 @@ public class DrinkDisplayModel : IDrinkDataModel
 			return title + style;
 		}
 	}
+
+	public string TagList;
 }

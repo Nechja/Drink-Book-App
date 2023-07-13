@@ -7,6 +7,13 @@
 else
 {
     <MudContainer>
+        <MudAutocomplete T="string" Label="Search Drinks"
+                     Variant="Variant.Outlined"
+                     SearchFunc="TagSearch"
+                     Class="px-2 py-2 mb-3"
+                     ResetValueOnEmptyText="true"
+                     CoerceText="true"
+                     AdornmentIcon="@Icons.Material.Filled.Search" />
         <MudText>Drink List</MudText>
         <MudList>
             @foreach (DrinkDisplayModel drink in drinks)
@@ -22,6 +29,44 @@ else
                 </MudStack>
             }
         </MudList>
+
+        <MudDataGrid T="DrinkDisplayModel" Items="@drinks" ReadOnly="true" 
+            SortMode="SortMode.Multiple" QuickFilter="@QuickFilter"
+            Striped="true"
+            Dense="true">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Drink List</MudText>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                          AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <Columns>
+                <PropertyColumn Property="d => d.Name" />
+                <TemplateColumn T="DrinkDisplayModel">
+                    <CellTemplate>
+                        @foreach(var i in context.Item.Instructions)
+                        {
+                            <MudChip Value="@i">@i.Ingredient.Name</MudChip>
+                        }
+                    </CellTemplate>
+                </TemplateColumn>
+
+                <TemplateColumn T="DrinkDisplayModel" CellClass="d-flex justify-end">
+                    <CellTemplate>
+                        <MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Filled.Delete" OnClick="@(() => this.DeleteDrink(context.Item.Id))" aria-label="delete"></MudIconButton>
+                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Filled.Edit" OnClick="@(() => this.EditDrink(context.Item.Name, context.Item.Id))" aria-label="edit"></MudIconButton>
+                        </MudButtonGroup>
+                    </CellTemplate>
+
+                </TemplateColumn>
+
+            </Columns>
+            <PagerContent>
+                <MudDataGridPager T="DrinkDisplayModel"></MudDataGridPager>
+
+            </PagerContent>
+        </MudDataGrid>
         
     </MudContainer>
     <AuthorizeView Roles="Admin">

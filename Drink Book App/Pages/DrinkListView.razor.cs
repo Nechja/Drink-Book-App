@@ -3,6 +3,7 @@ using DataAccess.Models.Interfaces;
 using DataAccess.Services;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
+using static MudBlazor.CategoryTypes;
 
 namespace Drink_Book_App.Pages
 {
@@ -17,7 +18,12 @@ namespace Drink_Book_App.Pages
 
 		private List<DrinkDisplayModel> softdeldrinks { get; set; } = new();
 
-		protected override void OnInitialized()
+		private string searchString { get; set; }
+
+
+        public List<string> values { get; set; } = new List<string>();
+
+        protected override void OnInitialized()
 		{
 			UpdateData();
 		}
@@ -30,7 +36,8 @@ namespace Drink_Book_App.Pages
 				DrinkDisplayModel ddm = new DrinkDisplayModel();
 				ddm.fromDrinkData(d);
 				drinks.Add(ddm);
-			}
+                values.Add(d.Name);
+            }
 
 			var softdata = repo.GetAllDrinks();
 			foreach (DrinkDataModel d in softdata)
@@ -56,7 +63,12 @@ namespace Drink_Book_App.Pages
             navi.NavigateTo($"/drinktools/editdrink/{Id}");
         }
 
-		public void DeleteDrink(int id)
+        public void EditDrink(DrinkDataModel drink)
+        {
+            navi.NavigateTo($"/drinktools/editdrink/{drink.Id}");
+        }
+
+        public void DeleteDrink(int id)
 		{
 			repo.DeleteDrink(id);
             UpdateData();
@@ -67,5 +79,24 @@ namespace Drink_Book_App.Pages
 			repo.UndoSoftDeleteDrink(id);
             UpdateData();
         }
+
+        private async Task<IEnumerable<string>> TagSearch(string value)
+        {
+            await Task.Delay(5);
+            if (string.IsNullOrEmpty(value)) return new string[0];
+            return values.Distinct().Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        private Func<DrinkDisplayModel, bool> QuickFilter => x =>
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+
+            if (x.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+
+            return false;
+        };
     }
 }
