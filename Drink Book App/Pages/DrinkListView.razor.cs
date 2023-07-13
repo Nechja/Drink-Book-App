@@ -59,11 +59,13 @@ namespace Drink_Book_App.Pages
 		public void DeleteDrink(int id)
 		{
 			repo.DeleteDrink(id);
-		}
+            UpdateData();
+        }
 
 		private void UndoDel(int id)
 		{
 			repo.UndoSoftDeleteDrink(id);
-		}
+            UpdateData();
+        }
     }
 }

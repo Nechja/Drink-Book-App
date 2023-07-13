@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Microsoft.Extensions.Configuration;
 using MudBlazor;
 
 namespace Drink_Book_App.Components.DrinkAddEdit
@@ -13,7 +14,11 @@ namespace Drink_Book_App.Components.DrinkAddEdit
     {
 		[Inject]
 		public DrinkRepository repo { get; set; }
-		public DrinkDisplayModel Drink { get; set; } = new DrinkDisplayModel();
+
+		[Inject]
+        ISnackbar Snackbar { get; set; }
+
+        public DrinkDisplayModel Drink { get; set; } = new DrinkDisplayModel();
         public InstructionDisplayModel Instruction { get; set; } = new InstructionDisplayModel();
 		public List<GlassDisplayModel> Glassware { get; set; } = new List<GlassDisplayModel>();
 
@@ -47,9 +52,10 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 		string ErrorText { get; set; } = string.Empty;
 
 		protected override void OnInitialized()
-		{
-			
-			if (DrinkId != null || DrinkId == 0)
+        {
+			Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+
+            if (DrinkId != null || DrinkId == 0)
 			{
 				var d = repo.GetDrinkById(DrinkId.Value);
 				if (d != null) Drink.fromDrinkData(d);
@@ -183,29 +189,40 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 
 		protected void OnValidSubmit()
 		{
+			try
+			{
+                ErrorText = string.Empty;
+                if (Drink.Instructions.Count < 2)
+                {
+                    ErrorText = "Must have 2 or more Instructions";
+                    return;
+                }
+                if (FakeSubmit)
+                {
+                    FakeSubmit = false;
+                    return;
+                }
+                if (Drink.Id == 0)
+                {
+                    repo.AddDrink(Drink.GetDataModel());
+                    Snackbar.Add($"Drink {Drink.Name} Added");
+                    Drink = new DrinkDisplayModel();
+                }
+                else
+                {
+                    repo.UpdateDrink(Drink.GetDataModel());
+                    Snackbar.Add($"Drink {Drink.Name} Updated");
+                    DataUpdate();
+                    Drink = new DrinkDisplayModel();
 
-			ErrorText = string.Empty;
-			if (Drink.Instructions.Count < 2)
+                }
+            }
+			catch (Exception ex)
 			{
-				ErrorText = "Must have 2 or more Instructions";
-				return;
-			}
-			if (FakeSubmit)
-			{
-				FakeSubmit = false;
-				return;
-			}
-			if (Drink.Id == 0)
-			{
-				repo.AddDrink(Drink.GetDataModel());
-				Drink = new DrinkDisplayModel();
-			}
-			else
-			{
-				repo.UpdateDrink(Drink.GetDataModel());
-				Drink = new DrinkDisplayModel();
-				DataUpdate();
-			}
+                Snackbar.Clear();
+                Snackbar.Add($"Error Adding Drink {ex.Message}");
+            }
+
 		}
 
 		protected void OnSelectInstructionChange(InstructionDisplayModel m)
@@ -241,9 +258,20 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 
 		protected void DeleteInstruction(InstructionDisplayModel m)
 		{
-			repo.DeleteInstruction(m.Id);
-			Drink.Instructions.Remove(m);
+			if(m.Id  == 0)
+			{
+				Drink.Instructions.Remove(m);
+                Snackbar.Add($"Instruction Deleted.");
+            }
+			else
+			{
+                repo.DeleteInstruction(m.Id);
+                Drink.Instructions.Remove(m);
+                Snackbar.Add($"Instruction Deleted.");
+            }
 
-		}
+			
+
+        }
 	}
 }
