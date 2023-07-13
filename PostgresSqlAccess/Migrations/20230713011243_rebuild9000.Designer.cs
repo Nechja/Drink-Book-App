@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DrinkDBContext))]
-    [Migration("20230712055741_rimsfixed")]
-    partial class rimsfixed
+    [Migration("20230713011243_rebuild9000")]
+    partial class rebuild9000
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

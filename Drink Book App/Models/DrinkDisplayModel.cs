@@ -61,8 +61,8 @@ public class DrinkDisplayModel : IDrinkDataModel
 		drink.Notes = this.Notes;
 	    drink.Id = this.Id;
 		drink.Image = this.Image;
-		drink.Ice = this.Ice.IceDataModel;
-		drink.Rim = this.Rim.RimDataModel;
+		if (Ice != null) drink.Ice = this.Ice.IceDataModel;
+		if(Rim != null) drink.Rim = this.Rim.RimDataModel;
 		foreach (TagDisplayModel t in Garnishes)
 		{
 			drink.Garnishes.Add(t.GarnishDataModel);

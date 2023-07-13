@@ -221,6 +221,39 @@ public class DrinkRepository
 			context.ChangeTracker.DetectChanges();
 			var debug2 = context.ChangeTracker.DebugView.ShortView;
 			context.SaveChanges();
+			updater.Instructions.Clear();
+			foreach (var instruction in drink.Instructions)
+			{
+				var existingInstruction = context.Instructions.FirstOrDefault(i => i.Id == instruction.Id);
+				if (existingInstruction != null)
+				{
+					// Update existing instruction if it has changed
+					if (existingInstruction.Oz != instruction.Oz || existingInstruction.Special != instruction.Special ||
+						existingInstruction.DisplayWeight != instruction.DisplayWeight)
+					{
+						existingInstruction.Oz = instruction.Oz;
+						existingInstruction.Special = instruction.Special;
+						existingInstruction.DisplayWeight = instruction.DisplayWeight;
+						context.Entry(existingInstruction).State = EntityState.Modified;
+					}
+				}
+				else
+				{
+					var newInstruction = instruction;
+					// Add new instruction
+					context.Ingredients.Attach(instruction.Ingredient);
+					context.Flags.Attach(instruction.Flag);
+					updater.Instructions.Add(newInstruction);
+				}
+			}
+			try
+			{
+				context.SaveChanges();
+			}
+			catch(Exception e) 
+			{ 
+				var ex = e; 
+			}
 
 
 		}
