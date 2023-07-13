@@ -238,5 +238,12 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 		{
 			if (e.Code == "Enter" || e.Code == "NumpadEnter") FakeSubmit = true;
 		}
+
+		protected void DeleteInstruction(InstructionDisplayModel m)
+		{
+			repo.DeleteInstruction(m.Id);
+			Drink.Instructions.Remove(m);
+
+		}
 	}
 }

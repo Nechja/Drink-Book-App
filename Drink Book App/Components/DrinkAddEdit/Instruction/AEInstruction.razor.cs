@@ -95,5 +95,10 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
 		{
 			Model.Flag = f;
 		}
+
+		protected void OnEdit(IngredientDisplayModel m)
+		{
+
+		}
 	}
 }

@@ -125,8 +125,7 @@
 									<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Flag.Name"></MudChip>
 								</MudPaper>
 								<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
-									<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
-									<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit"></MudIconButton>
+									<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete" @onclick="@(() => DeleteInstruction(i))"></MudIconButton>
 								</MudButtonGroup>
 
 							</MudStack>

@@ -281,6 +281,15 @@ public class DrinkRepository
 		}
 	}
 
+	public void DeleteInstruction(int id)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Remove(context.Instructions.SingleOrDefault(i => i.Id == id)!);
+			context.SaveChanges();
+		}
+	}
+
 	//Ingredient types
 
 
