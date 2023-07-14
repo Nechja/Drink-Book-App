@@ -18,22 +18,19 @@
             <AuthorizeView Roles="Admin">
         
                 <MudNavGroup IconColor="@Color.Success" Title="Drink Tools" Icon="@Icons.Material.Filled.LocalDrink" Expanded="false">
-                    <MudNavLink IconColor="@Color.Success" Icon="@Icons.Material.Filled.Add" Href="/drinktools/adddrinkpage">Add Drink</MudNavLink>
+                    <MudNavLink IconColor="@Color.Info" Icon="@Icons.Material.Filled.Add" Href="/drinktools/adddrinkpage">Add Drink</MudNavLink>
                     <MudNavGroup IconColor="@Color.Success" Title="Ingredients" Icon="@Icons.Material.Filled.List">
-                        <MudNavLink Href="/drinktools/ingredients">Ingredients</MudNavLink>
-                        <MudNavLink Href="/drinktools/ingredient-types">Ingredient Types</MudNavLink>
-                    </MudNavGroup>
+                        <MudNavLink Icon="@Icons.Material.Filled.FlagCircle" Href="/drinktools/ingredients">Ingredients</MudNavLink>
+                        <MudNavLink Icon="@Icons.Material.Filled.ChangeCircle" Href="/drinktools/ingredient-types">Ingredient Types</MudNavLink>
+                </MudNavGroup>
                     <MudNavGroup IconColor="@Color.Success" Title="Serving Info" Icon="@Icons.Material.Filled.GridView">
-                        <MudNavLink Href="/drinktools/glassware">Glassware</MudNavLink>
-                        <MudNavLink Href="/drinktools/ice">Ice</MudNavLink>
-                        <MudNavLink Href="/drinktools/garnish">Garnish</MudNavLink>
-                        <MudNavLink Href="/drinktools/rim">Rim</MudNavLink>
-                        <MudNavLink Href="/drinktools/flags">Serving Flags</MudNavLink>
-                    </MudNavGroup>
-                    <MudNavGroup IconColor="@Color.Success" Title="Serving Info" Icon="@Icons.Material.Filled.Tag">
-                        <MudNavLink  Href="/drinktools/flags">Tags</MudNavLink>
-                    </MudNavGroup>
+                        <MudNavLink Icon="@Icons.Material.Filled.LocalBar" Href="/drinktools/glassware">Glassware</MudNavLink>
+                        <MudNavLink Icon="@Icons.Material.Filled.CropSquare" Href="/drinktools/ice">Ice</MudNavLink>
+                        <MudNavLink Icon="@Icons.Custom.Uncategorized.FoodApple" Href="/drinktools/garnish">Garnish</MudNavLink>
+                        <MudNavLink Icon="@Icons.Material.Filled.Circle" Href="/drinktools/rim">Rim</MudNavLink>
+                        <MudNavLink Icon="@Icons.Material.Filled.Flag" Href="/drinktools/flags">Serving Flags</MudNavLink>
                     <MudSpacer/>
+                    </MudNavGroup>
 
 
                 </MudNavGroup>
@@ -46,7 +43,7 @@
             </AuthorizeView>
             <MudNavGroup IconColor="@Color.Tertiary" Title="Data And Reports" Icon="@Icons.Material.Filled.DataExploration" Expanded="false">
                 <MudNavLink IconColor="@Color.Tertiary" Icon="@Icons.Material.Filled.Dashboard" Href="/data/dashboard">Data Dashboard</MudNavLink>
-
+                <MudNavLink IconColor="@Color.Tertiary" Icon="@Icons.Material.Filled.Tag" Href="/data/drinktags">Data Dashboard</MudNavLink>
             </MudNavGroup>
 
 

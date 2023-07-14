@@ -216,6 +216,7 @@ public class DrinkRepository
 			if (updater != null)
 			{
 				updater.IsDeleted = false;
+				updater.FINALDELETE = false;
 				updater.DeletedAt = null;
 				context.SaveChanges();
 			}
@@ -328,7 +329,7 @@ public class DrinkRepository
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
-			context.Remove(context.Drinks.SingleOrDefault(drink => drink.Id == id)!);
+			context.Remove(context.Drinks.IgnoreQueryFilters().SingleOrDefault(drink => drink.Id == id)!);
 			context.SaveChanges();
 		}
 	}
