@@ -61,6 +61,10 @@ namespace DataAccess.Context
 			modelBuilder.Entity<DrinkDataModel>()
 				.HasOne(p => p.Ice).WithMany(p => p.Drinks).IsRequired(false);
 			modelBuilder.Entity<DrinkDataModel>()
+				.HasOne(e => e.ViewsData)
+				.WithOne(e => e.Drink);
+
+            modelBuilder.Entity<DrinkDataModel>()
 				.HasQueryFilter(x => x.IsDeleted == false);
 
 

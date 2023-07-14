@@ -16,14 +16,16 @@
             <MudNavLink Icon="@Icons.Material.Filled.Book" Href="/DrinkList">Drink List</MudNavLink>
 
             <AuthorizeView Roles="Admin">
-                <MudNavLink Icon="@Icons.Material.Filled.List" Href="/admintools/addmindrinklist">Admin Drink List</MudNavLink>
-                <MudNavGroup Title="Drink Tools" Icon="@Icons.Material.Filled.Add" Expanded="false">
-                    <MudNavLink Icon="@Icons.Material.Filled.LocalDrink" Href="/drinktools/adddrinkpage">Add Drink</MudNavLink>
+                <MudNavLink IconColor="@Color.Warning" Icon="@Icons.Material.Filled.List" Href="/admintools/addmindrinklist">Admin Drink List</MudNavLink>
+                <MudNavLink IconColor="@Color.Warning" Icon="@Icons.Material.Filled.Search" Href="/admintools/audit">Drink Audit</MudNavLink>
+                
+                <MudNavGroup IconColor="@Color.Success" Title="Drink Tools" Icon="@Icons.Material.Filled.Add" Expanded="false">
+                    <MudNavLink IconColor="@Color.Success" Icon="@Icons.Material.Filled.LocalDrink" Href="/drinktools/adddrinkpage">Add Drink</MudNavLink>
                     <MudNavGroup Title="Ingredients" Icon="@Icons.Material.Filled.Add" Expanded="true">
                         <MudNavLink Href="/drinktools/ingredients">Ingredients</MudNavLink>
                         <MudNavLink Href="/drinktools/ingredient-types">Ingredient Types</MudNavLink>
                     </MudNavGroup>
-                    <MudNavGroup Title="Serving Info" Icon="@Icons.Material.Filled.Add" Expanded="true">
+                    <MudNavGroup IconColor="@Color.Success" Title="Serving Info" Icon="@Icons.Material.Filled.Add" Expanded="true">
                         <MudNavLink Href="/drinktools/glassware">Glassware</MudNavLink>
                         <MudNavLink Href="/drinktools/ice">Ice</MudNavLink>
                         <MudNavLink Href="/drinktools/garnish">Garnish</MudNavLink>
@@ -33,10 +35,11 @@
                     <MudNavGroup Title="Serving Info" Icon="@Icons.Material.Filled.Tag" Expanded="true">
                         <MudNavLink  Href="/drinktools/flags">Tags</MudNavLink>
                     </MudNavGroup>
-                    
+                    <MudSpacer/>
+
                 </MudNavGroup>
 
-                <MudNavGroup Title="Data And Reports" Icon="@Icons.Material.Filled.DataExploration" Expanded="false">
+                <MudNavGroup IconColor="@Color.Success" Title="Data And Reports" Icon="@Icons.Material.Filled.DataExploration" Expanded="false">
 
                 </MudNavGroup>
 

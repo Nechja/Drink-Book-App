@@ -1,0 +1,62 @@
+﻿@using DataAccess.Models
+
+
+
+@attribute [Authorize(Roles = "Admin")]
+@page "/admintools/audit"
+
+@if (drinks is null)
+{
+    <Loading></Loading>
+}
+else
+{
+    <MudContainer>
+        <MudDataGrid T="DrinkDataModel" Items="@drinks" ReadOnly="true"
+                 SortMode="SortMode.Multiple" QuickFilter="@QuickFilter"
+                 Striped="true"
+                 Filterable="true"
+                 Hover="true"
+                 Dense="true">
+            <ToolBarContent>
+                <MudText Color="@Color.Warning" Typo="Typo.h4">Drink Audit</MudText>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                          AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <Columns>
+                <PropertyColumn Property="d => d.Name" />
+                <PropertyColumn Property="d => d.Id" />
+                <PropertyColumn Property="d => d.CreatedAt"/>
+                <PropertyColumn Property="d => d.LastUpdatedAt" />
+                <PropertyColumn Property="d => d.DeletedAt" />
+
+                <TemplateColumn T="DrinkDataModel" CellClass="d-flex justify-end">
+                    <CellTemplate>
+                        <MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
+                            @if (context.Item.IsDeleted)
+                            {
+                                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Filled.DeleteForever" OnClick="@(() => this.DeleteDrink(context.Item.Id))" aria-label="delete"></MudIconButton>
+                                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Filled.RestoreFromTrash" OnClick="@(() => this.UndoDel(context.Item.Id))" aria-label="edit"></MudIconButton>
+                            }
+                            else
+                            {
+                                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Filled.Delete" OnClick="@(() => this.DeleteDrink(context.Item.Id))" aria-label="delete"></MudIconButton>
+                            }
+                            
+
+
+                        </MudButtonGroup>
+                    </CellTemplate>
+
+                </TemplateColumn>
+            </Columns>
+            <PagerContent>
+                <MudDataGridPager T="DrinkDisplayModel"></MudDataGridPager>
+            </PagerContent>
+
+        </MudDataGrid>
+
+    </MudContainer>
+}
+

@@ -21,7 +21,7 @@ builder.Services.AddAuth0WebAppAuthentication(
 
     });
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<DashBoardDataTools>();
 builder.Services.AddTransient<DrinkRepository>();
 builder.Services.AddDbContextFactory<DrinkDBContext>(
 	(DbContextOptionsBuilder options) => options.UseNpgsql(connectionString));

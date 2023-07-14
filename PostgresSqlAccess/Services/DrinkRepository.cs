@@ -139,7 +139,7 @@ public class DrinkRepository
 		{
 			try
 			{
-				return context.Drinks
+				var drink = context.Drinks
 					.Include(i => i.Glass)
 					.Include(r => r.Instructions)
 					.ThenInclude(i => i.Ingredient)
@@ -150,6 +150,8 @@ public class DrinkRepository
 					.Include(i => i.Ice)
 					.Include(i => i.Rim)
 					.SingleOrDefault(drink => drink.Id == id)!;
+
+				return drink;
 			}
 			catch
 			{
@@ -182,7 +184,16 @@ public class DrinkRepository
 		}
 	}
 
-	public List<DrinkDataModel> GetAllDrinks()
+    public List<DrinkDataModel> GetDrinksAudit()
+    {
+        using (var context = _dbContextFactory.CreateDbContext())
+        {
+            return context.Drinks.IgnoreQueryFilters()
+				.ToList();
+        }
+    }
+
+    public List<DrinkDataModel> GetAllDrinks()
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
@@ -325,7 +336,7 @@ public class DrinkRepository
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
-			return context.IngredientTypes.ToList();
+			return context.IngredientTypes.Include(i => i.Ingredients).ToList();
 		}
 	}
 

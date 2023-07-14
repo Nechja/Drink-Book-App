@@ -23,9 +23,12 @@ namespace DataAccess.Models
 
 		public List<DrinkTagDataModel>? Tags { get; set; } = new();
 		public List<InstructionDataModel> Instructions { get; set; } = new();
+
+		public ViewsDataModel ViewsData { get; set; } = new();
 		public bool IsDeleted { get; set; }
 		public DateTime? DeletedAt { get; set; }
         public bool? FINALDELETE { get; set; }
+
         public DrinkDataModel() { }
 
 

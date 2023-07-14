@@ -1,0 +1,11 @@
+﻿@page "/admintools/dashboard"
+@attribute [Authorize(Roles = "Admin")]
+
+<h3>Dashboard</h3>
+
+@foreach(var i in IngredientTypesCounter)
+{
+	<Mudtext>@i.name
+	 </Mudtext>
+	 <Mudtext>@i.count</Mudtext>
+}
