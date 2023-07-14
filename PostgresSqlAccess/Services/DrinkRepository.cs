@@ -176,6 +176,7 @@ public class DrinkRepository
 		{
 			return context.Drinks
 					.Include(i => i.Glass)
+					.Include(i => i.Tags)
 					.Include(r => r.Instructions)
 					.ThenInclude(i => i.Ingredient)
 					.ThenInclude(i => i.IngredientType)
@@ -243,7 +244,8 @@ public class DrinkRepository
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
-			var updater = context.Drinks.Include(e => e.Garnishes).FirstOrDefault(d => d.Id == drink.Id);
+			var updater = context.Drinks.Include(e => e.Tags)
+				.Include(e => e.Garnishes).FirstOrDefault(d => d.Id == drink.Id);
 			updater.Name = drink.Name;
 			updater.Ice = drink.Ice;
 			updater.Rim = drink.Rim;
@@ -293,9 +295,6 @@ public class DrinkRepository
 
 					updater.Instructions.Add(newInstruction);
 
-
-
-
 				}
 			}
 			try
@@ -307,7 +306,21 @@ public class DrinkRepository
 				var ex = e; 
 			}
 
-
+			updater.Tags.Clear();
+			foreach (var tag in drink.Tags)
+			{
+				var existingTag = context.DrinkTags.FirstOrDefault(t => t.Id == tag.Id);
+				if (existingTag != null)
+				{
+					updater.Tags.Add(existingTag);
+				}
+				else
+				{
+					var newTag = new DrinkTagDataModel(tag.Value);
+					updater.Tags.Add(newTag);
+				}
+			}
+			context.SaveChanges();
 		}
 	}
 

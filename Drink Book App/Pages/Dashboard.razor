@@ -1,5 +1,6 @@
 ﻿@page "/data/dashboard"
 @attribute [Authorize(Roles = "Admin")]
+<MudText Color="@Color.Info" Typo="@Typo.h4">Demo Dashboard</MudText>
 <MudContainer>
 	<MudGrid Justify="@Justify.SpaceEvenly">
 		<MudCard Class="pb-6" Outlined="true" Elevation="1">
@@ -7,7 +8,7 @@
 				<MudText Typo="@Typo.h5">Ingredient Type by Ingredient Count</MudText>
 			</MudCardHeader>
 			<MudCardContent>
-				<MudChart ChartType="ChartType.Pie" InputData="@typeDataArray" @bind-SelectedIndex="Index" InputLabels="@typeNamesArray" Width="300px" Height="300px" />
+				<MudChart ChartType="ChartType.Donut" InputData="@typeDataArray" @bind-SelectedIndex="Index" InputLabels="@typeNamesArray" Width="300px" Height="300px" />
 			</MudCardContent>
 		</MudCard>
 		<MudCard Class="pb-6" Outlined="true" Elevation="1">
@@ -18,28 +19,5 @@
 				<MudChart ChartType="ChartType.Donut" InputData="@typeDataArrayFullChain" @bind-SelectedIndex="Index" InputLabels="@typeNamesArrayFullChain" Width="300px" Height="300px" />
 			</MudCardContent>
 		</MudCard>
-		<MudCard Class="pb-6" Outlined="true" Elevation="1">
-			<MudCardHeader>
-				<MudText Typo="@Typo.h5">Ingredient Type by Ingredient Count</MudText>
-			</MudCardHeader>
-			<MudCardContent>
-				<MudChart ChartType="ChartType.Pie" InputData="@typeDataArray" @bind-SelectedIndex="Index" InputLabels="@typeNamesArray" Width="300px" Height="300px" />
-			</MudCardContent>
-		</MudCard>
-		<MudCard Class="pb-6" Outlined="true" Elevation="1">
-			<MudCardHeader>
-				<MudText Typo="@Typo.h5">Ingredient Type by Ingredient Count</MudText>
-			</MudCardHeader>
-			<MudCardContent>
-				<MudChart ChartType="ChartType.Pie" InputData="@typeDataArray" @bind-SelectedIndex="Index" InputLabels="@typeNamesArray" Width="300px" Height="300px" />
-			</MudCardContent>
-		</MudCard>
 	</MudGrid>
 </MudContainer>
-
-@foreach(var i in IngredientTypesCounter)
-{
-	<Mudtext>@i.name
-	 </Mudtext>
-	 <Mudtext>@i.count</Mudtext>
-}

@@ -14,11 +14,13 @@ namespace Drink_Book_App.Pages
 		private List<(int count, string name)> IngredientTypesCounter = new List<(int count, string name)>();
 
 		
-		public double[] typeDataArray { get; set; }
-		public string[] typeNamesArray { get; set; }
+		private double[] typeDataArray { get; set; }
+		private string[] typeNamesArray { get; set; }
 
-        public double[] typeDataArrayFullChain { get; set; }
-        public string[] typeNamesArrayFullChain { get; set; }
+		private double[] typeDataArrayFullChain { get; set; }
+		private string[] typeNamesArrayFullChain { get; set; }
+
+
 
         private int Index = -1;
 
