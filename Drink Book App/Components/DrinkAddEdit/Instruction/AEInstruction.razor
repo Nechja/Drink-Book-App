@@ -9,16 +9,12 @@
 	{
 		<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
 	}
-	<div>
-		<MudGrid Justify="Justify.FlexStart" Spacing="1" Class="m-2 p-2">
-
-			<MudPaper MinWidth="225px" MaxWidth="400px" Elevation="0" Class="d-flex flex-wrap">
+	<MudPaper Elevation="0" Class="px-2 py-2">
+		<MudGrid Justify="Justify.SpaceEvenly" Spacing="1" Class="m-2 pl-2">
 				<CascadingValue Value="Model.Ingredient">
 					<IngredientDropDown OnSelectIngredient="OnSelectIngredientChange"></IngredientDropDown>
 				</CascadingValue>
-
-			</MudPaper>
-			<MudPaper MinWidth="50px" Elevation="0" MaxWidth="100px" Class="d-flex flex-wrap gap-4 pl-2">
+			<MudPaper MinWidth="50px" Elevation="0" Class="d-flex flex-wrap gap-4 pl-2">
 				<MudNumericField @bind-Value="Model.Oz" Label="Oz" Variant="Variant.Text"></MudNumericField>
 				<MudNumericField @bind-Value="Model.DisplayWeight" Label="Display Order" Max="10" Min="1" Variant="Variant.Text"></MudNumericField>
 			</MudPaper>
@@ -28,7 +24,7 @@
 			<MudPaper Elevation="0" MinWidth="225px" MaxWidth="300px" Class="d-flex flex-wrap gap-4 pl-2">
 				@if (Flags.Count() != 0)
 				{
-					<MudPaper Elevation="0" MinWidth="100px">
+					<MudPaper Elevation="0">
 						<MudSelect T="FlagDisplayModel" ValueChanged="SelectedFlag" Label="Flags" AnchorOrigin="Origin.BottomCenter">
 							@foreach (var flag in Flags)
 							{
@@ -48,7 +44,7 @@
 				}
 			</MudPaper>
 		</MudGrid>
-	</div>
+	</MudPaper>
 	<MudStack Row="true" Justify="Justify.SpaceBetween" Class="pl-10">
 <!--add back in after prototype is done
 	

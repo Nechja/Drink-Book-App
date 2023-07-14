@@ -5,24 +5,25 @@
 
 @if (Model == null || Model.Id == 0)
 {
-	<MudStack Row="true" Class="px-10" Justify="Justify.FlexStart">
+	<MudPaper Elevation="0">
+	<MudStack Row="true" Class="pl-2" Justify="Justify.FlexStart">
 	<MudAutocomplete T="string" Label="Ingredient Type"
 				 @bind-Value="SearchText"
 				 @bind-Text="SearchText"
 				 Variant="Variant.Text" 
-				 
-				 ResetValueOnEmptyText=true
+				 ResetValueOnEmptyText="true"
 				 SearchFunc="Search"
-				 CoerceText=true
+				 CoerceText="true"
 				 AdornmentIcon="@Icons.Material.Filled.ArrowBackIosNew" AdornmentColor="Color.Dark" />
 		<MudIconButton Icon="@Icons.Material.Filled.Add" OnClick="@(() => OpenIngredient = !OpenIngredient)" />
 
 	</MudStack>
+	</MudPaper>
 
 }
 else
 {
 
-	<MudChip Label="true" Class="pl-4" OnClose="Closed"><h4>@Model.Name</h4></MudChip>
+	<MudChip Label="true" Class="pl-4" OnClose="Closed">@Model.Name</MudChip>
 
 }
