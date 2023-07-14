@@ -1,7 +1,9 @@
 ﻿@page "/admintools/dashboard"
 @attribute [Authorize(Roles = "Admin")]
 
-<h3>Dashboard</h3>
+<div>
+	<MudChart ChartType="ChartType.Pie" InputData="@typeDataArray" @bind-SelectedIndex="Index" InputLabels="@typeNamesArray" Width="300px" Height="300px" />
+</div>
 
 @foreach(var i in IngredientTypesCounter)
 {
