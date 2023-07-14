@@ -11,7 +11,7 @@ using System.Xml.Linq;
 namespace DataAccess.Models
 {
     [Index(nameof(Value), IsUnique = true)]
-    public class InstructionTagDataModel : ITagDataModel
+    public class InstructionTagDataModel :  Logged, ITagDataModel
 	{
 		[Key]
 		public int Id { get; set; }
@@ -21,7 +21,6 @@ namespace DataAccess.Models
 
 		public InstructionTagDataModel() { }
 
-		public DateTime? Created { get; set; }
 
 		public InstructionTagDataModel(string value)
 		{

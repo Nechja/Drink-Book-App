@@ -11,7 +11,7 @@ using System.Xml.Linq;
 namespace DataAccess.Models
 {
     [Index(nameof(Value), IsUnique = true)]
-    public class IceDataModel : ITagDataModel
+    public class IceDataModel : Logged, ITagDataModel
     {
         [Key]
         public int Id { get; set; }
@@ -20,7 +20,6 @@ namespace DataAccess.Models
 
         public List<DrinkDataModel> Drinks { get; set; } = default;
 
-		public DateTime? Created { get; set; }
 
 		public IceDataModel() { }
 

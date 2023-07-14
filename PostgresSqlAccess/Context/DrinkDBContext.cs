@@ -37,7 +37,8 @@ namespace DataAccess.Context
 		{
 			optionsBuilder.UseNpgsql("Username=postgres;Password=2244;Host=172.31.48.1;Port=5432;DataBase=DrinkBook;Pooling=true;Include Error Detail=true;");
 			optionsBuilder.AddInterceptors(new SoftDeleteInterceptor());
-		}
+            optionsBuilder.AddInterceptors(new LoggingInterceptor());
+        }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

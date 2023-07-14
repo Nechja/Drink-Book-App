@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DataAccess.Models
 {
 	[Index(nameof(Name), IsUnique = true)]
-	public class IngredientDataModel : IIngredientDataModel
+	public class IngredientDataModel : Logged, IIngredientDataModel
 	{
 		[Key]
 		public int Id { get; set; }
@@ -24,6 +24,5 @@ namespace DataAccess.Models
         public List<InstructionDataModel> Instructions { get; set; } = new();
 		public List<IngredientTagDataModel> Tags { get; set; } = new();
 
-		public DateTime? Created { get; set; }
 	}
 }

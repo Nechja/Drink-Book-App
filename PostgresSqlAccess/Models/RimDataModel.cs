@@ -10,13 +10,12 @@ using System.Threading.Tasks;
 namespace DataAccess.Models
 {
 	[Index(nameof(Value), IsUnique = true)]
-	public class RimDataModel : ITagDataModel
+	public class RimDataModel : Logged, ITagDataModel
 	{
 		[Key]
 		public int Id { get; set; }
 		public string Value { get; set; }
 
-		public DateTime? Created { get; set; }
 
 		public List<DrinkDataModel> Drinks { get; set; }
 	}

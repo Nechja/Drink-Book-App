@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace DataAccess.Models
 {
     [Index(nameof(Value), IsUnique = true)]
-    public class GarnishDataModel : ITagDataModel
+    public class GarnishDataModel : Logged, ITagDataModel
     {
         [Key]
         public int Id { get; set; }
@@ -19,7 +19,6 @@ namespace DataAccess.Models
 
         public List<DrinkDataModel> Drinks { get; set; } = default;
 
-		public DateTime? Created { get; set; }
 
 
 		public GarnishDataModel() { }

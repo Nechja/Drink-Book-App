@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.Models
 {
-    public class InstructionDataModel : IInstructionDataModel
+    public class InstructionDataModel :  Logged, IInstructionDataModel
 	{
 		[Key]
 		public int Id { get; set; }
@@ -24,7 +24,6 @@ namespace DataAccess.Models
 
 		public List<InstructionTagDataModel>? Tags { get; set; } = new();
 
-		public DateTime? Created { get; set; }
 
 		public InstructionDataModel(InstructionDataModel dataModel) 
 		{

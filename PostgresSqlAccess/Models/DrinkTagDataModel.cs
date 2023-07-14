@@ -9,7 +9,7 @@ using DataAccess.Models.Interfaces;
 
 namespace DataAccess.Models
 {
-	public class DrinkTagDataModel : ITagDataModel
+	public class DrinkTagDataModel : Logged, ITagDataModel
 	{
 		[Key]
 		public int Id { get; set; }
@@ -18,7 +18,6 @@ namespace DataAccess.Models
 		public List<DrinkDataModel> Drinks { get; set; } = new();
 		public DrinkTagDataModel() { }
 
-		public DateTime? Created { get; set; }
 
 		public DrinkTagDataModel(DrinkTagDataModel m) 
 		{ 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace DataAccess.Models
 {
 	[Index(nameof(Name), IsUnique = true)]
-	public class ServingFlagDataModel : IFlagDataModel
+	public class ServingFlagDataModel : Logged, IFlagDataModel
 	{
 		[Key]
 		public int id { get; set; }
@@ -21,8 +21,6 @@ namespace DataAccess.Models
 		public string? ClosingStatment { get; set; }
 
 		public string? InlineStatement { get; set; }
-
-		public DateTime? Created { get; set; }
 
 		public List<InstructionDataModel> Instructions { get; set; } = new();
 	}

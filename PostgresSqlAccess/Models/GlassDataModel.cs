@@ -8,7 +8,7 @@ using DataAccess.Models.Interfaces;
 
 namespace DataAccess.Models
 {
-    public class GlassDataModel : IGlassDataModel
+    public class GlassDataModel : Logged, IGlassDataModel
     {
         [Key]
         public int Id { get; set; }
@@ -17,8 +17,6 @@ namespace DataAccess.Models
         public float? Oz { get; set; }
 
         public Uri? Image { get; set; }
-
-		public DateTime? Created { get; set; }
 
 		public List<DrinkDataModel> Drinks { get; set; } = new();
     }
