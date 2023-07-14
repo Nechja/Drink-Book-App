@@ -17,7 +17,10 @@ namespace Drink_Book_App.Pages
 		public double[] typeDataArray { get; set; }
 		public string[] typeNamesArray { get; set; }
 
-		private int Index = -1;
+        public double[] typeDataArrayFullChain { get; set; }
+        public string[] typeNamesArrayFullChain { get; set; }
+
+        private int Index = -1;
 
 		protected override void OnInitialized()
 		{
@@ -38,6 +41,26 @@ namespace Drink_Book_App.Pages
 			typeDataArray = countList.ToArray();
 			typeNamesArray = namesList.ToArray();
 
-		}
+			countList.Clear();
+			namesList.Clear();
+            ingredientTypes = repo.GetIngredientTypesFullChain();
+            foreach (var t in ingredientTypes)
+            {
+                double count = 0;
+                foreach (var i in t.Ingredients)
+                {
+					foreach(var j in i.Instructions)
+					{
+                        count++;
+                    }
+                    
+
+                }
+                countList.Add(count);
+                namesList.Add(t.Name);
+            }
+            typeDataArrayFullChain = countList.ToArray();
+            typeNamesArrayFullChain = namesList.ToArray();
+        }
 	}
 }

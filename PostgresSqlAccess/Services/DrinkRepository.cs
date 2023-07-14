@@ -340,7 +340,18 @@ public class DrinkRepository
 		}
 	}
 
-	public void UpdateIngredientType(IngredientTypeDataModel ingredientType)
+    public List<IngredientTypeDataModel> GetIngredientTypesFullChain()
+    {
+        using (var context = _dbContextFactory.CreateDbContext())
+        {
+            return context.IngredientTypes
+				.Include(i => i.Ingredients)
+				.ThenInclude(i => i.Instructions)
+				.ToList();
+        }
+    }
+
+    public void UpdateIngredientType(IngredientTypeDataModel ingredientType)
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
@@ -397,7 +408,20 @@ public class DrinkRepository
 		}
 	}
 
-	public void AddIngredient(IngredientDataModel ingredient)
+    public List<IngredientDataModel> GetAllIngredientFullChain()
+    {
+        using (var context = _dbContextFactory.CreateDbContext())
+        {
+            return context.Ingredients
+				.Include(i => i.IngredientType)
+				.Include(i => i.Tags)
+				.Include(i => i.Instructions)
+				.ThenInclude(i => i.Drink)
+				.ToList();
+        }
+    }
+
+    public void AddIngredient(IngredientDataModel ingredient)
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
