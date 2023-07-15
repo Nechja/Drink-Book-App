@@ -1,15 +1,38 @@
-﻿<MudCard>
-    <MudCardHeader Class="pb-n5 mb-n5">
-        <MudText Typo="Typo.h5">@DrinkDisplay.DrinkTitleLong</MudText>
-    </MudCardHeader>
-    <MudCardContent>
-        <Instructions instructions="InstructionsList"></Instructions>
-    </MudCardContent>
-    <MudCardActions>
-        <MudButtonGroup>
+﻿<MudContainer MaxWidth="MaxWidth.ExtraSmall">
+    <MudCard Square="true" Outlined="true" Elevation="1">
+        <MudCardContent Class="pt-n4 mt-4">
+            <MudStack Row="true" Class="pb-2 pt-n2" Justify="Justify.FlexStart" AlignItems="AlignItems.Stretch">
+                <MudAvatar Color="Color.Surface" Variant="Variant.Outlined" Size="Size.Large">@DrinkDisplay.Name[0].ToString().ToUpperInvariant()</MudAvatar>
+                <MudItem>
+                    <MudText Typo="Typo.h4">@DrinkDisplay.DrinkTitle</MudText>
+                    <MudPaper Class="pl-4 pt-n2" Elevation="0">
+                        <MudText Typo="Typo.caption">@DrinkDisplay.DrinkEndLong</MudText>
 
-             <MudButton></MudButton>
-        </MudButtonGroup>
-    </MudCardActions>
-</MudCard>
+                        @if (DrinkDisplay.Garnishes.Any())
+                        {
+                            <MudStack Row="true" Spacing="1">
+                                <MudText Typo="Typo.caption">Garnishes:</MudText>
+                                @foreach (var g in DrinkDisplay.Garnishes)
+                                {
+                                    <MudText Typo="Typo.caption">@g.Value</MudText>
+                                }
+                            </MudStack>
+                        }
+                    </MudPaper>
+                </MudItem>
+
+            </MudStack>
+            <MudDivider DividerType="DividerType.FullWidth" Light="true" />
+
+            <Instructions instructions="InstructionsList"></Instructions>
+        </MudCardContent>
+        <MudCardActions>
+
+            <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Edit" />
+            <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.List" />
+            <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Favorite" />
+            <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Share" />
+        </MudCardActions>
+    </MudCard>
+</MudContainer>
 

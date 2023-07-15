@@ -92,17 +92,28 @@ public class DrinkDisplayModel : IDrinkDataModel
 		return instructions;
 	}
 
-	public string DrinkTitleLong
+	public string DrinkEndLong
 	{ 
 		get 
 		{
 			if(String.IsNullOrEmpty(this.Name)) return string.Empty;
 			TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-			string title = textInfo.ToTitleCase(Name);
 			string style;
-			if (Ice != null)style = $"({Glass.Name} {Ice.Value})";
-			else style = $"({Glass.Name})";
-			return title + style;
+			if (Ice != null)style = $"{textInfo.ToLower(Glass.Name)} {textInfo.ToLower(Ice.Value)}";
+			else style = $"({Glass.Name}";
+			if (Rim != null) style += $" - {textInfo.ToLower(Rim.Value)} rim";
+			return style;
 		}
 	}
+
+    public string DrinkTitle
+    {
+        get
+        {
+            if (String.IsNullOrEmpty(this.Name)) return string.Empty;
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            string title = textInfo.ToTitleCase(Name);
+            return title;
+        }
+    }
 }

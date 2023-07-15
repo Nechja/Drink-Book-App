@@ -1,32 +1,32 @@
 ﻿<MudPaper Elevation="0">
-    <MudItem xs="12">
-    <MudList Class="list-group" Dense="true">
+    <MudItem xs="12" Class="pb-4">
+        <MudList Dense="true" DisablePadding="true">
         @if (FlagingItems.Any())
         {
             @foreach(var item in FlagingItems)
             {
-                    <MudDivider />
-                    <MudListSubheader Class="pb-n5 mb-n5">@item.decoration.OpeningStatement</MudListSubheader>
+                    <MudListSubheader DisableGutters="true" Class="pb-n4 mb-n4"><MudChip Label="true">@item.decoration.OpeningStatement</MudChip></MudListSubheader>
 
                     @foreach (var i in item.items)
                     {
-                        
-                        <MudListItem Class="ml-5">
-                            <MudStack Row="true" Spacing="0">
+
+                        <MudListItem Dense="true" Class="pb-n4 mb-n4">
+                            <MudStack Row="true" Spacing="0" Justify="Justify.FlexStart" AlignItems="AlignItems.Stretch">
 
                                 @if (i.Special != null)
                                 {
-                                    <MudChip Label="true" Color="Color.Success" Variant="Variant.Outlined">@i.Special</MudChip>
+                                    <MudChip Label="true" Variant="Variant.Text">@i.Special</MudChip>
                                 }
                                 @if (i.Oz != null)
                                 {
-                                    <MudChip Label="true" Color="Color.Tertiary" Variant="Variant.Outlined">@i.OzString</MudChip>
+                                    <MudChip Label="true" Variant="Variant.Text">@i.OzString</MudChip>
                                 }
                                 <MudTooltip Text="@i.Ingredient.IngredientType.Name" Arrow="true" Placement="Placement.Right">
-                                    <MudChip Label="true" Variant="Variant.Outlined">@i.Ingredient.Name</MudChip>
+                                    <MudChip Label="true" Variant="Variant.Text">@i.Ingredient.Name</MudChip>
                                 </MudTooltip>
 
                             </MudStack>
+
                         </MudListItem>
                     }
 
@@ -35,33 +35,32 @@
 
                     @if (!String.IsNullOrEmpty(item.decoration.ClosingStatment))
                     {
-                        <MudListSubheader>@item.decoration.ClosingStatment</MudListSubheader>
+                        <MudListSubheader Class="pb-n4 mb-n4 pt-4" DisableGutters="true"><MudChip Label="true">@item.decoration.ClosingStatment</MudChip></MudListSubheader>
                     }
-                    <MudDivider />
 
         }
         }
             @foreach (var i in NoFlagInstructions)
             {
-                
-                <MudListItem>
-                    <MudStack Row="true" Spacing="0">
+
+                <MudListItem DisableGutters="true" Class="pb-n4 mb-n4">
+                    <MudStack Row="true" Spacing="0" Justify="Justify.FlexStart" AlignItems="AlignItems.Stretch">
                         @if (i.Special != null)
                         {
-                            <MudChip Label="true" Color="Color.Success" Variant="Variant.Outlined">@i.Special</MudChip>
+                            <MudChip Label="true" Variant="Variant.Text">@i.Special</MudChip>
                         }
                         @if (i.Oz != null)
                         {
-                            <MudChip Label="true" Color="Color.Tertiary" Variant="Variant.Outlined">@i.OzString</MudChip>
+                            <MudChip Label="true" Variant="Variant.Text">@i.OzString</MudChip>
                         }
                         <MudTooltip Text="@i.Ingredient.IngredientType.Name" Arrow="true" Placement="Placement.Right">
-                            <MudChip Label="true" Variant="Variant.Outlined">@i.Ingredient.Name</MudChip>
+                            <MudChip Label="true" Variant="Variant.Text">@i.Ingredient.Name</MudChip>
                         </MudTooltip>
 
                     </MudStack>
                 </MudListItem>
             }
-
+            <MudSpacer/>
     </MudList>
     </MudItem>
 </MudPaper>
