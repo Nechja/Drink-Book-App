@@ -10,8 +10,7 @@
 			{
 				<label class="alert-warning">@errorValid</label>
 			}
-			<label for="Name">Rim</label>
-			<InputText @bind-Value=Model.Value class="form-control" id="Value"></InputText>
+			<MudTextField Label="Rim Type" @bind-Value=Model.Value></MudTextField>
 			@if (Model.Id == 0)
 			{
 				<input type="submit" class="btn btn-dark" value="Add" />

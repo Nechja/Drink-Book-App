@@ -1,10 +1,10 @@
 ﻿@attribute [Authorize(Roles = "Admin")]
 @page "/drinktools/flags"
 
-
-<div class="card">
-	<div class="card-body">
-		<EditForm Model="@FlagDisplay" OnValidSubmit="OnValidSubmit" class="form-control border-0">
+<MudPaper Elevation="0">
+<MudCard Class="m-1">
+	<MudCardContent>
+		<EditForm Model="@FlagDisplay" OnValidSubmit="OnValidSubmit">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 			@if (ErrorText != null)
@@ -24,17 +24,18 @@
 				<input type="submit" class="btn btn-dark" value="Update" />
 			}
 		</EditForm>
-	</div>
-</div>
+	</MudCardContent>
+</MudCard>
+</MudPaper>
 @if (Flags is null)
 {
 	<MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
 }
 else
 {
-	<div class="card">
-		<div class="card-body">
-			<ul class="list-group list-group-flush">
+	<MudCard>
+		<MudCardContent>
+			<MudList>
 				@foreach(FlagDisplayModel i in Flags)
 				{
 					<MudPaper Elevation="1" Square="true">
@@ -52,7 +53,7 @@ else
 						</MudPaper>
 					</MudPaper>
 				}
-			</ul>
-		</div>
-	</div>
+			</MudList>
+		</MudCardContent>
+	</MudCard>
 }
