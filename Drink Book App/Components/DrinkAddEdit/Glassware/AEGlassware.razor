@@ -1,9 +1,9 @@
 ﻿@attribute [Authorize(Roles = "Admin, Mod")]
 @page "/drinktools/glassware"
 
-<div class="card">
-	<div class="card-body">
-		<EditForm Model="@Glass" class="@showInvalid" OnValidSubmit="OnValidSubmit">
+<MudCard>
+	<MudCardContent>
+		<EditForm Model="@Glass" OnValidSubmit="OnValidSubmit">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 			@if (errorValid != null)
@@ -21,17 +21,17 @@
 				<input type="submit" class="btn btn-dark" value="Update" />
 			}
 		</EditForm>
-	</div>
-</div>
+	</MudCardContent>
+</MudCard>
 @if (Glassware is null)
 {
 	<MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
 }
 else
 {
-	<div class="card">
-		<div class="card-body">
-			<ul class="list-group list-group-flush">
+	<MudCard>
+		<MudCardContent>
+			<MudList>
 				@foreach (GlassDisplayModel i in Glassware)
 				{
 					<MudPaper Elevation="1" Square="true">
@@ -49,8 +49,8 @@ else
 						</MudPaper>
 					</MudPaper>
 				}
-			</ul>
-		</div>
-	</div>
+			</MudList>
+		</MudCardContent>
+	</MudCard>
 }
 

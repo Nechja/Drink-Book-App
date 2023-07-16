@@ -1,9 +1,9 @@
 ﻿@attribute [Authorize(Roles = "Admin, Mod")]
 @page "/drinktools/ingredient-types"
 
-<div class="card" >
-	<div class="card-body">
-		<EditForm Model="@IngredientDisplay" class="@showInvalid" OnValidSubmit="ValidSubmit">
+<MudCard>
+	<MudCardContent>
+		<EditForm Model="@IngredientDisplay" OnValidSubmit="ValidSubmit">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 			@if(errorValid != null)
@@ -21,17 +21,17 @@
 				<input type="submit" class="btn btn-dark" value="Update" />
 			}
 		</EditForm>
-	</div>
-</div>
+	</MudCardContent>
+</MudCard>
 @if(ingredientTypes is null)
 {
 	<MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
 }
 else
 {
-	<div class="card">
-		<div class="card-body">
-			<ul class="list-group list-group-flush">
+	<MudCard>
+		<MudCardContent>
+			<MudList>
 				@foreach (IngredientTypeDisplayModel i in ingredientTypes)
 				{
 					<MudPaper Elevation="1" Square="true">
@@ -49,7 +49,7 @@ else
 						</MudPaper>
 					</MudPaper>
 				}
-			</ul>
-		</div>
-	</div>
+			</MudList>
+		</MudCardContent>
+	</MudCard>
 }

@@ -100,7 +100,7 @@ public class DrinkDisplayModel : IDrinkDataModel
 			TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 			string style;
 			if (Ice != null)style = $"{textInfo.ToLower(Glass.Name)} {textInfo.ToLower(Ice.Value)}";
-			else style = $"({Glass.Name}";
+			else style = $"{Glass.Name}";
 			if (Rim != null) style += $" - {textInfo.ToLower(Rim.Value)} rim";
 			return style;
 		}

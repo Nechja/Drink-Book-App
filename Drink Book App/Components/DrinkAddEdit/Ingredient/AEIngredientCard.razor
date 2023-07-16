@@ -5,8 +5,7 @@
 <MudContainer>
  <MudPaper Elevation="0" >
 	<MudPaper Elevation="0">
-		<EditForm Model="@Ingredient" id="inputarea" 
-				class="form-control border-0" 
+		<EditForm Model="@Ingredient" 
 				OnValidSubmit="HandleValidSubmit" 
 				OnInvalidSubmit="HandleInvalidSubmit">
 		<DataAnnotationsValidator />
@@ -44,9 +43,9 @@
 		}
 		else
 		{
-	<div class="card">
-		<div class="card-body">
-			<ul class="list-group list-group-flush">
+	<MudCard>
+		<MudCardContent>
+			<MudList>
 					@foreach (IngredientDisplayModel i in Ingredients)
 					{
 						<MudPaper Elevation="1" Square="true">
@@ -64,9 +63,9 @@
 							</MudPaper>
 						</MudPaper>
 					}
-			</ul>
-		</div>
-	</div>
+			</MudList>
+		</MudCardContent>
+	</MudCard>
 		}
 
 </MudPaper>
