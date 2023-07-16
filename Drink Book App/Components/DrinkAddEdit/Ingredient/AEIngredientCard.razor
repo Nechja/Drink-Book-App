@@ -35,6 +35,7 @@
 		{
 				<input type="submit" class="btn btn-dark" @onkeypress="KeyStop" value="Edit" />
 		}
+				<input type="button" class="btn btn-dark pl-1" @onkeypress="() => Ingredient = new IngredientDisplayModel()" value="Clear" />
 	</EditForm>
 	</MudPaper>
 		@if (Ingredients is null)
@@ -43,29 +44,22 @@
 		}
 		else
 		{
-	<MudCard>
-		<MudCardContent>
-			<MudList>
-					@foreach (IngredientDisplayModel i in Ingredients)
-					{
-						<MudPaper Elevation="1" Square="true">
-							<MudStack Row="true" Justify="Justify.SpaceBetween">
-								<MudPaper Elevation="0">
-									<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Name"></MudChip>
-								</MudPaper>
-								<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
-									<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
-									<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit" @onclick="() => OnEdit(i)"></MudIconButton>
-								</MudButtonGroup>
-
-							</MudStack>
-							<MudPaper>
-							</MudPaper>
-						</MudPaper>
-					}
-			</MudList>
-		</MudCardContent>
-	</MudCard>
+			<MudDataGrid Items="Ingredients" Striped="true" Groupable="true">
+				<Columns>
+					<PropertyColumn Property="x => x.Name" />
+	
+					<PropertyColumn Property="x => x.IngredientType.Name" Grouping GroupBy="@_groupBy">
+						 <GroupTemplate>
+							<span style="font-weight:bold">@context.Grouping.Key <MudChip Variant="Variant.Outlined" Label="true" Color="Color.Surface" Size="Size.Small">total @context.Grouping.Count()</MudChip></span>
+						 </GroupTemplate>
+					</PropertyColumn>
+					<TemplateColumn T="IngredientDisplayModel" CellClass="d-flex justify-end">
+					<CellTemplate>
+						<MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="@(() => this.OnEdit(context.Item))" aria-label="edit"></MudIconButton>
+					</CellTemplate>
+					</TemplateColumn>
+				</Columns>
+			</MudDataGrid>
 		}
 
 </MudPaper>

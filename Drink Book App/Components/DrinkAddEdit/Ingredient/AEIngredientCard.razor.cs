@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.JSInterop;
 using MudBlazor;
+using static MudBlazor.CategoryTypes;
 
 namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 {
@@ -107,6 +108,13 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 		}
 
 		protected void OnEdit(IngredientDisplayModel m) { Ingredient = m; }
+
+
+		Func<IngredientDisplayModel, object> _groupBy = x =>
+		{
+
+			return x.IngredientType.Name;
+		};
 
 
 	}

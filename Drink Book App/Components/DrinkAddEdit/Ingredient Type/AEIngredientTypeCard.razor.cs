@@ -53,7 +53,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 
 		}
 
-		public void EditType(IngredientTypeDisplayModel ingredientType)
+		public void OnEdit(IngredientTypeDisplayModel ingredientType)
 		{
 			IngredientDisplay = ingredientType;
 		}

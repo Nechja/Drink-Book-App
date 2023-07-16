@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Drink_Book_App.Models;
 
-    public class IngredientDisplayModel : IIngredientDataModel
+    public class IngredientDisplayModel : DisplayDeleteProtection, IIngredientDataModel
     {
         public int Id { get; set; }
 	    [Required]
