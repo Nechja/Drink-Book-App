@@ -28,4 +28,5 @@ namespace DataAccess.Services.Tests
 				Assert.Fail(ex.Message);
 			}
 		}
+	}
 }

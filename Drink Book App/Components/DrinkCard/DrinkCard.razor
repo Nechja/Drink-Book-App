@@ -27,8 +27,9 @@
             <Instructions instructions="InstructionsList"></Instructions>
         </MudCardContent>
         <MudCardActions>
-
-            <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Edit" />
+            <AuthorizeView Roles="Admin, Mod">
+                <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Edit" />
+            </AuthorizeView>
             <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.List" />
             <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Favorite" />
             <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Share" />

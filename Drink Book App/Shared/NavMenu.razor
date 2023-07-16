@@ -15,7 +15,7 @@
 
             <MudNavLink IconColor="@Color.Info" Icon="@Icons.Material.Filled.Book" Href="/">Drink List</MudNavLink>
 
-            <AuthorizeView Roles="Admin">
+            <AuthorizeView Roles="Admin, Mod">
         
                 <MudNavGroup IconColor="@Color.Success" Title="Drink Tools" Icon="@Icons.Material.Filled.LocalDrink" Expanded="false">
                     <MudNavLink IconColor="@Color.Info" Icon="@Icons.Material.Filled.Add" Href="/drinktools/adddrinkpage">Add Drink</MudNavLink>
@@ -34,12 +34,14 @@
 
 
                 </MudNavGroup>
-                <MudNavGroup IconColor="@Color.Warning" Title="Admin Tools" Icon="@Icons.Material.Filled.SupervisorAccount">
-                    <MudNavLink IconColor="@Color.Warning" Icon="@Icons.Material.Filled.List" Href="/admintools/addmindrinklist">Admin Drink List</MudNavLink>
-                    <MudNavLink IconColor="@Color.Warning" Icon="@Icons.Material.Filled.Search" Href="/admintools/audit">Drink Audit</MudNavLink>
 
-                </MudNavGroup>
                 <MudSpacer />
+            </AuthorizeView>
+
+            <AuthorizeView Roles="Admin">
+                <MudNavGroup IconColor="@Color.Warning" Title="Admin Tools" Icon="@Icons.Material.Filled.SupervisorAccount">
+                    <MudNavLink IconColor="@Color.Warning" Icon="@Icons.Material.Filled.Search" Href="/admintools/audit">Drink Audit</MudNavLink>
+                </MudNavGroup>
             </AuthorizeView>
             <MudNavGroup IconColor="@Color.Tertiary" Title="Data And Reports" Icon="@Icons.Material.Filled.DataExploration" Expanded="false">
                 <MudNavLink IconColor="@Color.Tertiary" Icon="@Icons.Material.Filled.Dashboard" Href="/data/dashboard">Data Dashboard</MudNavLink>

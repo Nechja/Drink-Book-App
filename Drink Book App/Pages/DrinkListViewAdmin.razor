@@ -1,5 +1,5 @@
 ﻿@page "/admintools/addmindrinklist"
-@attribute [Authorize(Roles = "Admin")]
+@attribute [Authorize(Roles = "Admin, Mod")]
 
 @if(drinks is null)
 {
@@ -13,7 +13,7 @@ else
             Striped="true"
             Dense="true">
             <ToolBarContent>
-                <MudText Typo="Typo.h4">Drink List</MudText>
+                <MudText Typo="Typo.h4">Drink List (Mod & Admin View)</MudText>
                 <MudSpacer />
                 <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
                           AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>

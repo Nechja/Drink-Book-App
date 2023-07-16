@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "PostgresSqlAc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessTests", "DataAccessTests\DataAccessTests.csproj", "{D0AA4885-1D1A-4380-9C53-2924C591810C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTests", "WebTests\WebTests.csproj", "{A9C8CA55-53A9-46C0-A1F6-32C09F04AD98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D0AA4885-1D1A-4380-9C53-2924C591810C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0AA4885-1D1A-4380-9C53-2924C591810C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0AA4885-1D1A-4380-9C53-2924C591810C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9C8CA55-53A9-46C0-A1F6-32C09F04AD98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9C8CA55-53A9-46C0-A1F6-32C09F04AD98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9C8CA55-53A9-46C0-A1F6-32C09F04AD98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9C8CA55-53A9-46C0-A1F6-32C09F04AD98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
