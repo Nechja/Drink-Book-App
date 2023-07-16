@@ -56,6 +56,11 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 			Model = m;
 		}
 
+		public void DeleteType(TagDisplayModel m) 
+		{
+			Model = m;
+		}
+
 		private void getUpdates()
 		{
 			var typesdata = repo.GetRimTypes();

@@ -1,0 +1,29 @@
+﻿<MudDataGrid Items="Types">
+	<Columns>
+		<PropertyColumn Property="x => x.Value" />
+		<TemplateColumn T="TagDisplayModel" CellClass="d-flex justify-end">
+			<CellTemplate>
+
+				<MudStack Row>
+					<MudPopover Open="context.Item.Deletable" Fixed="true"
+								Elevation="3" AnchorOrigin="Origin.CenterLeft" TransformOrigin="Origin.CenterRight">
+						<MudToolBar Dense="true">
+							<MudIconButton Size="@Size.Small" Color="Color.Warning" Icon="@Icons.Material.Filled.Delete" OnClick="@(() => this.EventCallbackOnDelete(context.Item))" aria-label="delete" />
+							<MudIconButton Size="@Size.Small" Color="Color.Warning" Icon="@Icons.Material.Filled.Cancel" OnClick="@(() => context.Item.Deletable = false)" aria-label="delete" />
+						
+							</MudToolBar>
+					</MudPopover>
+		
+						<MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="@(() => context.Item.Deletable = true)" aria-label="delete" />
+
+					
+
+					<MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="@(() => this.EventCallbackOnEdit(context.Item))" aria-label="edit"></MudIconButton>
+				</MudStack>
+
+
+			</CellTemplate>
+
+		</TemplateColumn>
+	</Columns>
+</MudDataGrid>

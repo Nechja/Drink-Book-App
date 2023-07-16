@@ -4,11 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Drink_Book_App.Models
 {
-    public class TagDisplayModel : ITagDataModel
+    public class TagDisplayModel : DisplayDeleteProtection, ITagDataModel
     {
         public int Id { get; set; }
         [StringLength(15, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
         public string Value { get; set; }
+
 
 
         public TagDisplayModel(ITagDataModel tagDataModel)

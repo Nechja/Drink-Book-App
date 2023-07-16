@@ -1,0 +1,17 @@
+﻿<MudDataGrid Items="Types">
+	<Columns>
+		<PropertyColumn Property="x => x.Value" />
+		<TemplateColumn T="TagDisplayModel" CellClass="d-flex justify-end">
+			<CellTemplate>
+
+
+
+				<MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="@(() => this.EventCallbackOnEdit(context.Item))" aria-label="edit"></MudIconButton>
+
+
+
+			</CellTemplate>
+
+		</TemplateColumn>
+	</Columns>
+</MudDataGrid>
