@@ -28,27 +28,16 @@
 }
 else
 {
-	<MudCard>
-		<MudCardContent>
-			<MudList>
-				@foreach (TagDisplayModel i in Types)
-				{
-					<MudPaper Elevation="1" Square="true">
-						<MudStack Row="true" Justify="Justify.SpaceBetween">
-							<MudPaper Elevation="0">
-								<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Value"></MudChip>
-							</MudPaper>
-							<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
-								<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
-								<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit" @onclick="() => EditType(i)"></MudIconButton>
-							</MudButtonGroup>
+	<AuthorizeView Roles="Admin">
+		<CascadingValue Value="Types">
+			<TagEditDeleteTabel OnEdit="@EditType"
+							OnDelete="@DeleteType" />
+		</CascadingValue>
 
-						</MudStack>
-						<MudPaper>
-						</MudPaper>
-					</MudPaper>
-				}
-			</MudList>
-		</MudCardContent>
-	</MudCard>
+	</AuthorizeView>
+	<AuthorizeView Roles="Mod">
+		<CascadingValue Value="Types">
+			<TagEditTabel OnEdit="@EditType" />
+		</CascadingValue>
+	</AuthorizeView>
 }

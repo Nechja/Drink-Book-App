@@ -29,28 +29,34 @@
 }
 else
 {
-	<MudCard>
-		<MudCardContent>
-			<MudList>
-				@foreach (GlassDisplayModel i in Glassware)
-				{
-					<MudPaper Elevation="1" Square="true">
-						<MudStack Row="true" Justify="Justify.SpaceBetween">
-							<MudPaper Elevation="0">
-								<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Name"></MudChip>
-							</MudPaper>
-							<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
-								<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete"></MudIconButton>
-								<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="edit" @onclick="() => OnEdit(i)"></MudIconButton>
-							</MudButtonGroup>
+	<MudDataGrid Items="Glassware ">
+		<Columns>
+			<PropertyColumn Property="x => x.Name" />
+			<TemplateColumn T="GlassDisplayModel" CellClass="d-flex justify-end">
+				<CellTemplate>
 
-						</MudStack>
-						<MudPaper>
-						</MudPaper>
-					</MudPaper>
-				}
-			</MudList>
-		</MudCardContent>
-	</MudCard>
+					<MudStack Row>
+					<MudPopover Open="context.Item.Deletable" Fixed="true"
+								Elevation="3" AnchorOrigin="Origin.CenterLeft" TransformOrigin="Origin.CenterRight">
+						<MudToolBar Dense="true">
+							<MudIconButton Size="@Size.Small" Color="Color.Warning" Icon="@Icons.Material.Filled.Delete" OnClick="@(() => this.OnDelete(context.Item))" aria-label="delete" />
+							<MudIconButton Size="@Size.Small" Color="Color.Warning" Icon="@Icons.Material.Filled.Cancel" OnClick="@(() => context.Item.Deletable = false)" aria-label="delete" />
+
+						</MudToolBar>
+					</MudPopover>
+
+					<MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="@(() => context.Item.Deletable = true)" aria-label="delete" />
+
+
+
+					<MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="@(() => this.OnEdit(context.Item))" aria-label="edit"></MudIconButton>
+				</MudStack>
+
+
+			</CellTemplate>
+
+		</TemplateColumn>
+	</Columns>
+</MudDataGrid>
 }
 

@@ -56,9 +56,17 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 			Model = m;
 		}
 
+		public void DeleteType(TagDisplayModel m)
+		{
+			repo.DeleteGarnish(m.Id);
+			getUpdates();
+			StateHasChanged();
+		}
+
 		private void getUpdates()
 		{
 			var typesdata = repo.GetGarnishTypes();
+			Types.Clear();
 			foreach (GarnishDataModel dataModel in typesdata)
 			{
 				var toadd = new TagDisplayModel(dataModel);

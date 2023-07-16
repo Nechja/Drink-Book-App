@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Drink_Book_App.Models
 {
-    public class GlassDisplayModel : IGlassDataModel
+    public class GlassDisplayModel : DisplayDeleteProtection, IGlassDataModel
     {   
         public int Id { get; set; }
 		[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]

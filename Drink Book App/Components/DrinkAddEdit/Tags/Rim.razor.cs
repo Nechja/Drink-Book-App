@@ -48,6 +48,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 					}
 				}
 			}
+			StateHasChanged();
 
 		}
 
@@ -58,12 +59,15 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 
 		public void DeleteType(TagDisplayModel m) 
 		{
-			Model = m;
+			repo.DeleteRim(m.Id);
+			getUpdates();
+			StateHasChanged();
 		}
 
 		private void getUpdates()
 		{
 			var typesdata = repo.GetRimTypes();
+			Types.Clear();
 			foreach (RimDataModel dataModel in typesdata)
 			{
 				var toadd = new TagDisplayModel(dataModel);

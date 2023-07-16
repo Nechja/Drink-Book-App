@@ -514,6 +514,15 @@ public class DrinkRepository
 		}
 	}
 
+	public void DeleteFlag(int id)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Remove(context.Flags.Single(t => t.id == id)!);
+			context.SaveChanges();
+		}
+	}
+
 
 
 
@@ -556,6 +565,15 @@ public class DrinkRepository
 		}
 	}
 
+	public void DeleteGlass(int id)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Remove(context.Glasses.Single(t => t.Id == id)!);
+			context.SaveChanges();
+		}
+	}
+
 	//ice
 
 	public List<IceDataModel> GetIceTypes()
@@ -580,6 +598,15 @@ public class DrinkRepository
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			context.Update(ice);
+			context.SaveChanges();
+		}
+	}
+
+	public void DeleteIce(int id)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Remove(context.IceTypes.Single(t => t.Id == id)!);
 			context.SaveChanges();
 		}
 	}
@@ -612,6 +639,15 @@ public class DrinkRepository
 		}
 	}
 
+	public void DeleteGarnish(int id)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Remove(context.GarnishTypes.Single(t => t.Id == id)!);
+			context.SaveChanges();
+		}
+	}
+
 
 	//rims
 
@@ -637,6 +673,15 @@ public class DrinkRepository
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
 			context.Update(rim);
+			context.SaveChanges();
+		}
+	}
+
+	public void DeleteRim(int id)
+	{
+		using (var context = _dbContextFactory.CreateDbContext())
+		{
+			context.Remove(context.RimTypes.Single(t => t.Id == id)!);
 			context.SaveChanges();
 		}
 	}

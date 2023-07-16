@@ -56,5 +56,12 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Glassware
 			if (model == null) { return; }
 			Glass = model;
 		}
+
+		protected private void OnDelete(GlassDisplayModel model)
+		{
+			if (model == null) { return; }
+			repo.DeleteGlass(model.Id);
+			UpdateData();
+		}
 	}
 }

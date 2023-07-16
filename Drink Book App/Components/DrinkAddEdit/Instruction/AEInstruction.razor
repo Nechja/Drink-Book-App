@@ -27,7 +27,11 @@
 						<MudSelect T="FlagDisplayModel" ValueChanged="SelectedFlag" Label="Flags" AnchorOrigin="Origin.BottomCenter">
 							@foreach (var flag in Flags)
 							{
-								<MudSelectItem Value="flag">@flag.Name</MudSelectItem>
+								@if(!String.IsNullOrEmpty(flag.Name))
+								{
+									<MudSelectItem Value="flag">@flag.Name</MudSelectItem>
+								}
+								
 							}
 						</MudSelect>
 

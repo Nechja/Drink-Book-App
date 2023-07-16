@@ -49,11 +49,22 @@ else
 
                   <TemplateColumn T="DrinkDisplayModel" CellClass="d-flex justify-end">
                     <CellTemplate>
-                        <MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Filled.Delete" OnClick="@(() => this.DeleteDrink(context.Item.Id))" aria-label="delete"></MudIconButton>
-                        <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Filled.Edit" OnClick="@(() => this.EditDrink(context.Item.Name, context.Item.Id))" aria-label="edit"></MudIconButton>
-                      
-                    </MudButtonGroup>
+                        <MudToolBar Dense="true">
+                        <MudPopover Open="context.Item.Deletable" Fixed="true"
+                                    Elevation="3" AnchorOrigin="Origin.CenterLeft" TransformOrigin="Origin.CenterRight">
+                            <MudToolBar Dense="true">
+                                <MudIconButton Size="@Size.Small" Color="Color.Warning" Icon="@Icons.Material.Filled.Delete" OnClick="@(() => this.OnDelete(context.Item))" aria-label="delete" />
+                                <MudIconButton Size="@Size.Small" Color="Color.Warning" Icon="@Icons.Material.Filled.Cancel" OnClick="@(() => context.Item.Deletable = false)" aria-label="delete" />
+
+                            </MudToolBar>
+                        </MudPopover>
+
+                        <MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="@(() => context.Item.Deletable = true)" aria-label="delete" />
+
+
+
+                        <MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="@(() => this.OnEdit(context.Item))" aria-label="edit"></MudIconButton>
+                    </MudToolBar>
                     </CellTemplate>
 
                 </TemplateColumn>

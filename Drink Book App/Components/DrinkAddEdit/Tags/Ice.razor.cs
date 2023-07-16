@@ -56,9 +56,18 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 			Model = m;
 		}
 
+
+		public void DeleteType(TagDisplayModel m)
+		{
+			repo.DeleteIce(m.Id);
+			getUpdates();
+			StateHasChanged();
+		}
+
 		private void getUpdates()
 		{
 			var typesdata = repo.GetIceTypes();
+			Types.Clear();
 			foreach (IceDataModel dataModel in typesdata)
 			{
 				var toadd = new TagDisplayModel(dataModel);

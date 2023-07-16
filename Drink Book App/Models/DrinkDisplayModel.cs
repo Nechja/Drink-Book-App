@@ -9,7 +9,7 @@ using System.Globalization;
 namespace Drink_Book_App.Models;
 
 
-public class DrinkDisplayModel : IDrinkDataModel
+public class DrinkDisplayModel : DisplayDeleteProtection, IDrinkDataModel
 {
 	public List<TagDisplayModel>? Garnishes { get; set; } = new List<TagDisplayModel>();
 	public TagDisplayModel? Ice { get; set; }

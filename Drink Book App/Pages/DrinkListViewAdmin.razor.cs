@@ -67,14 +67,14 @@ namespace Drink_Book_App.Pages
             navi.NavigateTo($"/drinktools/editdrink/{Id}");
         }
 
-        public void EditDrink(DrinkDataModel drink)
+        public void OnEdit(DrinkDisplayModel drink)
         {
             navi.NavigateTo($"/drinktools/editdrink/{drink.Id}");
         }
 
-        public void DeleteDrink(int id)
+        public void OnDelete(DrinkDisplayModel m)
 		{
-			repo.DeleteDrink(id);
+			repo.DeleteDrink(m.Id);
             UpdateData();
         }
 

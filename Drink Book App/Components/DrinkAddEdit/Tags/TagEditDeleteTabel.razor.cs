@@ -21,7 +21,9 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 
 		protected async Task EventCallbackOnDelete(TagDisplayModel m)
 		{
+			m.Deletable = false;
 			OnDelete.InvokeAsync(m);
+
 		}
 
 
