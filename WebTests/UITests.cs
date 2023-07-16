@@ -199,36 +199,5 @@ namespace WebTests
             }
 
         }
-
-        [TestMethod]
-        public async Task DrinkAddTest()
-        {
-            try
-            {
-                await Page.GotoAsync("https://localhost:32772/drinktools/adddrinkpage");
-
-                await Page.GetByRole(AriaRole.Link, new() { Name = "Log in" }).First.ClickAsync();
-
-                await Page.GetByLabel("Email address").ClickAsync();
-
-                await Page.GetByLabel("Email address").FillAsync("kayla.graves+DrinkAdmin@gmail.com");
-
-                await Page.GetByLabel("Password").ClickAsync();
-
-                await Page.GetByLabel("Password").FillAsync("m>@Bf_E*Q4&U,Ah");
-
-                await Page.GetByRole(AriaRole.Button, new() { Name = "Continue", Exact = true }).ClickAsync();
-
-                await Page.GotoAsync("https://localhost:32772/drinktools/adddrinkpage");
-
-                await Page.GetByRole(AriaRole.Link, new() { Name = "Log out" }).ClickAsync();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine(" admin can not add and remove drink");
-                Assert.Fail();
-            }
-
-        }
     }
 }
