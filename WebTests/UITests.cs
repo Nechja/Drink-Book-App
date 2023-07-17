@@ -96,7 +96,7 @@ namespace WebTests
         }
 
         [TestMethod]
-        public async Task LoginLandingCheck()
+        public async Task LoginClickTest()
         {
             try
             {

@@ -16,9 +16,9 @@
             <MudNavLink IconColor="@Color.Info" Icon="@Icons.Material.Filled.Book" Href="/">Drink List</MudNavLink>
 
             <AuthorizeView Roles="Admin, Mod">
-        
+                <MudNavLink IconColor="@Color.Info" Icon="@Icons.Material.Filled.Add" Href="/drinktools/adddrinkpage">Add Drink</MudNavLink>
+
                 <MudNavGroup IconColor="@Color.Success" Title="Drink Tools" Icon="@Icons.Material.Filled.LocalDrink" Expanded="false">
-                    <MudNavLink IconColor="@Color.Info" Icon="@Icons.Material.Filled.Add" Href="/drinktools/adddrinkpage">Add Drink</MudNavLink>
                     <MudNavGroup IconColor="@Color.Success" Title="Ingredients" Icon="@Icons.Material.Filled.List">
                         <MudNavLink Icon="@Icons.Material.Filled.FlagCircle" Href="/drinktools/ingredients">Ingredients</MudNavLink>
                         <MudNavLink Icon="@Icons.Material.Filled.ChangeCircle" Href="/drinktools/ingredient-types">Ingredient Types</MudNavLink>

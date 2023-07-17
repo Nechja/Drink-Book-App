@@ -17,7 +17,11 @@ namespace Drink_Book_App.Pages
 			var tags = repo.GetDrinkTags();
 			foreach(var tag in tags) 
 			{
-				Tags.Add(new TagDisplayModel(tag));
+				if(Tags.FirstOrDefault(t => t.Value == tag.Value) == null)
+				{
+                    Tags.Add(new TagDisplayModel(tag));
+                }
+				
 			}
 		}
 	}

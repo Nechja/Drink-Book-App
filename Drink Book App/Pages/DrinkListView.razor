@@ -19,7 +19,7 @@ else
             <Columns>
                 <TemplateColumn T="DrinkDisplayModel" Title="Name">
                     <CellTemplate>
-                        <MudLink @onclick="() => NavTo(context.Item.Name,context.Item.Id)">@context.Item.Name</MudLink>
+                        <MudButton Variant="Variant.Text" @onclick="() => NavTo(context.Item.Name,context.Item.Id)">@context.Item.Name</MudButton>
                     </CellTemplate>
                 </TemplateColumn>
                 <TemplateColumn T="DrinkDisplayModel" Title="Ingredients">
