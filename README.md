@@ -4,7 +4,6 @@ I started this project to build a drink information repository for my capstone p
 
 ***This build is a working prototype.***
 
- 	---
 
 Things for my next build:
 - Switching all DBContext calls to Async
