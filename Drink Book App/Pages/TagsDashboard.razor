@@ -1,11 +1,14 @@
 ﻿@page "/data/drinktags"
 
 <MudPaper Class="p-4 m-4">
-	<MudText Typo="Typo.h3">Drink Tags</MudText>
-	<MudGrid>
-		@foreach(var tag in Tags)
-		{
-			<MudChip Label="true" Value="tag" Text="@tag.Value"/>
-		}
-	</MudGrid>
+	<MudStack>
+		<MudText Typo="Typo.h3">Drink Tags</MudText>
+		<MudGrid>
+			@foreach (var tag in Tags)
+			{
+				<MudChip Label="true" Value="tag" Text="@tag.Value" />
+			}
+		</MudGrid>
+	</MudStack>
+
 </MudPaper>

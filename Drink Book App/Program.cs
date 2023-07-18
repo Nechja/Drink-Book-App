@@ -5,6 +5,7 @@ using Drink_Book_App.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,7 +25,11 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<DashBoardDataTools>();
 builder.Services.AddTransient<DrinkRepository>();
 builder.Services.AddDbContextFactory<DrinkDBContext>(
-	(DbContextOptionsBuilder options) => options.UseNpgsql(connectionString));
+	(DbContextOptionsBuilder options) =>
+	options.UseNpgsql(connectionString).AddInterceptors(new SoftDeleteInterceptor()).AddInterceptors(new LoggingInterceptor())
+    );
+
+  
 
 builder.Services.AddMudServices();
 

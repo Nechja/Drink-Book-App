@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Models;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace DataAccess.Context
 {
@@ -32,13 +33,18 @@ namespace DataAccess.Context
 		public DbSet<RimDataModel> RimTypes { get; set; }
 
 
-
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		public DrinkDBContext(DbContextOptions<DrinkDBContext> options) : base(options)
 		{
-			optionsBuilder.UseNpgsql("Username=postgres;Password=2244;Host=172.31.48.1;Port=5432;DataBase=DrinkBook;Pooling=true;Include Error Detail=true;");
-			optionsBuilder.AddInterceptors(new SoftDeleteInterceptor());
-            optionsBuilder.AddInterceptors(new LoggingInterceptor());
-        }
+
+		}
+
+
+		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) : base(options)
+		//{
+           //optionsBuilder.UseNpgsql("Username=postgres;Password=2244;Host=172.31.48.1;Port=5432;DataBase=DrinkBook;Pooling=true;Include Error Detail=true;"); //testing hardcode
+           //optionsBuilder.AddInterceptors(new SoftDeleteInterceptor());
+           //optionsBuilder.AddInterceptors(new LoggingInterceptor());
+        //}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

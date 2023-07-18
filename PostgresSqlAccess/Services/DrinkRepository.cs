@@ -149,6 +149,7 @@ public class DrinkRepository
 					.Include(i => i.Garnishes)
 					.Include(i => i.Ice)
 					.Include(i => i.Rim)
+					.Include(i => i.Tags)
 					.SingleOrDefault(drink => drink.Id == id)!;
 
 				return drink;
