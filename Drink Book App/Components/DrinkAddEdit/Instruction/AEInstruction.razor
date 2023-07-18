@@ -15,7 +15,7 @@
 				</CascadingValue>
 			<MudPaper MinWidth="50px" Elevation="0" Class="d-flex flex-wrap gap-4 pl-2">
 				<MudNumericField @bind-Value="Model.Oz" Label="Oz" Variant="Variant.Text"></MudNumericField>
-				<MudNumericField @bind-Value="Model.DisplayWeight" Label="Display Order" Max="5" Min="1" Variant="Variant.Text"></MudNumericField>
+				<MudNumericField @bind-Value="Model.DisplayWeight" Label="Display Order" Max="5" Min="1" Variant="Variant.Text" ReadOnly="true"></MudNumericField>
 			</MudPaper>
 			<MudPaper Elevation="0" MinWidth="225px" MaxWidth="300px" Class="d-flex flex-wrap gap-4 pl-2">
 				<MudTextField @bind-Value="Model.Special" Label="Special" Variant="Variant.Text"></MudTextField>

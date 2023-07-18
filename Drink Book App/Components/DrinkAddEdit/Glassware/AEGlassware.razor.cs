@@ -29,6 +29,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Glassware
 				{
 					repo.UpdateGlass(Glass.DataModel);
 				}
+				Glass = new GlassDisplayModel();
 			}
 			catch (Exception ex)
 			{

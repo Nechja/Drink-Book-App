@@ -192,9 +192,9 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 			try
 			{
                 ErrorText = string.Empty;
-                if (Drink.Instructions.Count < 2)
+                if (Drink.Instructions.Count < 1)
                 {
-                    ErrorText = "Must have 2 or more Instructions";
+                    ErrorText = "Must have 1 or more Instructions";
                     return;
                 }
                 if (FakeSubmit)
