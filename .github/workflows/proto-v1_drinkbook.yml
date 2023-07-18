@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'DrinkBook'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5B256AD0971741BC90AD16EC94D5627E }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_369FFB475175424795CE157F933A1A8F }}
           package: .
