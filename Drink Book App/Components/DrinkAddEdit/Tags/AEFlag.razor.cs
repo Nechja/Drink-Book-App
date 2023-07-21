@@ -10,7 +10,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
     public partial class AEFlag
     {
 		[Inject]
-		public DrinkRepository repo { get; set; }
+		public DrinkRepositoryAsync repo { get; set; }
 		public List<FlagDisplayModel> Flags { get; set; } = new List<FlagDisplayModel>();
         public FlagDisplayModel FlagDisplay { get; set; } = new FlagDisplayModel();
         string ErrorText { get; set; } = string.Empty;
@@ -30,16 +30,16 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
             }
         }
 
-		protected override void OnInitialized()
+		protected override async Task OnInitializedAsync()
 		{
-             UpdateFlags();
+             await UpdateFlags();
 
 		}
 
-        protected private void UpdateFlags()
+        protected async Task UpdateFlags()
         {
             Flags.Clear();
-			var flaglist = repo.GetFlags();
+			var flaglist = await repo.GetFlags();
 			foreach (var flag in flaglist)
 			{
 				Flags.Add(new FlagDisplayModel(flag));
@@ -47,12 +47,12 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 
 		}
 
-		protected private void OnValidSubmit()
+		protected async Task OnValidSubmit()
         {
             if(FlagDisplay.id  == 0)
             {
 
-				repo.AddFlag(new FlagDataModel
+				await repo.AddFlag(new FlagDataModel
 				{
 					id = FlagDisplay.id,
 					Name = FlagDisplay.Name,
@@ -64,7 +64,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 			}
 			else
 			{
-				repo.UpdateFlag(new FlagDataModel
+				await repo.UpdateFlag(new FlagDataModel
 				{
 					id = FlagDisplay.id,
 					Name = FlagDisplay.Name,
@@ -75,7 +75,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 			}
 
 
-			UpdateFlags();
+			await UpdateFlags();
 			FlagDisplay = new FlagDisplayModel();
             
 

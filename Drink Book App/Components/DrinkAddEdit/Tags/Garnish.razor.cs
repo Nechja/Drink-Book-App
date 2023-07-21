@@ -8,7 +8,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 	public partial class Garnish
 	{
 		[Inject]
-		public DrinkRepository repo { get; set; }
+		public DrinkRepositoryAsync repo { get; set; }
 
 		private string? errorValid;
 		private string? showInvalid;
@@ -16,26 +16,24 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 		public List<TagDisplayModel> Types { get; set; } = new List<TagDisplayModel>();
 
 
-		protected override Task OnInitializedAsync()
+		protected override async Task OnInitializedAsync()
 		{
-			getUpdates();
-
-			return base.OnInitializedAsync();
+			await getUpdates();
 		}
 
-		public void ValidSubmit()
+		public async Task ValidSubmit()
 		{
 			errorValid = showInvalid = null;
 			try
 			{
 				if (Model.Id == 0)
 				{
-					repo.AddGarnish(Model.GarnishDataModel);
+					await repo.AddGarnish(Model.GarnishDataModel);
 				}
-				else { repo.UpdateGarnish(Model.GarnishDataModel); }
+				else {await repo.UpdateGarnish(Model.GarnishDataModel); }
 
 				Model = new TagDisplayModel();
-				getUpdates();
+				await getUpdates();
 			}
 			catch (Exception e)
 			{
@@ -56,16 +54,16 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 			Model = m;
 		}
 
-		public void DeleteType(TagDisplayModel m)
+		public async Task DeleteType(TagDisplayModel m)
 		{
-			repo.DeleteGarnish(m.Id);
-			getUpdates();
+			await repo.DeleteGarnish(m.Id);
+			await getUpdates();
 			StateHasChanged();
 		}
 
-		private void getUpdates()
+		private async Task getUpdates()
 		{
-			var typesdata = repo.GetGarnishTypes();
+			var typesdata = await repo.GetGarnishTypes();
 			Types.Clear();
 			foreach (GarnishDataModel dataModel in typesdata)
 			{

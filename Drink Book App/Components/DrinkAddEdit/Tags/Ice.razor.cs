@@ -8,7 +8,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 	public partial class Ice
 	{
 		[Inject]
-		public DrinkRepository repo { get; set; }
+		public DrinkRepositoryAsync repo { get; set; }
 
 		private string? errorValid;
 		private string? showInvalid;
@@ -16,26 +16,25 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 		public List<TagDisplayModel> Types { get; set; } = new List<TagDisplayModel>();
 
 
-		protected override Task OnInitializedAsync()
+		protected override async Task OnInitializedAsync()
 		{
-			getUpdates();
+			await getUpdates();
 
-			return base.OnInitializedAsync();
 		}
 
-		public void ValidSubmit()
+		public async Task ValidSubmit()
 		{
 			errorValid = showInvalid = null;
 			try
 			{
 				if (Model.Id == 0)
 				{
-					repo.AddIce(Model.IceDataModel);
+					await repo.AddIce(Model.IceDataModel);
 				}
-				else { repo.UpdateIce(Model.IceDataModel); }
+				else {await repo.UpdateIce(Model.IceDataModel); }
 
 				Model = new TagDisplayModel();
-				getUpdates();
+				await getUpdates();
 			}
 			catch (Exception e)
 			{
@@ -57,16 +56,16 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 		}
 
 
-		public void DeleteType(TagDisplayModel m)
+		public async Task DeleteType(TagDisplayModel m)
 		{
-			repo.DeleteIce(m.Id);
-			getUpdates();
+			await repo.DeleteIce(m.Id);
+			await getUpdates();
 			StateHasChanged();
 		}
 
-		private void getUpdates()
+		private async Task getUpdates()
 		{
-			var typesdata = repo.GetIceTypes();
+			var typesdata = await repo.GetIceTypes();
 			Types.Clear();
 			foreach (IceDataModel dataModel in typesdata)
 			{

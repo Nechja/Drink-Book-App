@@ -2,13 +2,14 @@
 using DataAccess.Services;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Azure.SignalR.Common;
 
 namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 {
 	public partial class Rim
 	{
 		[Inject]
-		public DrinkRepository repo { get; set; }
+		public DrinkRepositoryAsync repo { get; set; }
 
 		private string? errorValid;
 		private string? showInvalid;
@@ -16,26 +17,24 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 		public List<TagDisplayModel> Types { get; set; } = new List<TagDisplayModel>();
 
 
-		protected override Task OnInitializedAsync()
+		protected override async Task OnInitializedAsync()
 		{
-			getUpdates();
-
-			return base.OnInitializedAsync();
+			await getUpdates();
 		}
 
-		public void ValidSubmit()
+		public async Task ValidSubmit()
 		{
 			errorValid = showInvalid = null;
 			try
 			{
 				if (Model.Id == 0)
 				{
-					repo.AddRim(Model.RimDataModel);
+					await repo.AddRim(Model.RimDataModel);
 				}
-				else { repo.UpdateRim(Model.RimDataModel); }
+				else {await repo.UpdateRim(Model.RimDataModel); }
 
 				Model = new TagDisplayModel();
-				getUpdates();
+				await getUpdates();
 			}
 			catch (Exception e)
 			{
@@ -57,16 +56,16 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Tags
 			Model = m;
 		}
 
-		public void DeleteType(TagDisplayModel m) 
+		public async Task DeleteType(TagDisplayModel m) 
 		{
-			repo.DeleteRim(m.Id);
-			getUpdates();
+			await repo.DeleteRim(m.Id);
+			await getUpdates();
 			StateHasChanged();
 		}
 
-		private void getUpdates()
+		private async Task getUpdates()
 		{
-			var typesdata = repo.GetRimTypes();
+			var typesdata = await repo.GetRimTypes();
 			Types.Clear();
 			foreach (RimDataModel dataModel in typesdata)
 			{

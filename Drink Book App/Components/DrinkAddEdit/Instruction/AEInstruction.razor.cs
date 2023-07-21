@@ -11,7 +11,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
     public partial class AEInstruction
     {
         [Inject]
-        public DrinkRepository repo { get; set; }
+        public DrinkRepositoryAsync repo { get; set; }
 
         [CascadingParameter]
         public InstructionDisplayModel Model { get; set; } = new InstructionDisplayModel();
@@ -40,9 +40,9 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
 			}
 		}
 
-		protected override void OnInitialized()
+		protected override async Task OnInitializedAsync()
 		{
-			var flagdata = repo.GetFlags();
+			var flagdata = await repo.GetFlags();
 			foreach(var flag in flagdata)
 			{
 				Flags.Add(new FlagDisplayModel(flag));

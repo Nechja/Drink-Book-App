@@ -10,7 +10,7 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 	public partial class AEIngredientTypeCard
 	{
 		[Inject]
-		public DrinkRepository repo { get; set; }
+		public DrinkRepositoryAsync repo { get; set; }
 
 		private string? errorValid;
 		private string? showInvalid;
@@ -18,26 +18,24 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 		public List<IngredientTypeDisplayModel> ingredientTypes { get; set; } = new List<IngredientTypeDisplayModel>();
 
 
-		protected override Task OnInitializedAsync()
+		protected override async Task OnInitializedAsync()
 		{
-			getUpdates();
-
-			return base.OnInitializedAsync();
+			await getUpdates();
 		}
 
-		public void ValidSubmit()
+		public async Task ValidSubmit()
 		{
 			errorValid = showInvalid = null;
 			try
 			{
 				if (IngredientDisplay.Id == 0)
 				{
-					repo.AddIngredientType(IngredientDisplay.DataModel);
+					await repo.AddIngredientType(IngredientDisplay.DataModel);
 				}
-				else { repo.UpdateIngredientType(IngredientDisplay.DataModel); }
+				else { await repo.UpdateIngredientType(IngredientDisplay.DataModel); }
 
 				IngredientDisplay = new IngredientTypeDisplayModel();
-				getUpdates();
+				await getUpdates();
 			}
 			catch (Exception e)
 			{
@@ -58,9 +56,9 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 			IngredientDisplay = ingredientType;
 		}
 
-		private void getUpdates()
+		private async Task getUpdates()
 		{
-			var typesdata = repo.GetIngredientTypes();
+			var typesdata = await repo.GetIngredientTypes();
 			foreach (IngredientTypeDataModel dataModel in typesdata)
 			{
 				var toadd = new IngredientTypeDisplayModel(dataModel);
@@ -72,11 +70,11 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient_Type
 			}
 		}
 
-		protected void DeleteType(int id)
+		protected async Task DeleteType(int id)
 		{
 			try
 			{
-				repo.DeleteIngredientType(id);
+				await repo.DeleteIngredientType(id);
 			}
 			catch (Exception e)
 			{

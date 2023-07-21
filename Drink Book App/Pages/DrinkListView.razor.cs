@@ -38,7 +38,6 @@ namespace Drink_Book_App.Pages
 			var drinkdata = await repo.GetDrinks();
 			foreach (DrinkDataModel d in drinkdata)
 			{
-                await Task.Delay(1000);
                 DrinkDisplayModel ddm = new DrinkDisplayModel();
 				ddm.fromDrinkData(d);
 				drinks.Add(ddm);
