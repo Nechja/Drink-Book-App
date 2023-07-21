@@ -13,7 +13,7 @@ namespace Drink_Book_App.Pages
 		[Inject]
 		NavigationManager navi { get; set; }
 		[Inject]
-		public DrinkRepository repo { get; set; }
+		public DrinkRepositoryAsync repo { get; set; }
 
 		private List<DrinkDisplayModel> drinks { get; set; } = new();
 
@@ -24,36 +24,27 @@ namespace Drink_Book_App.Pages
         MudChip[] selected;
 
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
 		{
-			UpdateData();
+			await UpdateData();
 		}
 
-		protected private void UpdateData()
+		protected private async Task UpdateData()
 		{
 			drinks.Clear(); 
 			softdeldrinks.Clear();
 			searchString = string.Empty;
 
-			var drinkdata = repo.GetDrinks();
+			var drinkdata = await repo.GetDrinks();
 			foreach (DrinkDataModel d in drinkdata)
 			{
-				DrinkDisplayModel ddm = new DrinkDisplayModel();
+                await Task.Delay(1000);
+                DrinkDisplayModel ddm = new DrinkDisplayModel();
 				ddm.fromDrinkData(d);
 				drinks.Add(ddm);
             }
 
-			var softdata = repo.GetAllDrinks();
-			foreach (DrinkDataModel d in softdata)
-			{
-				if(d.IsDeleted)
-				{
-					DrinkDisplayModel ddm = new DrinkDisplayModel();
-					ddm.fromDrinkData(d);
-					softdeldrinks.Add(ddm);
-				}
 
-			}
 		}
 
 
@@ -65,23 +56,6 @@ namespace Drink_Book_App.Pages
         public void EditDrink(string Name, int Id)
         {
             navi.NavigateTo($"/drinktools/editdrink/{Id}");
-        }
-
-        public void EditDrink(DrinkDataModel drink)
-        {
-            navi.NavigateTo($"/drinktools/editdrink/{drink.Id}");
-        }
-
-        public void DeleteDrink(int id)
-		{
-			repo.DeleteDrink(id);
-            UpdateData();
-        }
-
-		private void UndoDel(int id)
-		{
-			repo.UndoSoftDeleteDrink(id);
-            UpdateData();
         }
 
 

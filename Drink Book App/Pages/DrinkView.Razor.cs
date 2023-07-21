@@ -8,7 +8,7 @@ namespace Drink_Book_App.Pages
 	public partial class DrinkView
 	{
 		[Inject]
-		public DrinkRepository repo { get; set; }
+		public DrinkRepositoryAsync repo { get; set; }
 		[Parameter]
 		public String? DrinkName { get; set; } = default;
 		[Parameter]
@@ -17,11 +17,11 @@ namespace Drink_Book_App.Pages
 		public DrinkDataModel Drink { get; set; }
 		private bool failed = true;
 
-		protected override void OnInitialized()
+		protected override async Task OnInitializedAsync()
 		{
 			if(DrinkName  == null) { return; } 
 			if(DrinkId == null) { return; }
-			Drink = repo.GetDrinkById(DrinkId.Value);
+			Drink = await repo.GetDrinkById(DrinkId.Value);
 			if (DrinkName.ToLower() == Drink.Name.ToLower())
 			{
 				failed = false;

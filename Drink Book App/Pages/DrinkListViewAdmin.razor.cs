@@ -3,6 +3,7 @@ using DataAccess.Models.Interfaces;
 using DataAccess.Services;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Azure.SignalR.Common;
 using MudBlazor;
 using static MudBlazor.CategoryTypes;
 
@@ -13,7 +14,7 @@ namespace Drink_Book_App.Pages
 		[Inject]
 		NavigationManager navi { get; set; }
 		[Inject]
-		public DrinkRepository repo { get; set; }
+		public DrinkRepositoryAsync repo { get; set; }
 
 		private List<DrinkDisplayModel> drinks { get; set; } = new();
 
@@ -24,18 +25,18 @@ namespace Drink_Book_App.Pages
         MudChip[] selected;
 
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
 		{
-			UpdateData();
+			await UpdateData();
 		}
 
-		protected private void UpdateData()
+		protected private async Task UpdateData()
 		{
 			drinks.Clear(); 
 			softdeldrinks.Clear();
 			searchString = string.Empty;
 
-			var drinkdata = repo.GetDrinks();
+			var drinkdata = await repo.GetDrinks();
 			foreach (DrinkDataModel d in drinkdata)
 			{
 				DrinkDisplayModel ddm = new DrinkDisplayModel();
@@ -43,7 +44,7 @@ namespace Drink_Book_App.Pages
 				drinks.Add(ddm);
             }
 
-			var softdata = repo.GetAllDrinks();
+			var softdata = await repo.GetAllDrinks();
 			foreach (DrinkDataModel d in softdata)
 			{
 				if(d.IsDeleted)
@@ -72,10 +73,10 @@ namespace Drink_Book_App.Pages
             navi.NavigateTo($"/drinktools/editdrink/{drink.Id}");
         }
 
-        public void OnDelete(DrinkDisplayModel m)
+        public async Task OnDelete(DrinkDisplayModel m)
 		{
-			repo.DeleteDrink(m.Id);
-            UpdateData();
+			await repo.DeleteDrink(m.Id);
+            await UpdateData();
         }
 
 		private void UndoDel(int id)

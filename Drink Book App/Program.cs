@@ -24,12 +24,13 @@ builder.Services.AddAuth0WebAppAuthentication(
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<DashBoardDataTools>();
 builder.Services.AddTransient<DrinkRepository>();
+builder.Services.AddTransient<DrinkRepositoryAsync>();
 builder.Services.AddDbContextFactory<DrinkDBContext>(
 	(DbContextOptionsBuilder options) =>
 	options.UseNpgsql(connectionString).AddInterceptors(new SoftDeleteInterceptor()).AddInterceptors(new LoggingInterceptor())
     );
 
-  
+
 
 builder.Services.AddMudServices();
 

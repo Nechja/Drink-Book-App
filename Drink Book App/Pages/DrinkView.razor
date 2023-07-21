@@ -4,7 +4,36 @@
 
 @if (Drink is null)
 {
-	<Loading></Loading>
+    <MudContainer MaxWidth="MaxWidth.ExtraSmall">
+        <MudCard Square="true" Outlined="true" Elevation="1">
+            <MudCardContent Class="pt-n4 mt-4">
+                <MudStack Row>
+                <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="40px" Width="40px" />
+                
+                    <MudItem>
+                        <MudSkeleton SkeletonType="SkeletonType.Text" Animation="Animation.Pulse" Height="40px" Width="300px" /> 
+                        <MudPaper Class="pl-4 pt-n2" Elevation="0">
+                        </MudPaper>
+                    </MudItem>
+
+                </MudStack>
+                    
+
+                <MudSkeleton SkeletonType="SkeletonType.Rectangle" Animation="Animation.Wave" Width="40%" />
+                <MudSkeleton Animation="Animation.Wave" Width="100%" Height="300px"/>
+                <MudDivider DividerType="DividerType.FullWidth" Light="true" />
+
+            </MudCardContent>
+            <MudCardActions>
+                    <AuthorizeView Roles="Admin, Mod">
+                        <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-2 mb-2" />
+                    </AuthorizeView>
+                    <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-3 mb-2" />
+                    <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-2 mb-2" />
+                    <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-3 mb-2" />
+            </MudCardActions>
+        </MudCard>
+    </MudContainer>
 
 }
 @if(failed == true)

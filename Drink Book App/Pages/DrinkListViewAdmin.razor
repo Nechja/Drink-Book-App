@@ -3,7 +3,10 @@
 
 @if(drinks is null)
 {
-	<Loading></Loading>
+    <MudContainer>
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="80%" Height="70%" />
+    </MudContainer>
+
 }
 else
 {
