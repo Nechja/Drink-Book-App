@@ -16,6 +16,8 @@ namespace DataAccess.Models
         public string Name { get; set; }
         public float? Oz { get; set; }
 
+        public string FontAwesomeIcon { get; set; }
+
         public Uri? Image { get; set; }
 
 		public List<DrinkDataModel> Drinks { get; set; } = new();

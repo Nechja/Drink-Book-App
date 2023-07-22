@@ -19,6 +19,8 @@ namespace DataAccess.Models
 
 		public IngredientTypeDataModel IngredientType { get; set; } = new();
 
+		public List<LinkDataModel>? Links { get; set; }
+
 
 
         public List<InstructionDataModel> Instructions { get; set; } = new();

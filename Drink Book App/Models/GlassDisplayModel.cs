@@ -14,6 +14,8 @@ namespace Drink_Book_App.Models
 		public float? Oz { get; set; }
         public Uri? Image { get; set; }
 
+        public string FontAwesomeIcon { get; set; }
+
         public GlassDisplayModel() 
         {
             Name = String.Empty;

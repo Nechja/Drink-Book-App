@@ -84,15 +84,24 @@ namespace DataAccess.Context
 			modelBuilder.Entity<InstructionDataModel>()
 				.HasMany(e => e.Tags)
 				.WithMany(e => e.Instructions);
+
 			modelBuilder.Entity<IngredientDataModel>()
 				.HasOne(e => e.IngredientType)
 				.WithMany(e => e.Ingredients);
 			modelBuilder.Entity<IngredientDataModel>()
 				.HasMany(e => e.Tags)
 				.WithMany(e => e.Ingredients);
+			modelBuilder.Entity<IngredientDataModel>()
+				.HasMany(e => e.Links)
+				.WithMany(e => e.Ingredients);
+
+			modelBuilder.Entity<LinkDataModel>()
+				.HasOne(e => e.Type)
+				.WithMany(e => e.Links);
 
 
-			modelBuilder.Entity<IceDataModel>();
+
+            modelBuilder.Entity<IceDataModel>();
 			modelBuilder.Entity<GarnishDataModel>()
 				.HasMany(e => e.Drinks)
 				.WithMany(e => e.Garnishes);

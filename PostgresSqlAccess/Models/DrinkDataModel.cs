@@ -1,6 +1,7 @@
 ﻿using DataAccess.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Security;
 
 namespace DataAccess.Models
 {
@@ -10,6 +11,9 @@ namespace DataAccess.Models
 		[Key]
 		public int Id { get; set; }
 		public string Name { get; set; }
+
+		public bool Verification { get; set; }
+
 		public IceDataModel? Ice { get; set; }
 		public List<GarnishDataModel>? Garnishes { get; set; } = new();
 
