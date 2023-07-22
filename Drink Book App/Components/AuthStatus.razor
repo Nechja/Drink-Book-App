@@ -1,18 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Authentication
 
-<MudNavMenu>
+<MudNavMenu Dense>
 <AuthorizeView>
     
     <Authorized>
-        <MudNavLink Href="logout">
-            <MudIcon Icon="@Icons.Material.Filled.Logout"></MudIcon>Log out
-        </MudNavLink>
+
     </Authorized>
     <NotAuthorized>
-        <MudNavLink Href="/login?redirectUri=/">
-            <MudIcon Icon="@Icons.Material.Filled.Login"></MudIcon>Log in
-        </MudNavLink>
+            <MudNavLink Icon="fas fa-sign-in-alt" Href="/login?redirectUri=/">Login</MudNavLink>
         
     </NotAuthorized>
 </AuthorizeView>

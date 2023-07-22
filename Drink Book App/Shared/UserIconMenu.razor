@@ -1,0 +1,62 @@
+﻿
+<AuthorizeView>
+
+    <MudDrawer @bind-Open="@open"
+     Anchor="@Anchor.End" Elevation="1" 
+     Variant="@DrawerVariant.Temporary"
+     Width="200px"
+    >
+        <MudStack Row Justify="@Justify.Center" Class="p-2">
+            <MudAvatar Color="Color.Surface"
+                       Variant="Variant.Outlined" Size="Size.Large">@Username[0].ToString().ToUpperInvariant()</MudAvatar>
+        </MudStack>
+
+        <MudNavMenu Dense="true" Rounded="true">
+            <MudNavLink Icon="fas fa-user">Profile</MudNavLink>
+            <MudNavLink Icon="fas fa-list-alt">List</MudNavLink>
+            <MudNavLink Icon="fas fa-cog">Settings</MudNavLink>
+            <MudDivider DividerType="DividerType.Middle" />
+            <MudNavLink Icon="fas fa-sign-out-alt" Href="logout">Logout</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+
+
+    <MudStack Row>
+        <MudAvatar Color="Color.Surface" onclick="@onAvatarClick" Variant="Variant.Outlined" Size="Size.Small">@Username[0].ToString().ToUpperInvariant()</MudAvatar>
+    </MudStack>
+
+
+</AuthorizeView>
+
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+
+    bool open;
+
+    private string Username = "";
+    private string Picture = "";
+
+    private void onAvatarClick()
+    {
+        open = !open;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (authenticationState is not null)
+        {
+            var state = await authenticationState;
+
+            Username = state?.User?.Identity?.Name ?? string.Empty;
+
+            Picture = state?.User.Claims
+                        .Where(c => c.Type.Equals("picture"))
+                        .Select(c => c.Value)
+                        .FirstOrDefault() ?? string.Empty;
+        }
+        await base.OnInitializedAsync();
+    }
+
+}

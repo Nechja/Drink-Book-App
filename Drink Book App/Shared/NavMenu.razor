@@ -4,8 +4,9 @@
         <MudButton Href="/" Variant="Variant.Text">Drink Book</MudButton>
         <MudSpacer />
 
-
+        
         <AuthStatus></AuthStatus>
+        <UserIconMenu></UserIconMenu>
     </MudAppBar>
     <MudDrawer @bind-Open="@open" Anchor="Anchor.Start" Elevation="1" Variant="@DrawerVariant.Temporary" Color="Color.Dark">
         <MudDrawerHeader>
@@ -31,10 +32,7 @@
                         <MudNavLink Icon="@Icons.Material.Filled.Flag" Href="/drinktools/flags">Serving Flags</MudNavLink>
                     <MudSpacer/>
                     </MudNavGroup>
-
-
                 </MudNavGroup>
-
                 <MudSpacer />
             </AuthorizeView>
 
@@ -48,8 +46,6 @@
                 <MudNavLink IconColor="@Color.Tertiary" Icon="@Icons.Material.Filled.Tag" Href="/data/drinktags">Data Dashboard</MudNavLink>
             </MudNavGroup>
 
-
-            
         </MudNavMenu>
         
     </MudDrawer>
