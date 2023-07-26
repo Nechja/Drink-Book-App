@@ -12,7 +12,7 @@ namespace DataAccess.Models
 		public int Id { get; set; }
 		public string Name { get; set; }
 
-		public bool Verification { get; set; }
+		public bool Verification { get; set; } = false;
 
 		public IceDataModel? Ice { get; set; }
 		public List<GarnishDataModel>? Garnishes { get; set; } = new();
@@ -25,8 +25,12 @@ namespace DataAccess.Models
 		public GlassDataModel? Glass { get; set; }
 		public Uri? Image { get; set; }
 
+		public Uri? Link { get; set; }
+
 		public List<DrinkTagDataModel>? Tags { get; set; } = new();
 		public List<InstructionDataModel> Instructions { get; set; } = new();
+
+		public List<DrinkBadgeDataModel>? Badges { get; set; }
 
 		public ViewsDataModel ViewsData { get; set; } = new();
 		public bool IsDeleted { get; set; }

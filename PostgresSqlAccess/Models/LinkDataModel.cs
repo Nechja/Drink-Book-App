@@ -15,7 +15,9 @@ namespace DataAccess.Models
 
         public int Clicks { get; set; }
 
-        public LinkTypeDataModel Type { get; set; } = new LinkTypeDataModel();
+
+
+		public LinkTypeDataModel Type { get; set; } = new LinkTypeDataModel();
 
         public List<IngredientDataModel> Ingredients { get; set; }
 

@@ -121,6 +121,7 @@ public class DrinkRepositoryAsync
 	{
 		using (var context = await _dbContextFactory.CreateDbContextAsync())
 		{
+			drinkTag.TagType = await context.DrinkTagTypes.FirstOrDefaultAsync(i => i == drinkTag.TagType);
 			await context.DrinkTags.AddAsync(drinkTag);
 			await context.SaveChangesAsync();
 		}
@@ -131,6 +132,24 @@ public class DrinkRepositoryAsync
 		using (var context = await _dbContextFactory.CreateDbContextAsync())
 		{
 			return await context.DrinkTags.ToListAsync();
+		}
+	}
+
+	public async Task UpdateDrinkTag(DrinkTagDataModel tag)
+	{
+		using (var context = await _dbContextFactory.CreateDbContextAsync())
+		{
+            tag.TagType = await context.DrinkTagTypes.FirstOrDefaultAsync(i => i == tag.TagType);
+            context.Update(tag);
+			await context.SaveChangesAsync();
+		}
+	}
+
+	public async Task<List<DrinkTagType>> GetDrinkTagTypes()
+	{
+		using (var context = await _dbContextFactory.CreateDbContextAsync())
+		{
+			return await context.DrinkTagTypes.ToListAsync();
 		}
 	}
 

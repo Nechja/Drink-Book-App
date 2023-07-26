@@ -13,9 +13,11 @@ namespace DataAccess.Models
         public int Id { get; set; }
         
         public string Type { get; set; } = string.Empty;
-        public string Info { get; set; } = string.Empty;
+        public string? Info { get; set; } = string.Empty;
 
-        public List<LinkDataModel> Links { get; set; }
+		public string Icon { get; set; }
+
+		public List<LinkDataModel> Links { get; set; }
 
         public LinkTypeDataModel() { }
     }

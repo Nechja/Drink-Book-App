@@ -15,6 +15,8 @@ namespace DataAccess.Context
 		public DbSet<DrinkDataModel> Drinks { get; set; }
 
 		public DbSet<DrinkTagDataModel> DrinkTags { get; set; }
+
+		public DbSet<DrinkTagType> DrinkTagTypes { get; set; }
 		public DbSet<InstructionDataModel> Instructions { get; set; }
 		public DbSet<InstructionTagDataModel> InstructionTags { get; set; }
 		
@@ -31,6 +33,8 @@ namespace DataAccess.Context
 		public DbSet<GarnishDataModel> GarnishTypes { get; set; }
 
 		public DbSet<RimDataModel> RimTypes { get; set; }
+
+		public DbSet<DrinkBadgeDataModel> DrinkBadges { get; set; }
 
 
 		//public DrinkDBContext(DbContextOptions<DrinkDBContext> options) : base(options)
@@ -69,8 +73,11 @@ namespace DataAccess.Context
 			modelBuilder.Entity<DrinkDataModel>()
 				.HasOne(e => e.ViewsData)
 				.WithOne(e => e.Drink);
+			modelBuilder.Entity<DrinkDataModel>()
+				.HasMany(e => e.Badges)
+				.WithMany(e => e.Drinks);
 
-            modelBuilder.Entity<DrinkDataModel>()
+			modelBuilder.Entity<DrinkDataModel>()
 				.HasQueryFilter(x => x.IsDeleted == false);
 
 
@@ -98,6 +105,10 @@ namespace DataAccess.Context
 			modelBuilder.Entity<LinkDataModel>()
 				.HasOne(e => e.Type)
 				.WithMany(e => e.Links);
+
+			modelBuilder.Entity<DrinkTagDataModel>()
+				.HasOne(e => e.TagType)
+				.WithMany(e => e.DrinkTags);
 
 
 

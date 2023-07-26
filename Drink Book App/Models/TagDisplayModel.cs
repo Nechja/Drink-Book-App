@@ -10,6 +10,8 @@ namespace Drink_Book_App.Models
         [StringLength(15, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
         public string Value { get; set; }
 
+        public DrinkTagType TagType { get; set; } = new DrinkTagType();
+
 
 
         public TagDisplayModel(ITagDataModel tagDataModel)
@@ -17,6 +19,11 @@ namespace Drink_Book_App.Models
             if (tagDataModel == null) return;
             Id = tagDataModel.Id;
             Value = tagDataModel.Value;
+            if(tagDataModel is DrinkTagDataModel)
+            {
+                var d = tagDataModel as DrinkTagDataModel;
+                TagType = d.TagType;
+            }
         }
 
         public TagDisplayModel() { }
@@ -49,11 +56,16 @@ namespace Drink_Book_App.Models
         {
             get
             {
-                return new DrinkTagDataModel()
-                {
-                    Id = Id,
-                    Value = Value
-                };
+
+				return new DrinkTagDataModel()
+				{
+					Id = Id,
+					Value = Value,
+					TagType = TagType
+
+				};
+
+
             }
         }
 

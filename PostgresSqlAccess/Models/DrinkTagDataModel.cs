@@ -16,6 +16,8 @@ namespace DataAccess.Models
 		public string Value { get; set; }
 
 		public List<DrinkDataModel> Drinks { get; set; } = new();
+
+		public DrinkTagType TagType { get; set; }
 		public DrinkTagDataModel() { }
 
 
