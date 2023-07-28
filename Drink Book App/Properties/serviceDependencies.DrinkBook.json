@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "signalr1": {
+      "ignored": "true",
+      "type": "signalr",
+      "connectionId": "Azure:SignalR:ConnectionString"
+    },
+    "mssql1": {
+      "ignored": "true",
+      "type": "mssql"
+    }
+  }
+}

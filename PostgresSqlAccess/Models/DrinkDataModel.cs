@@ -12,6 +12,8 @@ namespace DataAccess.Models
 		public int Id { get; set; }
 		public string Name { get; set; }
 
+
+
 		public bool Verification { get; set; }
 
 		public IceDataModel? Ice { get; set; }

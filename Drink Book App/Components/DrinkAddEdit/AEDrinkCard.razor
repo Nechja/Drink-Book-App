@@ -39,6 +39,7 @@
 					<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
 				}
 				<MudTextField Class="px-10" @bind-Value="Drink.Name" Label="Drink Name" />
+				
 
 				<MudSelect Class="px-10" T="bool" @bind-Value="@Drink.Verification" Label="Verified" AnchorOrigin="Origin.BottomCenter">
 					<MudSelectItem Value="true"><MudIcon Icon="@Icons.Material.Filled.Verified" Size="@Size.Small"/></MudSelectItem>

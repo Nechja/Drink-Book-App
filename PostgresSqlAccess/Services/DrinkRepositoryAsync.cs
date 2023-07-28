@@ -161,7 +161,8 @@ public class DrinkRepositoryAsync
 			{
 				var drink = await context.Drinks
 					.Include(i => i.Glass)
-					.Include(r => r.Instructions)
+                    .Include(i => i.Mod)
+                    .Include(r => r.Instructions)
 					.ThenInclude(i => i.Ingredient)
 					.ThenInclude(i => i.IngredientType)
 					.Include(i => i.Instructions)
@@ -169,7 +170,8 @@ public class DrinkRepositoryAsync
 					.Include(i => i.Garnishes)
 					.Include(i => i.Ice)
 					.Include(i => i.Rim)
-					.Include(i => i.Tags)
+                    .Include(i => i.Tags)
+					.ThenInclude(i => i.TagType)
 					.SingleOrDefaultAsync(drink => drink.Id == id)!;
 
 				if (drink == null) return new DrinkDataModel();
@@ -207,14 +209,16 @@ public class DrinkRepositoryAsync
 	{
 		using (var context = await _dbContextFactory.CreateDbContextAsync())
 		{
-			return await context.Drinks
-					.Include(i => i.Glass)
-					.Include(i => i.Tags)
-					.Include(r => r.Instructions)
-					.ThenInclude(i => i.Ingredient)
-					.ThenInclude(i => i.IngredientType)
-					.Include(i => i.Instructions)
-					.ThenInclude(i => i.Flag).ToListAsync();
+			var drinks = await context.Drinks
+                    .Include(i => i.Glass)
+                    .Include(i => i.Tags)
+                    .ThenInclude(i => i.TagType)
+                    .Include(r => r.Instructions)
+                    .ThenInclude(i => i.Ingredient)
+                    .ThenInclude(i => i.IngredientType)
+                    .Include(i => i.Instructions)
+                    .ThenInclude(i => i.Flag).ToListAsync();
+            return drinks.OrderBy(i => i.Name).ToList();
 		}
 	}
 

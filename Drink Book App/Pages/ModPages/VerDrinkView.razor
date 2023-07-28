@@ -1,4 +1,4 @@
-﻿@page "/admintools/addmindrinklist"
+﻿@page "/admintools/verifyqueue"
 @attribute [Authorize(Roles = "Admin, Mod")]
 
 @if(drinks is null)
@@ -22,23 +22,26 @@ else
                           AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <Columns >
-                <TemplateColumn T="DrinkDisplayModel" Sortable="false">
-                    <CellTemplate>
-                        @if (context.Item.Verification == true)
-                        {
-                            <MudIcon Color="@Color.Tertiary" Icon="@Icons.Material.Filled.Verified" Size="@Size.Small" />
-                        }
-                        else
-                        {
-                            <MudIcon Color="@Color.Error" Icon="@Icons.Material.Filled.Pending" Size="@Size.Small" />
-                        }
+                <PropertyColumn Property="x => x.Verification"
+                    Filterable="true" Sortable="true">e</PropertyColumn>
+                <PropertyColumn Property="x => x.Name"
+                    Filterable="true"
+                    Sortable="true"/>
 
-                    </CellTemplate>
-                </TemplateColumn>
                 <TemplateColumn T="DrinkDisplayModel" Title="Name" Sortable="false">
                     <CellTemplate>
-                        <MudButton Variant="Variant.Text" Size="Size.Small" @onclick="() => NavTo(context.Item.Name,context.Item.Id)">@context.Item.Name</MudButton>
+                        <MudIcon Icon="@Icons.Material.Filled.Edit" Variant="Variant.Text" Size="Size.Small" @onclick="() => NavTo(context.Item.Name,context.Item.Id)"></MudIcon>
                     </CellTemplate>
+
+                </TemplateColumn>
+                <TemplateColumn T="DrinkDisplayModel" Title="Link" Sortable="false">
+                    <CellTemplate>
+                        @if(context.Item.Link != null){
+                            <MudIconButton Icon="@Icons.Material.Filled.Link" Variant="Variant.Text" Size="Size.Small" Href="@context.Item.Link.ToString()"></MudIconButton>
+
+                        }
+                    </CellTemplate>
+
                 </TemplateColumn>
                 <TemplateColumn T="DrinkDisplayModel" Title="Ingredients" Sortable="false">
                     <CellTemplate>

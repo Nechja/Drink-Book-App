@@ -7,7 +7,7 @@ using Microsoft.Azure.SignalR.Common;
 using MudBlazor;
 using static MudBlazor.CategoryTypes;
 
-namespace Drink_Book_App.Pages
+namespace Drink_Book_App.Pages.ModPages
 {
 	public partial class DrinkListViewAdmin
 	{
@@ -32,8 +32,8 @@ namespace Drink_Book_App.Pages
 
 		protected private async Task UpdateData()
 		{
-			drinks.Clear(); 
-			softdeldrinks.Clear();
+			//drinks.Clear(); 
+			//softdeldrinks.Clear();
 			searchString = string.Empty;
 
 			var drinkdata = await repo.GetDrinks();
@@ -98,6 +98,9 @@ namespace Drink_Book_App.Pages
                 return true;
 
             if (x.Instructions.Any(i => i.Ingredient.IngredientType.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)))
+                return true;
+
+            if (x.Tags.Any(i => i.Value.Contains(searchString, StringComparison.OrdinalIgnoreCase)))
                 return true;
 
             return false;

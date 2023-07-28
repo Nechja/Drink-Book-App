@@ -21,7 +21,11 @@ public class DrinkDisplayModel : DisplayDeleteProtection, IDrinkDataModel
 
 	public bool Verification { get; set; }
 
+	public DrinkDataModel Mod { get; set; }
+
     public Uri? Image { get; set; }
+
+	public Uri? Link { get; set; }
 	[Required]
 	[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
 	public string Name { get; set; }
@@ -38,8 +42,14 @@ public class DrinkDisplayModel : DisplayDeleteProtection, IDrinkDataModel
 		this.Name = drinkData.Name;
 		this.Notes = drinkData.Notes;
 		this.Id = drinkData.Id;
-		this.Image = drinkData.Image;
+		this.Link = drinkData.Link;
 		this.Verification = drinkData.Verification;
+		this.Image = drinkData.Image;
+		if(drinkData.Mod != null)
+		{
+            this.Mod = drinkData.Mod;
+        }
+		
 		if(drinkData.Ice != null) this.Ice = new TagDisplayModel(drinkData.Ice);
 		if(drinkData.Glass != null) this.Glass = new GlassDisplayModel(drinkData.Glass);
 		if(drinkData.Rim != null) this.Rim = new TagDisplayModel(drinkData.Rim);
@@ -68,6 +78,8 @@ public class DrinkDisplayModel : DisplayDeleteProtection, IDrinkDataModel
 	    drink.Id = this.Id;
 		drink.Image = this.Image;
 		drink.Verification = this.Verification;
+		drink.Link = this.Link;
+        if (this.Mod != null) drink.Mod = this.Mod;
 		if (Ice != null) drink.Ice = this.Ice.IceDataModel;
 		if(Rim != null) drink.Rim = this.Rim.RimDataModel;
 		foreach (TagDisplayModel t in Garnishes)
@@ -118,9 +130,37 @@ public class DrinkDisplayModel : DisplayDeleteProtection, IDrinkDataModel
         get
         {
             if (String.IsNullOrEmpty(this.Name)) return string.Empty;
+            string pattern = @"\(([^)]*)\)";
+            
             TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
             string title = textInfo.ToTitleCase(Name);
+            MatchCollection matches = Regex.Matches(title, pattern);
+
+			foreach (Match match in matches)
+			{
+				title = title.Replace(match.Value, string.Empty);
+			}
             return title;
         }
     }
+
+	public string DrinkVersion
+	{
+		get
+		{
+            if (String.IsNullOrEmpty(this.Name)) return string.Empty;
+            string pattern = @"\(([^)]*)\)";
+
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+            string title = textInfo.ToTitleCase(Name);
+            MatchCollection matches = Regex.Matches(title, pattern);
+			string version = string.Empty;
+            foreach (Match match in matches)
+            {
+				version += match.Value;
+            }
+            return version;
+        }
+	}
+
 }

@@ -41,18 +41,18 @@ namespace DataAccess.Context
 		public DbSet<UserDrinkListsDataModel> DrinkLists { get; set; }
 
 
-		//public DrinkDBContext(DbContextOptions<DrinkDBContext> options) : base(options)
-		//{
-
-		//}
-
-
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		public DrinkDBContext(DbContextOptions<DrinkDBContext> options) : base(options)
 		{
-			optionsBuilder.UseNpgsql("Username=postgres;Password=2244;Host=172.31.48.1;Port=5432;DataBase=DrinkBook;Pooling=true;Include Error Detail=true;"); //testing hardcode
-			optionsBuilder.AddInterceptors(new SoftDeleteInterceptor());
-			optionsBuilder.AddInterceptors(new LoggingInterceptor());
+
 		}
+
+
+		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		//{
+		//	optionsBuilder.UseNpgsql("Username=postgres;Password=2244;Host=172.31.48.1;Port=5432;DataBase=DrinkBook;Pooling=true;Include Error Detail=true;"); //testing hardcode
+		//	optionsBuilder.AddInterceptors(new SoftDeleteInterceptor());
+		//	optionsBuilder.AddInterceptors(new LoggingInterceptor());
+		//}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

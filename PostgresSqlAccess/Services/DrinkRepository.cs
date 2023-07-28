@@ -149,7 +149,9 @@ public class DrinkRepository
 					.Include(i => i.Garnishes)
 					.Include(i => i.Ice)
 					.Include(i => i.Rim)
-					.Include(i => i.Tags)
+                    .Include(i => i.Mod)
+                    .Include(i => i.Tags)
+					.ThenInclude(i => i.TagType)
 					.SingleOrDefault(drink => drink.Id == id)!;
 
 				return drink;
@@ -178,10 +180,12 @@ public class DrinkRepository
 			return context.Drinks
 					.Include(i => i.Glass)
 					.Include(i => i.Tags)
+					.ThenInclude(i => i.TagType)
 					.Include(r => r.Instructions)
 					.ThenInclude(i => i.Ingredient)
 					.ThenInclude(i => i.IngredientType)
-					.Include(i => i.Instructions)
+                    .Include(i => i.Mod)
+                    .Include(i => i.Instructions)
 					.ThenInclude(i => i.Flag).ToList();
 		}
 	}
@@ -252,7 +256,9 @@ public class DrinkRepository
 			updater.Ice = drink.Ice;
 			updater.Rim = drink.Rim;
 			updater.Verification = drink.Verification;
+			updater.Link = drink.Link;
 			updater.Garnishes.Clear();
+			updater.Mod	= drink.Mod;
 			context.ChangeTracker.DetectChanges();
 			var debug1 = context.ChangeTracker.DebugView.ShortView;
 			context.SaveChanges();

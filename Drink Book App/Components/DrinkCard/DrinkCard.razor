@@ -7,16 +7,29 @@
             }
             else
             {
+                @if (!String.IsNullOrEmpty(DrinkDisplay.DrinkVersion))
+                {
+                    <MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center" Class="pt-n5 m-n3">
+                    <MudText Class="pt-n5 m-n3" Typo="Typo.overline" Align="Align.Center">@DrinkDisplay.DrinkVersion </MudText>
+                    </MudStack>
+                }
+
                 <MudStack Row="true" Class="pb-2 pt-n2" Justify="Justify.FlexStart" AlignItems="AlignItems.Stretch">
-                    <MudAvatar Color="Color.Surface" Variant="Variant.Outlined" Size="Size.Large">@DrinkDisplay.Name[0].ToString().ToUpperInvariant()</MudAvatar>
+                    <MudStack Justify="@Justify.Center" AlignItems="AlignItems.Stretch">
+                        <MudAvatar Color="Color.Surface" Variant="Variant.Outlined" Size="Size.Large">@DrinkDisplay.Name[0].ToString().ToUpperInvariant()</MudAvatar>
+
+
+                    </MudStack>
 
                     <MudItem>
+
                         <MudStack Row>
-                        @if (@DrinkDisplay.DrinkTitle.Length < 8)
+
+                        @if (@DrinkDisplay.DrinkTitle.Length < 10)
                             {
                                 <MudText Typo="Typo.h3">@DrinkDisplay.DrinkTitle</MudText>
                             }
-                            else if (@DrinkDisplay.DrinkTitle.Length < 12)
+                            else if (@DrinkDisplay.DrinkTitle.Length < 14)
                             {
                                 <MudText Typo="Typo.h4">@DrinkDisplay.DrinkTitle</MudText>
                             }
@@ -25,13 +38,17 @@
                                 <MudText Typo="Typo.h6">@DrinkDisplay.DrinkTitle</MudText>
                             }
 
+
                         @if (DrinkDisplay.Verification == true)
                             {
                                 <MudIcon Icon="@Icons.Material.Filled.Verified" Size="@Size.Small" />
                             }
                         </MudStack>
+
+                        
                         
                         <MudPaper Class="pl-4 pt-n2" Elevation="0">
+
                             <MudText Typo="Typo.caption">@DrinkDisplay.DrinkEndLong</MudText>
 
                             @if (DrinkDisplay.Garnishes.Any())
@@ -44,15 +61,37 @@
                                     }
                                 </MudStack>
                             }
+
                         </MudPaper>
                     </MudItem>
 
                 </MudStack>
+
             }
+
+
+
+
+
 
             <MudDivider DividerType="DividerType.FullWidth" Light="true" />
 
             <Instructions instructions="InstructionsList"></Instructions>
+            <MudDivider DividerType="DividerType.FullWidth" Light="true" />
+            <MudExpansionPanel Text="Tags" Dense="true">
+                <MudPaper Elevation="0" Class="pt-4">
+                    <MudGrid Justify="Justify.FlexStart">
+                        @foreach (var tag in DrinkDisplay.Tags)
+                        {
+                            <MudChip Label="true" Variant="Variant.Text" Size="Size.Small" Value="tag" Text="@tag.Value" Color="tag.TagColor" />
+                        }
+
+                    </MudGrid>
+                </MudPaper>
+
+            </MudExpansionPanel>
+
+
         </MudCardContent>
         <MudCardActions>
             @if (DrinkDisplay == null)

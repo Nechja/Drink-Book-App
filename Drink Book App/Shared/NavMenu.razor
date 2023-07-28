@@ -44,6 +44,13 @@
                     <MudNavLink IconColor="@Color.Warning" Icon="@Icons.Material.Filled.Search" Href="/admintools/audit">Drink Audit</MudNavLink>
                 </MudNavGroup>
             </AuthorizeView>
+            <AuthorizeView Roles="Admin,Mod">
+                
+                <MudNavGroup IconColor="@Color.Error" Title="Mod Tools" Icon="@Icons.Material.Filled.ManageAccounts">
+                    <MudNavLink IconColor="@Color.Error" Icon="@Icons.Material.Filled.Queue" Href="/admintools/verifyqueue">Verify Queue</MudNavLink>
+                </MudNavGroup>
+
+            </AuthorizeView>
             <MudNavGroup IconColor="@Color.Tertiary" Title="Data And Reports" Icon="@Icons.Material.Filled.DataExploration" Expanded="false">
                 <MudNavLink IconColor="@Color.Tertiary" Icon="@Icons.Material.Filled.Dashboard" Href="/data/dashboard">Data Dashboard</MudNavLink>
                 <MudNavLink IconColor="@Color.Tertiary" Icon="@Icons.Material.Filled.Tag" Href="/data/drinktags">Data Dashboard</MudNavLink>

@@ -1,22 +1,27 @@
-﻿@page "/drinklist"
+﻿@page "/admintools/addmindrinklist"
+@attribute [Authorize(Roles = "Admin, Mod")]
 
 @if(drinks is null)
 {
-	<Loading></Loading>
+    <MudContainer>
+        <MudSkeleton SkeletonType="SkeletonType.Rectangle" Width="80%" Height="70%" />
+    </MudContainer>
+
 }
 else
 {
     <MudContainer>
         <MudDataGrid T="DrinkDisplayModel" Items="@drinks" ReadOnly="true" 
             SortMode="SortMode.Multiple" QuickFilter="@QuickFilter"
-            Striped="true">
+            Striped="true"
+            Dense="true">
             <ToolBarContent>
-                <MudText Typo="Typo.h4">Drink List</MudText>
+                <MudText Typo="Typo.h4">Drink List (Mod & Admin View)</MudText>
                 <MudSpacer />
                 <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
                           AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
-            <Columns>
+            <Columns >
                 <TemplateColumn T="DrinkDisplayModel" Sortable="false">
                     <CellTemplate>
                         @if (context.Item.Verification == true)
@@ -32,7 +37,10 @@ else
                 </TemplateColumn>
                 <TemplateColumn T="DrinkDisplayModel" Title="Name" Sortable="false">
                     <CellTemplate>
-                        <MudButton Variant="Variant.Text" Size="Size.Small" @onclick="() => NavTo(context.Item.Name,context.Item.Id)">@context.Item.Name</MudButton>
+                        <MudGrid Justify="Justify.FlexStart">
+                            <MudLink Underline="Underline.None" Color="Color.Default" @onclick="() => NavTo(context.Item.Name,context.Item.Id)">@context.Item.Name</MudLink>
+
+                        </MudGrid>
                     </CellTemplate>
                 </TemplateColumn>
                 <TemplateColumn T="DrinkDisplayModel" Title="Ingredients" Sortable="false">
@@ -45,15 +53,39 @@ else
                         </MudGrid>
                     </CellTemplate>
 
+
                 </TemplateColumn>
+
                 <TemplateColumn T="DrinkDisplayModel" Title="Tags" Sortable="false">
                     <CellTemplate>
                         <MudGrid>
                             @foreach (var i in context.Item.Tags)
                             {
-                                <MudChip Label="true" Size="Size.Small" Value="@i">@i.Value</MudChip>
+                                <MudChip Variant="Variant.Outlined" Label="true" Color="i.TagColor" Size="Size.Small" Value="@i">@i.Value</MudChip>
                             }
                         </MudGrid>
+                    </CellTemplate>
+
+                </TemplateColumn>
+
+                  <TemplateColumn T="DrinkDisplayModel" CellClass="d-flex justify-end">
+                    <CellTemplate>
+                        <MudToolBar Dense="true">
+                        <MudPopover Open="context.Item.Deletable" Fixed="true"
+                                    Elevation="3" AnchorOrigin="Origin.CenterLeft" TransformOrigin="Origin.CenterRight">
+                            <MudToolBar Dense="true">
+                                <MudIconButton Size="@Size.Small" Color="Color.Warning" Icon="@Icons.Material.Filled.Delete" OnClick="@(() => this.OnDelete(context.Item))" aria-label="delete" />
+                                <MudIconButton Size="@Size.Small" Color="Color.Warning" Icon="@Icons.Material.Filled.Cancel" OnClick="@(() => context.Item.Deletable = false)" aria-label="delete" />
+
+                            </MudToolBar>
+                        </MudPopover>
+
+                        <MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" OnClick="@(() => context.Item.Deletable = true)" aria-label="delete" />
+
+
+
+                        <MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="@(() => this.OnEdit(context.Item))" aria-label="edit"></MudIconButton>
+                    </MudToolBar>
                     </CellTemplate>
 
                 </TemplateColumn>
@@ -65,5 +97,4 @@ else
         </MudDataGrid>
 
     </MudContainer>
-    
 }
