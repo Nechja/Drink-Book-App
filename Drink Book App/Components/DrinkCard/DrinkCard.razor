@@ -67,7 +67,7 @@
             else
             {
                 <AuthorizeView Roles="Admin, Mod">
-                    <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Edit" />
+                    <MudIconButton Variant="Variant.Text" @onclick="() => EditDrink(DrinkDisplay.Id)" Icon="@Icons.Material.Outlined.Edit" />
                 </AuthorizeView>
                 <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.List" />
                 <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Favorite" />

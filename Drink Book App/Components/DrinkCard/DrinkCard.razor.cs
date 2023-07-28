@@ -9,7 +9,10 @@ namespace Drink_Book_App.Components.DrinkCard
 {
 	partial class DrinkCard
 	{
-		[Parameter]
+        [Inject]
+        NavigationManager navi { get; set; }
+
+        [Parameter]
 		public DrinkDataModel DrinkData { get; set; } = default!;
 		public DrinkDisplayModel DrinkDisplay { set; get; } = new DrinkDisplayModel();
 		public List<InstructionDisplayModel> InstructionsList { get; set; } = new List<InstructionDisplayModel>();
@@ -28,5 +31,10 @@ namespace Drink_Book_App.Components.DrinkCard
 				}
 			}
 		}
-	}
+
+        public void EditDrink(int Id)
+        {
+            navi.NavigateTo($"/drinktools/editdrink/{Id}");
+        }
+    }
 }
