@@ -3,8 +3,10 @@
 
 using DataAccess.Models;
 using DataAccess.Models.Interfaces;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Drink_Book_App.Models;
 
@@ -16,7 +18,10 @@ public class DrinkDisplayModel : DisplayDeleteProtection, IDrinkDataModel
 
 	public TagDisplayModel Rim { get; set; }
 	public int Id { get; set; }
-	public Uri? Image { get; set; }
+
+	public bool Verification { get; set; }
+
+    public Uri? Image { get; set; }
 	[Required]
 	[StringLength(50, MinimumLength = 2, ErrorMessage = "Size out of bounds.")]
 	public string Name { get; set; }
@@ -34,6 +39,7 @@ public class DrinkDisplayModel : DisplayDeleteProtection, IDrinkDataModel
 		this.Notes = drinkData.Notes;
 		this.Id = drinkData.Id;
 		this.Image = drinkData.Image;
+		this.Verification = drinkData.Verification;
 		if(drinkData.Ice != null) this.Ice = new TagDisplayModel(drinkData.Ice);
 		if(drinkData.Glass != null) this.Glass = new GlassDisplayModel(drinkData.Glass);
 		if(drinkData.Rim != null) this.Rim = new TagDisplayModel(drinkData.Rim);
@@ -61,6 +67,7 @@ public class DrinkDisplayModel : DisplayDeleteProtection, IDrinkDataModel
 		drink.Notes = this.Notes;
 	    drink.Id = this.Id;
 		drink.Image = this.Image;
+		drink.Verification = this.Verification;
 		if (Ice != null) drink.Ice = this.Ice.IceDataModel;
 		if(Rim != null) drink.Rim = this.Rim.RimDataModel;
 		foreach (TagDisplayModel t in Garnishes)

@@ -21,7 +21,20 @@ else
                 <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
                           AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
-            <Columns>
+            <Columns >
+                <TemplateColumn T="DrinkDisplayModel" Sortable="false">
+                    <CellTemplate>
+                        @if (context.Item.Verification == true)
+                        {
+                            <MudIcon Color="@Color.Tertiary" Icon="@Icons.Material.Filled.Verified" Size="@Size.Small" />
+                        }
+                        else
+                        {
+                            <MudIcon Color="@Color.Error" Icon="@Icons.Material.Filled.Pending" Size="@Size.Small" />
+                        }
+
+                    </CellTemplate>
+                </TemplateColumn>
                 <TemplateColumn T="DrinkDisplayModel" Title="Name" Sortable="false">
                     <CellTemplate>
                         <MudButton Variant="Variant.Text" Size="Size.Small" @onclick="() => NavTo(context.Item.Name,context.Item.Id)">@context.Item.Name</MudButton>
@@ -37,7 +50,9 @@ else
                         </MudGrid>
                     </CellTemplate>
 
+
                 </TemplateColumn>
+
                 <TemplateColumn T="DrinkDisplayModel" Title="Tags" Sortable="false">
                     <CellTemplate>
                         <MudGrid>

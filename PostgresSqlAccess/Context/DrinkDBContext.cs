@@ -36,6 +36,10 @@ namespace DataAccess.Context
 
 		public DbSet<DrinkBadgeDataModel> DrinkBadges { get; set; }
 
+		public DbSet<UserDataModel> Users { get; set; }
+
+		public DbSet<UserDrinkListsDataModel> DrinkLists { get; set; }
+
 
 		//public DrinkDBContext(DbContextOptions<DrinkDBContext> options) : base(options)
 		//{
@@ -118,7 +122,16 @@ namespace DataAccess.Context
 				.WithMany(e => e.Garnishes);
 			modelBuilder.Entity<RimDataModel>();
 
-		}
+			modelBuilder.Entity<UserDataModel>()
+				.HasMany(e => e.DrinkLists)
+				.WithMany(e => e.Users);
+
+			modelBuilder.Entity<UserDrinkListsDataModel>()
+				.HasMany(e => e.Drinks)
+				.WithMany(e => e.DrinkLists);
+
+
+        }
 
 	}
 }

@@ -9,8 +9,28 @@
             {
                 <MudStack Row="true" Class="pb-2 pt-n2" Justify="Justify.FlexStart" AlignItems="AlignItems.Stretch">
                     <MudAvatar Color="Color.Surface" Variant="Variant.Outlined" Size="Size.Large">@DrinkDisplay.Name[0].ToString().ToUpperInvariant()</MudAvatar>
+
                     <MudItem>
-                        <MudText Typo="Typo.h4">@DrinkDisplay.DrinkTitle</MudText>
+                        <MudStack Row>
+                        @if (@DrinkDisplay.DrinkTitle.Length < 8)
+                            {
+                                <MudText Typo="Typo.h3">@DrinkDisplay.DrinkTitle</MudText>
+                            }
+                            else if (@DrinkDisplay.DrinkTitle.Length < 12)
+                            {
+                                <MudText Typo="Typo.h4">@DrinkDisplay.DrinkTitle</MudText>
+                            }
+                            else
+                            {
+                                <MudText Typo="Typo.h6">@DrinkDisplay.DrinkTitle</MudText>
+                            }
+
+                        @if (DrinkDisplay.Verification == true)
+                            {
+                                <MudIcon Icon="@Icons.Material.Filled.Verified" Size="@Size.Small" />
+                            }
+                        </MudStack>
+                        
                         <MudPaper Class="pl-4 pt-n2" Elevation="0">
                             <MudText Typo="Typo.caption">@DrinkDisplay.DrinkEndLong</MudText>
 

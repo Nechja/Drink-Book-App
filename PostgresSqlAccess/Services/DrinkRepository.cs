@@ -251,6 +251,7 @@ public class DrinkRepository
 			updater.Name = drink.Name;
 			updater.Ice = drink.Ice;
 			updater.Rim = drink.Rim;
+			updater.Verification = drink.Verification;
 			updater.Garnishes.Clear();
 			context.ChangeTracker.DetectChanges();
 			var debug1 = context.ChangeTracker.DebugView.ShortView;
