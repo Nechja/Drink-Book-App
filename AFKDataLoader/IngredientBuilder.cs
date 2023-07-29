@@ -33,6 +33,7 @@ namespace AFKDataLoader
                     IngredientTypeDataModel type = new IngredientTypeDataModel();
                     var ty = ingredient.Type.ToLower();
                     ty = ty.Trim();
+                    ty = ty.Trim();
                     switch (ty)
                     {
                         case ".5":
@@ -41,10 +42,13 @@ namespace AFKDataLoader
                             break;
                         case "mixer/wine":
                         case "mixer wine":
-                        case "aperitif wine":
+
                         case "wine":
 
                             ty = "wine";
+                            break;
+                        case "aperitif wine":
+                            ty = "Apéritif";
                             break;
                         case "mixxer":
                         case "cream":
@@ -103,8 +107,6 @@ namespace AFKDataLoader
                             ty = "cider";
                             break;
                     }
-
-
 
                     model.Name = textInfo.ToTitleCase(ingredient.Name);
                     type.Name = ty;

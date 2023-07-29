@@ -47,6 +47,7 @@ namespace AFKDataLoader
                 if (ice.Contains("yes")) continue;
                 if (ice.Contains(".5")) continue;
                 if (ice.Contains("rim")) continue;
+                if (ice.Contains("blender")) continue;
                 if (string.IsNullOrEmpty(ice)) continue;
 
                 if (models.FirstOrDefault(i => i.Value == ice) == null)

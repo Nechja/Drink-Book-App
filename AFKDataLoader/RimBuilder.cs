@@ -27,6 +27,9 @@ namespace AFKDataLoader
                 if (drink.Garnish.Contains("rim"))
                 {
                     var rim = drink.Garnish.ToLower();
+
+
+
                     if (models.FirstOrDefault(i => i.Value == rim) == null)
                     {
                         RimDataModel model = new RimDataModel();

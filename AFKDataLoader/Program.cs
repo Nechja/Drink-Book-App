@@ -96,16 +96,16 @@ class Program
                 //Console.WriteLine("----------");
             }
         }
-        //var Types = new IngredientTypeBuilder(ingredients);
+        var Types = new IngredientTypeBuilder(ingredients);
         //////Load all the types in
-        //Types.build();
+        Types.build();
         //Types.load(); //Load into database
 
         //////Load all the Ingredients in
-        var ingredientBuilder = new IngredientBuilder(ingredients);
+        //var ingredientBuilder = new IngredientBuilder(ingredients);
         //////
         //////
-        ingredientBuilder.build();
+        //ingredientBuilder.build();
 
         //ingredientBuilder.load();
 
@@ -117,13 +117,13 @@ class Program
         //garnishbuilder.build();
         //garnishbuilder.load();
 
-        ////var icebuilder = new IceBuilder(drinks);
-        ////icebuilder.build();
+        //var icebuilder = new IceBuilder(drinks);
+        //icebuilder.build();
         ////icebuilder.load();
 
-        ////var glassbuilder = new GlassBuilder(drinks);
-        ////glassbuilder.build();
-        ////glassbuilder.load();
+        //var glassbuilder = new GlassBuilder(drinks);
+        //glassbuilder.build();
+        //glassbuilder.load();
 
         //var drinktagbuilder = new DrinkTagBuilder(drinks);
         //drinktagbuilder.build();

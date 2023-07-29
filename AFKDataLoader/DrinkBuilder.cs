@@ -221,9 +221,12 @@ namespace AFKDataLoader
                         case "jar or pint glass":
                         case "pint glass":
                         case "dropshot":
+                        case "drop shot":
+                        case "glass":
                             glass = "pounder";
                             break;
                         case "collns":
+                        case "rocks or collins":
                             glass = "collins";
                             break;
                         case "layered shot":
@@ -232,6 +235,8 @@ namespace AFKDataLoader
                         case "bucket or lowball":
                         case "bucket or globe":
                         case "dirty drop shot, bucket":
+                        case "globe/small wine/whiskey or bucket":
+                        case "lowball":
                             glass = "bucket";
                             break;
                         case "globe or small whiskey glass":
@@ -240,6 +245,7 @@ namespace AFKDataLoader
                         case "wine or globe":
                         case "globe or bucket":
                         case "small wine":
+                        case "globe, stemless wine":
                             glass = "globe";
                             break;
                         case "hurricane/  glass":
@@ -252,6 +258,9 @@ namespace AFKDataLoader
                         case "small wine or martini":
                         case "martini":
                         case "coup or martini":
+                        case "martini or globe":
+                        case "globe or martini":
+                        case "chilled martini":
                             glass = "martini shell";
                             break;
                         case "large mason jar or pitcher":
@@ -264,14 +273,19 @@ namespace AFKDataLoader
                             glass = "goblet";
                             break;
                         case "double shot or rocks":
+                        case "double shot or  rocks":
                             glass = "rocks";
                             break;
                         case "jar":
                             glass = "mason jar";
                             break;
-
-
-
+                        case "large globe":
+                        case "large wine":
+                            glass = "large wine glass";
+                            break;
+                        case "stem wine or bourbon":
+                            glass = "brandy snifter";
+                            break;
                         default:
                             break;
                     }

@@ -36,10 +36,13 @@ namespace AFKDataLoader
                         break;
                     case "mixer/wine":
                     case "mixer wine":
-                    case "aperitif wine":
+                    
                     case "wine":
 
                         ty = "wine";
+                        break;
+                    case "aperitif wine":
+                        ty = "Apéritif";
                         break;
                     case "mixxer":
                     case "cream":
