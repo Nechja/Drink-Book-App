@@ -97,15 +97,15 @@ class Program
             }
         }
         //var Types = new IngredientTypeBuilder(ingredients);
-        //Load all the types in
+        //////Load all the types in
         //Types.build();
         //Types.load(); //Load into database
 
-        //Load all the Ingredients in
-        //var ingredientBuilder = new IngredientBuilder(ingredients);
-        //
-        //
-        //ingredientBuilder.build();
+        //////Load all the Ingredients in
+        var ingredientBuilder = new IngredientBuilder(ingredients);
+        //////
+        //////
+        ingredientBuilder.build();
 
         //ingredientBuilder.load();
 
@@ -117,21 +117,21 @@ class Program
         //garnishbuilder.build();
         //garnishbuilder.load();
 
-        //var icebuilder = new IceBuilder(drinks);
-        //icebuilder.build();
-        //icebuilder.load();
+        ////var icebuilder = new IceBuilder(drinks);
+        ////icebuilder.build();
+        ////icebuilder.load();
 
-        //var glassbuilder = new GlassBuilder(drinks);
-        //glassbuilder.build();
-        //glassbuilder.load();
+        ////var glassbuilder = new GlassBuilder(drinks);
+        ////glassbuilder.build();
+        ////glassbuilder.load();
 
         //var drinktagbuilder = new DrinkTagBuilder(drinks);
         //drinktagbuilder.build();
         //drinktagbuilder.load();
 
-        var drinkbuilder = new DrinkBuilder(drinks);
-        drinkbuilder.build();
-        drinkbuilder.load();
+        //var drinkbuilder = new DrinkBuilder(drinks);
+        //drinkbuilder.build();
+        //drinkbuilder.load();
 
     }
 }

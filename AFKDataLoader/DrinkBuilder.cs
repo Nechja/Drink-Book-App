@@ -356,12 +356,22 @@ namespace AFKDataLoader
             DrinkDBContext context = new DrinkDBContext();
             foreach(DrinkDataModel drink in drinkDataModels)
             {
+                if (context.Drinks.FirstOrDefault(i => i.Name == drink.Name) != null) continue;
                 if(drink.Mod != null)
                 {
                     drink.Mod = context.Drinks.FirstOrDefault(e => e.Name.ToLower() == drink.Mod.Name.ToLower());
                 }
-                var glass = context.Glasses.FirstOrDefault(g => g.Id == drink.Glass.Id!);
-                drink.Glass = glass;
+                try
+                {
+                    var glass = context.Glasses.FirstOrDefault(g => g.Id == drink.Glass.Id!);
+                    drink.Glass = glass;
+                }
+                catch(Exception ex)
+                {
+                    var glass = context.Glasses.FirstOrDefault(g => g.Name.ToLower() == "pounder");
+                    drink.Glass = glass;
+                }
+                
 
                 //tags
                 var drinktags = new List<DrinkTagDataModel>();
