@@ -167,23 +167,116 @@ namespace AFKDataLoader
 
                 }
                 //rim logic
+                List<GarnishDataModel> garnishes = new List<GarnishDataModel>();
                 if (!string.IsNullOrEmpty(drink.Garnish))
                 {
                     if (drink.Garnish.Contains("rim"))
                     {
-                        var rim = drink.Garnish.Trim();
-                        rim = rim.ToLower();
+
+                        var rim = drink.Garnish.ToLower();
+                        switch (rim)
+                        {
+                            case "salt/pepper rim and pickled jalapeno":
+                                rim = "salt & pepper rim";
+                                garnishes.Add(new GarnishDataModel() { Value = "pickled jalapeno" });
+                                break;
+                            case "smoked salt rim, lemon & lime wedge, pepperoncini & olive skewer":
+                                rim = "smoked salt rim";
+                                garnishes.Add(new GarnishDataModel() { Value = "lemon" });
+                                garnishes.Add(new GarnishDataModel() { Value = "lime" });
+                                garnishes.Add(new GarnishDataModel() { Value = "pepperoncini" });
+                                garnishes.Add(new GarnishDataModel() { Value = "olive" });
+                                break;
+                        }
+
+
+
                         model.Rim = context.RimTypes.SingleOrDefault(e => e.Value.ToLower() == rim);
+
                     }
                 }
                 //garnish
                 if (!string.IsNullOrEmpty(drink.Garnish))
                 {
+
                     if (!drink.Garnish.Contains("rim"))
                     {
-                        var garnish = drink.Garnish.Trim();
-                        garnish = garnish.ToLower();
+                        List<String> toadd = new List<String>();
+
+
+
+                        var garnish = drink.Garnish.ToLower();
+                        garnish = garnish.Trim();
+
+                        switch (garnish)
+                        {
+                            
+
+
+                            case "orange peel, sugar cube":
+                                garnish = "orange peel";
+                                toadd.Add("sugar cube");
+                                break;
+                            case "2-4 gummy worms":
+                                garnish = "gummy worms";
+                                break;
+                            case "zested lemon and lime":
+                                garnish = "lemon zest";
+                                toadd.Add("lime");
+                                break;
+                            case "orange peel & sage leaf":
+                                garnish = "orange peel";
+                                toadd.Add("sage leaf");
+                                break;
+                            case "whipped cream, cherry":
+                                garnish = "whipped cream";
+                                toadd.Add("cherry");
+                                break;
+                            case "two cherries, two sugar cubes":
+                                garnish = "cherry";
+                                toadd.Add("sugar cube");
+                                break;
+                            case "gummy worms, 3 cherries":
+                                garnish = "gummy worms";
+                                toadd.Add("cherry");
+                                break;
+                            case "green olive, lime wedge optional":
+                                garnish = "green olive";
+                                break;
+                            case "lime and mint":
+                                garnish = "lime";
+                                toadd.Add("mint");
+                                break;
+                            case "sliced wheel of lemon & black olive":
+                            case "wheel of lemon and slice of black olive":
+                                garnish = "wheel of lemon";
+                                toadd.Add("black olive");
+                                break;
+                            case "lemon wedge (2 cal)":
+                            case "lemon wedge":
+                                garnish = "lemon";
+                                break;
+                            case "lime wedge":
+                                garnish = "lime";
+                                break;
+                            case "grapefruit wedge":
+                                garnish = "grapefruite";
+                                break;
+
+
+
+                        }
                         model.Garnishes.Add(context.GarnishTypes.SingleOrDefault(e => e.Value.ToLower() == garnish));
+
+                        foreach(string s in toadd)
+                        {
+                            model.Garnishes.Add(context.GarnishTypes.SingleOrDefault(e => e.Value.ToLower() == s));
+                        }
+
+                        foreach(var g in garnishes)
+                        {
+                            model.Garnishes.Add(context.GarnishTypes.SingleOrDefault(e => e.Value.ToLower() == g.Value));
+                        }
                     }
                 }
 

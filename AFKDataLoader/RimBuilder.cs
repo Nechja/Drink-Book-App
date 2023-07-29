@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace AFKDataLoader
     {
         List<Drink> drinks = new List<Drink>();
         List<RimDataModel> models = new List<RimDataModel>();
+        public List<GarnishDataModel> garnishes = new List<GarnishDataModel>();
 
         public RimBuilder(List<Drink> drinks)
         {
@@ -26,8 +28,22 @@ namespace AFKDataLoader
             {
                 if (drink.Garnish.Contains("rim"))
                 {
-                    var rim = drink.Garnish.ToLower();
 
+                    var rim = drink.Garnish.ToLower();
+                    switch (rim)
+                    {
+                        case "salt/pepper rim and pickled jalapeno":
+                            rim = "salt & pepper rim";
+                            garnishes.Add(new GarnishDataModel() { Value = "pickled jalapeno" });
+                            break;
+                        case "smoked salt rim, lemon & lime wedge, pepperoncini & olive skewer":
+                            rim = "smoked salt rim";
+                            garnishes.Add(new GarnishDataModel() { Value = "lemon" });
+                            garnishes.Add(new GarnishDataModel() { Value = "lime" });
+                            garnishes.Add(new GarnishDataModel() { Value = "pepperoncini" });
+                            garnishes.Add(new GarnishDataModel() { Value = "olive" });
+                            break;
+                    }
 
 
                     if (models.FirstOrDefault(i => i.Value == rim) == null)

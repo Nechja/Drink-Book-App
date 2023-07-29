@@ -96,9 +96,9 @@ class Program
                 //Console.WriteLine("----------");
             }
         }
-        var Types = new IngredientTypeBuilder(ingredients);
+        //var Types = new IngredientTypeBuilder(ingredients);
         //////Load all the types in
-        Types.build();
+        //Types.build();
         //Types.load(); //Load into database
 
         //////Load all the Ingredients in
@@ -109,12 +109,12 @@ class Program
 
         //ingredientBuilder.load();
 
-        //var rimbuilder = new RimBuilder(drinks);
-        //rimbuilder.build();
+        var rimbuilder = new RimBuilder(drinks);
+        rimbuilder.build();
         //rimbuilder.load();
 
-        //var garnishbuilder = new GarnishBuilder(drinks);
-        //garnishbuilder.build();
+        var garnishbuilder = new GarnishBuilder(drinks, rimbuilder.garnishes);
+        garnishbuilder.build();
         //garnishbuilder.load();
 
         //var icebuilder = new IceBuilder(drinks);
