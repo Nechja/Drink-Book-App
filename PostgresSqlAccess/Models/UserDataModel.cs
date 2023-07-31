@@ -14,6 +14,8 @@ namespace DataAccess.Models
         public int Id { get; set; }
 
         public string UserName { get; set; }
+
+        public string UserDisplayName { get; set; }
         public bool DarkMode { get; set; } = true;
 
         public List<UserDrinkListsDataModel> DrinkLists { get; set; } = new();

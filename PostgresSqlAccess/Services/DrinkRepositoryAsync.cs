@@ -1,5 +1,6 @@
 ﻿using DataAccess.Context;
 using DataAccess.Models;
+using DataAccess.Tools;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 
@@ -722,4 +723,24 @@ public class DrinkRepositoryAsync
 			await context.SaveChangesAsync();
 		}
 	}
+
+
+
+	public async Task MakeUserLink(string user)
+	{
+        using (var context = await _dbContextFactory.CreateDbContextAsync())
+		{
+			if (context.Users.SingleOrDefaultAsync(e => e.UserName == user) == null)
+			{
+				UserDataModel userDataModel = new UserDataModel();
+				userDataModel.UserName = user;
+				//fix
+				userDataModel.UserDisplayName = RandomName.Name;
+				await context.AddAsync(userDataModel);
+				await context.SaveChangesAsync();
+
+			}
+		}
+
+    }
 }
