@@ -1,6 +1,9 @@
 ﻿using DataAccess.Models;
 using DataAccess.Models.Interfaces;
+using Microsoft.AspNetCore.Routing.Constraints;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
+using static MudBlazor.Colors;
 
 namespace Drink_Book_App.Models
 {
@@ -49,9 +52,45 @@ namespace Drink_Book_App.Models
         {
             get
             {
-                return $"{Oz.ToString()}ᵒᶻ";
+                
+                if (Oz % 1 == 0)
+                {
+                    return $"{Oz.ToString()} ᵒᶻ";
+                }
+
+                float value = Oz.Value;
+                float tolerance = 0.01f; // Adjust this tolerance based on your preference
+
+                for (int denominator = 2; denominator <= 100; denominator++)
+                {
+                    int numerator = (int)Math.Round(value * denominator);
+
+                    float fractionValue = (float)numerator / denominator;
+                    if (Math.Abs(fractionValue - value) < tolerance)
+                    {
+                        if (numerator == 0)
+                            return "0";
+                        if (numerator == denominator)
+                            return "1";
+                        return $"{numerator}/{denominator} ᵒᶻ";
+                    }
+                }
+
+
+                // If no exact or close match was found, return an approximation
+                return $"{Oz.ToString()} ᵒᶻ";
             }
         }
+
+        public string SpecialString
+        {
+            get
+            {
+                TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+                return textInfo.ToTitleCase(Special);
+            }
+        }
+        
 
         public string InstructionText
         {

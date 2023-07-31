@@ -49,7 +49,7 @@ namespace DataAccess.Context
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseNpgsql("Username=postgres;Password=2244;Host=172.31.48.1;Port=5432;DataBase=DrinkBook;Pooling=true;Include Error Detail=true;"); //testing hardcode
+			optionsBuilder.UseNpgsql("Username=drinkbookadmin;Password=iRSm42pvsPVnZJG!;Host=drinkbook.postgres.database.azure.com;Port=5432;DataBase=DrinkBook;Pooling=true;"); //testing hardcode
 			optionsBuilder.AddInterceptors(new SoftDeleteInterceptor());
 			optionsBuilder.AddInterceptors(new LoggingInterceptor());
 		}

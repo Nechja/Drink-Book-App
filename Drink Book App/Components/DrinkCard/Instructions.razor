@@ -1,6 +1,7 @@
-﻿<MudPaper Elevation="0">
-    <MudItem xs="12" Class="pb-4">
-        <MudList Dense="true" DisablePadding="true">
+﻿
+
+        <MudList Dense="true" DisablePadding="true" Class="pb-4">
+
         @if (FlagingItems.Any())
         {
             @foreach(var item in FlagingItems)
@@ -39,29 +40,29 @@
 
         }
         }
-            @foreach (var i in NoFlagInstructions)
-            {
+    @foreach (var i in NoFlagInstructions)
+    {
 
-                <MudListItem DisableGutters="true" Class="pb-n4 mb-n4">
-                    <MudStack Row="true" Spacing="0" Justify="Justify.FlexStart" AlignItems="AlignItems.Stretch">
-                        @if (i.Special != null)
-                        {
-                            <MudChip Label="true" Variant="Variant.Text">@i.Special</MudChip>
-                        }
-                        @if (i.Oz != null)
-                        {
-                            <MudChip Label="true" Variant="Variant.Text">@i.OzString</MudChip>
-                        }
-                        <MudTooltip Text="@i.Ingredient.IngredientType.Name" Arrow="true" Placement="Placement.Right">
-                            <MudChip Label="true" Variant="Variant.Text">@i.Ingredient.Name</MudChip>
-                        </MudTooltip>
+        <MudListItem DisableGutters="true" Class="pt-n4 mt-n4 mb-n4">
+            <MudField Variant="Variant.Text" DisableUnderLine="true" FullWidth="false" Class="pt-n4 mt-n4 mb-n4">
+            <MudStack Row Spacing="1">
+                @if (i.Special != null)
+                    {
+                        <MudText>@i.SpecialString</MudText>
+                    }
+                    @if (i.Oz != null)
+                    {
+                        <MudText>@i.OzString</MudText>
+                    }
+                    <MudTooltip Text="@i.Ingredient.IngredientType.Name" Arrow="true" Placement="Placement.Right">
+                        <MudText>@i.Ingredient.Name</MudText>
+                    </MudTooltip>
+                </MudStack>
+            </MudField>
+        </MudListItem>
+    }
+</MudList>
 
-                    </MudStack>
-                </MudListItem>
-            }
-            <MudSpacer/>
-    </MudList>
-    </MudItem>
-</MudPaper>
+
 
 

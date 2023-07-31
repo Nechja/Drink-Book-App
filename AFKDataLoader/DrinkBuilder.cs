@@ -106,6 +106,7 @@ namespace AFKDataLoader
 
                 DrinkDataModel model = new DrinkDataModel();
                 model.Name = drink.Name;
+                model.Image = new Uri(drink.Imgs);
                 if (!String.IsNullOrEmpty(drink.Link))
                 {
                     try
@@ -114,7 +115,7 @@ namespace AFKDataLoader
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.ToString());
+                        model.Notes += drink.Link;
                     }
                 }
 
@@ -266,16 +267,24 @@ namespace AFKDataLoader
 
 
                         }
-                        model.Garnishes.Add(context.GarnishTypes.SingleOrDefault(e => e.Value.ToLower() == garnish));
+
+                        GarnishDataModel gAdd = new GarnishDataModel();
+                        if (!String.IsNullOrEmpty(garnish)) gAdd = context.GarnishTypes.SingleOrDefault(e => e.Value.ToLower() == garnish);
+                        if (gAdd != null) model.Garnishes.Add(gAdd);
+
+                        if (!String.IsNullOrEmpty(garnish)) model.Garnishes.Add(context.GarnishTypes.SingleOrDefault(e => e.Value.ToLower() == garnish));
 
                         foreach(string s in toadd)
                         {
-                            model.Garnishes.Add(context.GarnishTypes.SingleOrDefault(e => e.Value.ToLower() == s));
+                            GarnishDataModel gadd = new GarnishDataModel();
+                            if(!String.IsNullOrEmpty(s)) gadd = context.GarnishTypes.SingleOrDefault(e => e.Value.ToLower() == s);
+                            if (gadd != null) model.Garnishes.Add(gadd);
                         }
 
                         foreach(var g in garnishes)
                         {
-                            model.Garnishes.Add(context.GarnishTypes.SingleOrDefault(e => e.Value.ToLower() == g.Value));
+                            if(g != null) model.Garnishes.Add(context.GarnishTypes.SingleOrDefault(e => e.Value.ToLower() == g.Value));
+
                         }
                     }
                 }

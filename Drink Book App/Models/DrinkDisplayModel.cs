@@ -4,6 +4,7 @@
 using DataAccess.Models;
 using DataAccess.Models.Interfaces;
 using Microsoft.Extensions.FileSystemGlobbing.Internal;
+using MudBlazor;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -120,8 +121,18 @@ public class DrinkDisplayModel : DisplayDeleteProtection, IDrinkDataModel
 			string style;
 			if (Ice != null)style = $"{textInfo.ToLower(Glass.Name)} {textInfo.ToLower(Ice.Value)}";
 			else style = $"{Glass.Name}";
-			if (Rim != null) style += $" - {textInfo.ToLower(Rim.Value)} rim";
-			return style;
+			if (Rim != null) style += $" w/ {textInfo.ToLower(Rim.Value)}";
+			if (Garnishes.Any())
+			{
+				string garnishstring = " & Garnished w/ ";
+				int g = Garnishes.Count();
+				foreach(var garnish in Garnishes)
+				{
+					garnishstring += $" {garnish},";
+				}
+				style += garnishstring.TrimEnd(',');
+            }
+			return textInfo.ToLower(style);
 		}
 	}
 
@@ -160,6 +171,32 @@ public class DrinkDisplayModel : DisplayDeleteProtection, IDrinkDataModel
 				version += match.Value;
             }
             return version;
+        }
+	}
+
+	public Color VerifiedColor
+	{
+		get
+		{
+			if (Verification)
+			{
+				return Color.Success;
+			}
+			else
+			{
+				return Color.Error;
+			}
+		}
+	}
+
+	public string VerifiedIcon
+	{
+		get
+		{
+			if (Verification) { return Icons.Material.Filled.Verified; }
+			else { return @Icons.Material.Filled.Pending; }
+
+
         }
 	}
 

@@ -1,119 +1,85 @@
-﻿<MudContainer MaxWidth="MaxWidth.ExtraSmall">
-    <MudCard Square="true" Outlined="true" Elevation="1">
-        <MudCardContent Class="pt-n4 mt-4">
-            @if(DrinkDisplay == null)
-            {
-                <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="40px" Width="40px" />
-            }
-            else
-            {
-                @if (!String.IsNullOrEmpty(DrinkDisplay.DrinkVersion))
+﻿<MudContainer MaxWidth="MaxWidth.Large">
+    <MudCard Elevation="2">
+        <MudCardHeader>
+        <MudItem xs="12">
+
+                @if (DrinkDisplay == null)
                 {
-                    <MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center" Class="pt-n5 m-n3">
-                    <MudText Class="pt-n5 m-n3" Typo="Typo.overline" Align="Align.Center">@DrinkDisplay.DrinkVersion </MudText>
-                    </MudStack>
+                    <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="70px" Width="40px" />
                 }
-
-                <MudStack Row="true" Class="pb-2 pt-n2" Justify="Justify.FlexStart" AlignItems="AlignItems.Stretch">
-                    <MudStack Justify="@Justify.Center" AlignItems="AlignItems.Stretch">
-                        <MudAvatar Color="Color.Surface" Variant="Variant.Outlined" Size="Size.Large">@DrinkDisplay.Name[0].ToString().ToUpperInvariant()</MudAvatar>
+                else
+                {
 
 
-                    </MudStack>
 
-                    <MudItem>
+                    <MudStack Row>
 
-                        <MudStack Row>
+
+                    <MudField HelperText="@DrinkDisplay.DrinkEndLong" Label="@DrinkDisplay.DrinkVersion" DisableUnderLine>
 
                         @if (@DrinkDisplay.DrinkTitle.Length < 10)
                             {
-                                <MudText Typo="Typo.h3">@DrinkDisplay.DrinkTitle</MudText>
+                                <MudText Typo="Typo.h2"><MudAvatar Variant="Variant.Outlined" Size="Size.Large" Color="@DrinkDisplay.VerifiedColor">@DrinkDisplay.Name[0]</MudAvatar> @DrinkDisplay.DrinkTitle</MudText>
                             }
                             else if (@DrinkDisplay.DrinkTitle.Length < 14)
                             {
-                                <MudText Typo="Typo.h4">@DrinkDisplay.DrinkTitle</MudText>
+                                <MudText Typo="Typo.h4"><MudAvatar Variant="Variant.Outlined" Size="Size.Large" Color="@DrinkDisplay.VerifiedColor">@DrinkDisplay.Name[0]</MudAvatar> @DrinkDisplay.DrinkTitle</MudText>
                             }
                             else
                             {
-                                <MudText Typo="Typo.h6">@DrinkDisplay.DrinkTitle</MudText>
+                                <MudText Typo="Typo.h5"><MudAvatar Variant="Variant.Outlined" Size="Size.Large" Color="@DrinkDisplay.VerifiedColor">@DrinkDisplay.Name[0]</MudAvatar> @DrinkDisplay.DrinkTitle</MudText>
                             }
+                        </MudField>
+
+                    </MudStack>
 
 
-                        @if (DrinkDisplay.Verification == true)
-                            {
-                                <MudIcon Icon="@Icons.Material.Filled.Verified" Size="@Size.Small" />
-                            }
-                        </MudStack>
-
-                        
-                        
-                        <MudPaper Class="pl-4 pt-n2" Elevation="0">
-
-                            <MudText Typo="Typo.caption">@DrinkDisplay.DrinkEndLong</MudText>
-
-                            @if (DrinkDisplay.Garnishes.Any())
-                            {
-                                <MudStack Row="true" Spacing="1">
-                                    <MudText Typo="Typo.caption">Garnishes:</MudText>
-                                    @foreach (var g in DrinkDisplay.Garnishes)
-                                    {
-                                        <MudText Typo="Typo.caption">@g.Value</MudText>
-                                    }
-                                </MudStack>
-                            }
-
-                        </MudPaper>
-                    </MudItem>
-
-                </MudStack>
-
-            }
+                }
 
 
-
-
-
-
-            <MudDivider DividerType="DividerType.FullWidth" Light="true" />
-
-            <Instructions instructions="InstructionsList"></Instructions>
-            <MudDivider DividerType="DividerType.FullWidth" Light="true" />
-            <MudExpansionPanel Text="Tags" Dense="true">
-                <MudPaper Elevation="0" Class="pt-4">
-                    <MudGrid Justify="Justify.FlexStart">
-                        @foreach (var tag in DrinkDisplay.Tags)
-                        {
-                            <MudChip Label="true" Variant="Variant.Text" Size="Size.Small" Value="tag" Text="@tag.Value" Color="tag.TagColor" />
-                        }
-
-                    </MudGrid>
-                </MudPaper>
-
-            </MudExpansionPanel>
-
-
+        </MudItem>
+        </MudCardHeader>
+        <MudCardContent Class="pt-n2">
+                <Instructions instructions="InstructionsList"></Instructions>
         </MudCardContent>
-        <MudCardActions>
-            @if (DrinkDisplay == null)
-            {
-                <AuthorizeView Roles="Admin, Mod">
-                    <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-2 mb-2" />
-                </AuthorizeView>
-                <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-3 mb-2" />
-                <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-2 mb-2" />
-                <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-3 mb-2" />
-            }
-            else
-            {
-                <AuthorizeView Roles="Admin, Mod">
-                    <MudIconButton Variant="Variant.Text" @onclick="() => EditDrink(DrinkDisplay.Id)" Icon="@Icons.Material.Outlined.Edit" />
-                </AuthorizeView>
-                <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.List" />
-                <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Favorite" />
-                <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Share" />
-            }
+        <MudCardActions Class="pt-2">
 
+				<MudGrid Justify="Justify.FlexStart">
+                    <MudChipSet Class="m-3">
+                            @foreach (var tag in DrinkDisplay.Tags)
+                            {
+
+                                <MudChip Label="true" Variant="Variant.Text" Size="Size.Small" Value="tag" Text="@tag.Value" Color="tag.TagColor" />
+                            }
+
+                </MudChipSet>
+                </MudGrid>
         </MudCardActions>
+        <MudItem xs="8" Class="pu-2">
+        </MudItem>
+                <MudItem xs="12">
+            <MudGrid Justify="Justify.FlexStart" Class="p-3">
+                @if (DrinkDisplay == null)
+                {
+                    <AuthorizeView Roles="Admin, Mod">
+                        <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-2 mb-2" />
+                    </AuthorizeView>
+                    <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-3 mb-2" />
+                    <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-2 mb-2" />
+                    <MudSkeleton SkeletonType="SkeletonType.Circle" Animation="Animation.Wave" Height="30px" Width="30px" Class="ml-3 mb-2" />
+                }
+                else
+                {
+                    <AuthorizeView Roles="Admin, Mod">
+                        <MudIconButton Variant="Variant.Text" @onclick="() => EditDrink(DrinkDisplay.Id)" Icon="@Icons.Material.Outlined.Edit" />
+                    </AuthorizeView>
+                    <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.List" />
+                    <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Favorite" />
+                    <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Share" />
+                }
+            </MudGrid>
+        </MudItem>
+
+
     </MudCard>
 </MudContainer>
-
