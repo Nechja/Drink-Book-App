@@ -14,7 +14,7 @@ namespace DataAccess.Models
 
         public List<DrinkDataModel> Drinks { get; set; } = new();
 
-        public List<UserDataModel> Users { get; set; } = new();
+        public UserDataModel User { get; set; } = new();
 
         public UserDrinkListsDataModel() { }
     }

@@ -730,49 +730,50 @@ public class DrinkRepositoryAsync
 
 	public async Task MakeUserLink(string user)
 	{
-		using (var context = await _dbContextFactory.CreateDbContextAsync())
+        var unGuid = "";
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] un = sha256.ComputeHash(Encoding.ASCII.GetBytes(user));
+            unGuid = Encoding.ASCII.GetString(un);
+        }
+        using (var context = await _dbContextFactory.CreateDbContextAsync())
 		{
-			using (SHA256 sha256 = SHA256.Create())
-			{
-				byte[] un = sha256.ComputeHash(Encoding.ASCII.GetBytes(user));
+            if (context.Users.SingleOrDefault(e => e.UserName == unGuid) == null)
+            {
+                UserDataModel userDataModel = new UserDataModel();
+                userDataModel.SetUserName = user;
+                //fix
+                int i = 0;
+                while (userDataModel.UserDisplayName == null)
+                {
+                    i++;
+                    string newname = string.Empty;
+                    if (i == 99)
+                    {
+                        newname = RandomName.NameWithNumbers;
+                    }
+                    else
+                    {
+                        newname = RandomName.Name;
+                    }
 
-				if (context.Users.SingleOrDefaultAsync(e => e.UserName == un) == null)
-				{
-					UserDataModel userDataModel = new UserDataModel();
-					userDataModel.SetUserName = user;
-					//fix
-					int i = 0;
-					while (userDataModel.UserDisplayName == null)
-					{
-						i++;
-						string newname = string.Empty;
-						if (i == 99)
-						{
-							newname = RandomName.NameWithNumbers;
-						}
-						else
-						{
-							newname = RandomName.Name;
-						}
-
-						if (context.Users.SingleOrDefaultAsync(e => e.UserDisplayName == newname) == null)
-						{
-							userDataModel.UserDisplayName = newname;
-						}
+                    if (context.Users.SingleOrDefault(e => e.UserDisplayName == newname) == null)
+                    {
+                        userDataModel.UserDisplayName = newname;
+                    }
 
 
-						if (i == 100)
-						{
-							throw new Exception("Can not add new list names.");
-						}
-					}
-					userDataModel.UserDisplayName = RandomName.Name;
-					await context.AddAsync(userDataModel);
-					await context.SaveChangesAsync();
+                    if (i == 100)
+                    {
+                        throw new Exception("Can not add new list names.");
+                    }
+                }
+                userDataModel.UserDisplayName = RandomName.Name;
+                await context.AddAsync(userDataModel);
+                await context.SaveChangesAsync();
 
-				}
-			}
-		}	
+            }
+        }	
 	}
 
     public async Task<string> GetUserLink(string user)
@@ -781,14 +782,15 @@ public class DrinkRepositoryAsync
         {
             using (SHA256 sha256 = SHA256.Create())
             {
-                byte[] un = sha256.ComputeHash(Encoding.ASCII.GetBytes(user));
+				byte[] un = sha256.ComputeHash(Encoding.ASCII.GetBytes(user));
+				var unGuid = Encoding.ASCII.GetString(un);
 
-                var User = await context.Users.SingleOrDefaultAsync(e => e.UserName == un);
+                var User = await context.Users.SingleOrDefaultAsync(e => e.UserName == unGuid);
 
                 if (User == null)
                 {
                     await MakeUserLink(user);
-                    User = await context.Users.SingleOrDefaultAsync(e => e.UserName == un);
+                    User = await context.Users.SingleOrDefaultAsync(e => e.UserName == unGuid);
                     return User.UserDisplayName;
                 }
                 else
@@ -796,6 +798,94 @@ public class DrinkRepositoryAsync
                     return User.UserDisplayName;
                 }
             }
+
+        }
+    }
+
+    public async Task<UserDataModel> GetUser(string user)
+    {
+        using (var context = await _dbContextFactory.CreateDbContextAsync())
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] un = sha256.ComputeHash(Encoding.ASCII.GetBytes(user));
+                var unGuid = Encoding.ASCII.GetString(un);
+
+                var User = await context.Users.SingleOrDefaultAsync(e => e.UserName == unGuid);
+
+                if (User == null)
+                {
+                    await MakeUserLink(user);
+                    User = await context.Users.SingleOrDefaultAsync(e => e.UserName == unGuid);
+					return User;
+                }
+                else
+                {
+					return User;
+                }
+            }
+
+        }
+    }
+    public async Task NewList(string username)
+	{
+        using (var context = await _dbContextFactory.CreateDbContextAsync())
+		{
+			try
+			{
+                var user = await GetUser(username);
+                UserDrinkListsDataModel drinklist = new UserDrinkListsDataModel();
+                drinklist.Name = RandomName.ListName;
+                drinklist.User = await context.Users.FirstOrDefaultAsync(e => e.Id == user.Id);
+                await context.AddAsync(drinklist);
+                await context.SaveChangesAsync();
+            }
+			catch
+			{
+                throw;
+            }
+
+
+		}
+
+    }
+
+    public async Task AppendDrinkList(string username,int listid, DrinkDataModel drink)
+    {
+        using (var context = await _dbContextFactory.CreateDbContextAsync())
+        {
+            var user = await GetUser(username);
+			var drinklist = await context.DrinkLists.SingleOrDefaultAsync(e => e.Id == listid);
+			if (drinklist == null) { return; }
+			if (user != drinklist.User) { return; }
+			drinklist.Drinks.Add(await context.Drinks.SingleOrDefaultAsync(e => e.Id == drink.Id));
+			context.Update(drinklist);
+			await context.SaveChangesAsync();
+
+
+
+
+        }
+
+    }
+
+    public async Task<UserDrinkListsDataModel> GetList(int id)
+    {
+        using (var context = await _dbContextFactory.CreateDbContextAsync())
+        {
+			return await context.DrinkLists.SingleOrDefaultAsync(e => e.Id == id);
+
+        }
+
+    }
+
+    public async Task<List<UserDrinkListsDataModel>> GetLists(string username)
+    {
+        using (var context = await _dbContextFactory.CreateDbContextAsync())
+        {
+			var user = await GetUser(username);
+			var lists = context.DrinkLists.Where(e => e.User.Id == user.Id).ToList();
+			return lists;
 
         }
 

@@ -106,7 +106,12 @@ namespace AFKDataLoader
 
                 DrinkDataModel model = new DrinkDataModel();
                 model.Name = drink.Name;
-                model.Image = new Uri(drink.Imgs);
+                try
+                {
+                    model.Image = new Uri(drink.Imgs);
+                }
+                catch(Exception e) { }
+                
                 if (!String.IsNullOrEmpty(drink.Link))
                 {
                     try
@@ -181,13 +186,17 @@ namespace AFKDataLoader
                                 rim = "salt & pepper rim";
                                 garnishes.Add(new GarnishDataModel() { Value = "pickled jalapeno" });
                                 break;
-                            case "smoked salt rim, lemon & lime wedge, pepperoncini & olive skewer":
+                            case "smoked salt rim, lemon & lime wedge, pepperoncini & green olive skewer":
                                 rim = "smoked salt rim";
-                                garnishes.Add(new GarnishDataModel() { Value = "lemon" });
-                                garnishes.Add(new GarnishDataModel() { Value = "lime" });
+                                garnishes.Add(new GarnishDataModel() { Value = "lemon wedge" });
+                                garnishes.Add(new GarnishDataModel() { Value = "lime wedge" });
                                 garnishes.Add(new GarnishDataModel() { Value = "pepperoncini" });
-                                garnishes.Add(new GarnishDataModel() { Value = "olive" });
+                                garnishes.Add(new GarnishDataModel() { Value = "green olive" });
                                 break;
+                            case "":
+                                rim = "derpinteno";
+                                break;
+
                         }
 
 

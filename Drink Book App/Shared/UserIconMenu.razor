@@ -1,4 +1,5 @@
-﻿
+﻿@using DataAccess.Services;
+
 <AuthorizeView>
 
     <MudDrawer @bind-Open="@open"
@@ -12,7 +13,15 @@
         </MudStack>
 
         <MudNavMenu Dense="true" Rounded="true">
-            <MudNavLink Icon="fas fa-list-alt">Lists</MudNavLink>
+            <MudNavGroup IconColor="@Color.Success" Title="Lists" Icon="fas fa-list-alt" Expanded="false">
+                @foreach(var list in drinkLists)
+                {
+                    <MudNavLink>@list.Name</MudNavLink>
+                }
+                <MudNavLink OnClick="@onAddClick" Icon="@Icons.Material.Filled.Add">Add New List</MudNavLink>
+            </MudNavGroup>
+
+                
             <MudNavLink Icon="fas fa-cog">DarkMode</MudNavLink>
             <MudDivider DividerType="DividerType.Middle" />
             <MudNavLink Icon="fas fa-sign-out-alt" Href="logout">Logout</MudNavLink>
@@ -27,35 +36,3 @@
 
 </AuthorizeView>
 
-
-@code {
-    [CascadingParameter]
-    private Task<AuthenticationState>? authenticationState { get; set; }
-
-    bool open;
-
-    private string Username = "";
-    private string Picture = "";
-
-    private void onAvatarClick()
-    {
-        open = !open;
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        if (authenticationState is not null)
-        {
-            var state = await authenticationState;
-
-            Username = state?.User?.Identity?.Name ?? string.Empty;
-
-            Picture = state?.User.Claims
-                        .Where(c => c.Type.Equals("picture"))
-                        .Select(c => c.Value)
-                        .FirstOrDefault() ?? string.Empty;
-        }
-        await base.OnInitializedAsync();
-    }
-
-}

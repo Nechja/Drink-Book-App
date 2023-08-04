@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace DataAccess.Models
         [Key]
         public int Id { get; set; }
 
-        public byte[] UserName { get; set; }
+        public String UserName { get; set; }
 
         public string SetUserName
         {
@@ -23,6 +24,7 @@ namespace DataAccess.Models
                 using(SHA256 sha256 = SHA256.Create())
                 {
                     byte[] un = sha256.ComputeHash(Encoding.ASCII.GetBytes(value));
+                    UserName = Encoding.ASCII.GetString(un);
                 } 
             }
         }

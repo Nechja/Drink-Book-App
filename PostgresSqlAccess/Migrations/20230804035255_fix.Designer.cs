@@ -3,6 +3,7 @@ using System;
 using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DrinkDBContext))]
-    partial class DrinkDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230804035255_fix")]
+    partial class fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -531,9 +534,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserName")
+                    b.Property<byte[]>("UserName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("bytea");
 
                     b.HasKey("Id");
 
@@ -558,12 +561,7 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("DrinkLists");
                 });
@@ -692,6 +690,21 @@ namespace DataAccess.Migrations
                     b.ToTable("InstructionDataModelInstructionTagDataModel");
                 });
 
+            modelBuilder.Entity("UserDataModelUserDrinkListsDataModel", b =>
+                {
+                    b.Property<int>("DrinkListsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("DrinkListsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("UserDataModelUserDrinkListsDataModel");
+                });
+
             modelBuilder.Entity("DataAccess.Models.DrinkDataModel", b =>
                 {
                     b.HasOne("DataAccess.Models.GlassDataModel", "Glass")
@@ -775,17 +788,6 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Type");
-                });
-
-            modelBuilder.Entity("DataAccess.Models.UserDrinkListsDataModel", b =>
-                {
-                    b.HasOne("DataAccess.Models.UserDataModel", "User")
-                        .WithMany("DrinkLists")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataAccess.Models.ViewsDataModel", b =>
@@ -904,6 +906,21 @@ namespace DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("UserDataModelUserDrinkListsDataModel", b =>
+                {
+                    b.HasOne("DataAccess.Models.UserDrinkListsDataModel", null)
+                        .WithMany()
+                        .HasForeignKey("DrinkListsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccess.Models.UserDataModel", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DataAccess.Models.DrinkDataModel", b =>
                 {
                     b.Navigation("Instructions");
@@ -950,11 +967,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.RimDataModel", b =>
                 {
                     b.Navigation("Drinks");
-                });
-
-            modelBuilder.Entity("DataAccess.Models.UserDataModel", b =>
-                {
-                    b.Navigation("DrinkLists");
                 });
 #pragma warning restore 612, 618
         }

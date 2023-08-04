@@ -16,12 +16,10 @@ namespace Drink_Book_App.Shared
 
         protected override void OnInitialized()
         {
-            var drinklist = repo.GetDrinks();
-            foreach (var drink in drinklist)
-            {
-                
-            }
+            base.OnInitialized();
         }
+
+
 
 
         void ToggleDrawer()

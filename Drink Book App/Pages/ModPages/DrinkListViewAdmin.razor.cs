@@ -1,6 +1,7 @@
 ﻿using DataAccess.Models;
 using DataAccess.Models.Interfaces;
 using DataAccess.Services;
+using Drink_Book_App.Components;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Azure.SignalR.Common;
@@ -27,10 +28,20 @@ namespace Drink_Book_App.Pages.ModPages
 
         protected override async Task OnInitializedAsync()
 		{
-			await UpdateData();
-		}
+            
+            bool loading = true;
+            if (loading)
+            {
+                await base.OnInitializedAsync();
+                await UpdateData();
+                loading = false;
+            }
 
-		protected private async Task UpdateData()
+        }
+
+
+
+        protected private async Task UpdateData()
 		{
 			//drinks.Clear(); 
 			//softdeldrinks.Clear();
@@ -60,7 +71,7 @@ namespace Drink_Book_App.Pages.ModPages
 
 		public void NavTo(string Name, int Id)
 		{
-			navi.NavigateTo($"/Drink/{Name}/{Id}");
+			navi.NavigateTo($"/Drink/{Name.Replace("#", String.Empty)}/{Id}");
 		}
 
         public void EditDrink(string Name, int Id)

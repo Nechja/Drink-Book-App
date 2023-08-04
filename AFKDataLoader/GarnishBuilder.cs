@@ -73,7 +73,6 @@ namespace AFKDataLoader
                             garnish = "lime";
                             toadd.Add("mint");
                             break;
-                        case "sliced wheel of lemon & black olive":
                         case "wheel of lemon and slice of black olive":
                             garnish = "wheel of lemon";
                             toadd.Add("black olive");
@@ -88,7 +87,6 @@ namespace AFKDataLoader
                         case "grapefruit wedge":
                             garnish = "grapefruite";
                             break;
-
 
 
                     }

@@ -49,13 +49,8 @@ namespace Drink_Book_App.Pages
 
 		public void NavTo(string Name, int Id)
 		{
-			navi.NavigateTo($"/Drink/{Name}/{Id}");
+			navi.NavigateTo($"/Drink/{Name.Replace("#", String.Empty)}/{Id}");
 		}
-
-        public void EditDrink(string Name, int Id)
-        {
-            navi.NavigateTo($"/drinktools/editdrink/{Id}");
-        }
 
 
         private Func<DrinkDisplayModel, bool> QuickFilter => x =>
