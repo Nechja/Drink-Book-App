@@ -3,6 +3,8 @@ using DataAccess.Models;
 using DataAccess.Tools;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace DataAccess.Services;
 
@@ -728,19 +730,74 @@ public class DrinkRepositoryAsync
 
 	public async Task MakeUserLink(string user)
 	{
-        using (var context = await _dbContextFactory.CreateDbContextAsync())
+		using (var context = await _dbContextFactory.CreateDbContextAsync())
 		{
-			if (context.Users.SingleOrDefaultAsync(e => e.UserName == user) == null)
+			using (SHA256 sha256 = SHA256.Create())
 			{
-				UserDataModel userDataModel = new UserDataModel();
-				userDataModel.UserName = user;
-				//fix
-				userDataModel.UserDisplayName = RandomName.Name;
-				await context.AddAsync(userDataModel);
-				await context.SaveChangesAsync();
+				byte[] un = sha256.ComputeHash(Encoding.ASCII.GetBytes(user));
 
+				if (context.Users.SingleOrDefaultAsync(e => e.UserName == un) == null)
+				{
+					UserDataModel userDataModel = new UserDataModel();
+					userDataModel.SetUserName = user;
+					//fix
+					int i = 0;
+					while (userDataModel.UserDisplayName == null)
+					{
+						i++;
+						string newname = string.Empty;
+						if (i == 99)
+						{
+							newname = RandomName.NameWithNumbers;
+						}
+						else
+						{
+							newname = RandomName.Name;
+						}
+
+						if (context.Users.SingleOrDefaultAsync(e => e.UserDisplayName == newname) == null)
+						{
+							userDataModel.UserDisplayName = newname;
+						}
+
+
+						if (i == 100)
+						{
+							throw new Exception("Can not add new list names.");
+						}
+					}
+					userDataModel.UserDisplayName = RandomName.Name;
+					await context.AddAsync(userDataModel);
+					await context.SaveChangesAsync();
+
+				}
 			}
-		}
+		}	
+	}
+
+    public async Task<string> GetUserLink(string user)
+    {
+        using (var context = await _dbContextFactory.CreateDbContextAsync())
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] un = sha256.ComputeHash(Encoding.ASCII.GetBytes(user));
+
+                var User = await context.Users.SingleOrDefaultAsync(e => e.UserName == un);
+
+                if (User == null)
+                {
+                    await MakeUserLink(user);
+                    User = await context.Users.SingleOrDefaultAsync(e => e.UserName == un);
+                    return User.UserDisplayName;
+                }
+                else
+                {
+                    return User.UserDisplayName;
+                }
+            }
+
+        }
 
     }
 }

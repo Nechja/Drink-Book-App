@@ -48,5 +48,14 @@ namespace DataAccess.Tools
                 return _colors[rnd.Next(_colors.Count())] + _adjectives[rnd.Next(_adjectives.Count())] + _nouns[rnd.Next(_nouns.Count())];
             }
         }
+
+        public static string NameWithNumbers
+        {
+            get
+            {
+                Random rnd = new Random();
+                return _colors[rnd.Next(_colors.Count())] + _adjectives[rnd.Next(_adjectives.Count())] + _nouns[rnd.Next(_nouns.Count())] + rnd.Next(400).ToString();
+            }
+        }
     }
 }
