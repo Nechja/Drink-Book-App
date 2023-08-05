@@ -25,7 +25,7 @@ namespace Drink_Book_App.Components.DrinkCard
             var OnlyFlags = instructions.ToList();
             foreach ( var instruction in instructions)
             {
-                if(instruction.Flag.Name is null)
+                if(instruction.Flag is null)
                 {
                     OnlyFlags.Remove(instruction);
                     NoFlagInstructions.Add(instruction);

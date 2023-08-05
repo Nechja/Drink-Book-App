@@ -101,7 +101,7 @@ public class DrinkDisplayModel : DisplayDeleteProtection, IDrinkDataModel
 		List<InstructionDataModel> instructions = new List<InstructionDataModel>();
 		foreach (InstructionDisplayModel model in Instructions)
 		{
-			InstructionDataModel data = new InstructionDataModel(model.DataModel);
+			InstructionDataModel data = new InstructionDataModel(model.GetDataModel());
 			foreach(TagDisplayModel tag in model.Tags)
 			{
 				data.Tags.Add(tag.InstructionTagDataModel);

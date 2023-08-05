@@ -128,7 +128,15 @@
 										<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@($"{i.Oz.Value.ToString()} oz")"></MudChip>
 
 									}
-									<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Flag.Name"></MudChip>
+									@if (i.Special != null)
+									{
+										<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@($"{i.Special.ToString()}")"></MudChip>
+									}
+									@if (i.Flag != null)
+									{
+										<MudChip Label="true" Color="Color.Transparent" Variant="Variant.Text" Text="@i.Flag.Name"></MudChip>
+
+									}
 								</MudPaper>
 								<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
 									<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete" @onclick="@(() => DeleteInstruction(i))"></MudIconButton>
@@ -145,7 +153,7 @@
 			</MudPaper>
 		</MudPaper>
 	</MudPaper>
-	<MudPaper Elevation="0">
+	<MudPaper Elevation="0" Class="pb-5 mb-10 pt-3">
 		<CascadingValue Value="Instruction">
 			<AEInstruction OnSelectInstruction="OnSelectInstructionChange"></AEInstruction>
 		</CascadingValue>

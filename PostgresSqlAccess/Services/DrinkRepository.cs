@@ -272,7 +272,7 @@ public class DrinkRepository
 			updater.Instructions.Clear();
 			foreach (var instruction in drink.Instructions)
 			{
-				var existingInstruction = context.Instructions.FirstOrDefault(i => i.Id == instruction.Id);
+				var existingInstruction = context.Instructions.Include(e => e.Flag).FirstOrDefault(i => i.Id == instruction.Id);
 				if (existingInstruction != null)
 				{
 					// Update existing instruction if it has changed
@@ -282,6 +282,16 @@ public class DrinkRepository
 						existingInstruction.Oz = instruction.Oz;
 						existingInstruction.Special = instruction.Special;
 						existingInstruction.DisplayWeight = instruction.DisplayWeight;
+						context.Entry(existingInstruction).State = EntityState.Modified;
+					}
+					if(instruction.Flag == null)
+					{
+						existingInstruction.Flag = null;
+					}
+
+					else if(existingInstruction.Flag != instruction.Flag)
+					{
+						existingInstruction.Flag = context.Flags.FirstOrDefault(e => e.id == instruction.Flag.id);
 						context.Entry(existingInstruction).State = EntityState.Modified;
 					}
 

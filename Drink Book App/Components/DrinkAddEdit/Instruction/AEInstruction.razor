@@ -8,8 +8,13 @@
 	{
 		<MudAlert Severity="Severity.Warning">@ErrorText</MudAlert>
 	}
+	<MudButtonGroup Variant="Variant.Outlined" Class="pl-4 pb-2 d-flex align-center flex-grow-1 pr-8" Elevation="0">
+		<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Size="Size.Medium">Add/Edit</MudButton>
+		<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" OnClick="@(() => Model = new InstructionDisplayModel())" Size="Size.Medium">Reset</MudButton>
+
+	</MudButtonGroup>
 	<MudPaper Elevation="0" Class="px-2 py-2">
-		<MudGrid Justify="Justify.SpaceEvenly" Spacing="1" Class="m-2 pl-2">
+		<MudGrid Justify="Justify.FlexStart" Spacing="2" Class="m-2 pl-2">
 				<CascadingValue Value="Model.Ingredient">
 					<IngredientDropDown OnSelectIngredient="OnSelectIngredientChange"></IngredientDropDown>
 				</CascadingValue>
@@ -24,17 +29,22 @@
 				@if (Flags.Count() != 0)
 				{
 					<MudPaper Elevation="0">
-						<MudSelect T="FlagDisplayModel" ValueChanged="SelectedFlag" Label="Flags" AnchorOrigin="Origin.BottomCenter">
+						<MudSelect T="FlagDisplayModel" @bind-Value="Model.Flag" Label="Flags" AnchorOrigin="Origin.BottomCenter">
+							@if(Model.Flag != null)
+							{
+								<MudSelectItem Value="Model.Flag">Saved: @Model.Flag.Name</MudSelectItem>
+							}
+
 							@foreach (var flag in Flags)
 							{
 								@if(!String.IsNullOrEmpty(flag.Name))
 								{
 									<MudSelectItem Value="flag">@flag.Name</MudSelectItem>
 								}
-								
 							}
-						</MudSelect>
 
+						</MudSelect>
+					<MudButton @onclick="() => Model.Flag = null">Kill Flag</MudButton>
 
 					</MudPaper>
 
@@ -59,11 +69,7 @@
 			</CascadingValue>-->
 
 		<MudStack Row="true" Justify="Justify.FlexEnd">
-			<MudButtonGroup Variant="Variant.Outlined" Class="d-flex align-center flex-grow-1 pr-8" Elevation="0">
-				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" Size="Size.Medium">Add/Edit</MudButton>
-				<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Text" OnClick="@(() => Model = new InstructionDisplayModel())" Size="Size.Medium">Reset</MudButton>
 
-			</MudButtonGroup>
 		</MudStack>
 	</MudStack>
 </EditForm>

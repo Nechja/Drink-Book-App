@@ -27,19 +27,6 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
 		private bool OpenIngredient;
 
 
-
-		private MudChip chipSelected;
-
-		private MudChip ChipSelected 
-		{ 
-			get { return chipSelected; }
-			set
-			{
-				chipSelected = value;
-				ChipChanged(value);
-			}
-		}
-
 		protected override async Task OnInitializedAsync()
 		{
 			var flagdata = await repo.GetFlags();
