@@ -306,7 +306,7 @@ public class DrinkRepositoryAsync
 			updater.Instructions.Clear();
 			foreach (var instruction in drink.Instructions)
 			{
-				var existingInstruction = await context.Instructions.FirstOrDefaultAsync(i => i.Id == instruction.Id);
+				var existingInstruction = await context.Instructions.Include(e => e.Ingredient).FirstOrDefaultAsync(i => i.Id == instruction.Id);
 				if (existingInstruction != null)
 				{
 					// Update existing instruction if it has changed
@@ -316,6 +316,11 @@ public class DrinkRepositoryAsync
 						existingInstruction.Oz = instruction.Oz;
 						existingInstruction.Special = instruction.Special;
 						existingInstruction.DisplayWeight = instruction.DisplayWeight;
+						context.Entry(existingInstruction).State = EntityState.Modified;
+					}
+					if(existingInstruction.Ingredient != instruction.Ingredient)
+					{
+						existingInstruction.Ingredient = await context.Ingredients.FirstOrDefaultAsync(e => e.Id == instruction.Ingredient.Id);
 						context.Entry(existingInstruction).State = EntityState.Modified;
 					}
 				}

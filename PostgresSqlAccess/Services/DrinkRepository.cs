@@ -284,6 +284,12 @@ public class DrinkRepository
 						existingInstruction.DisplayWeight = instruction.DisplayWeight;
 						context.Entry(existingInstruction).State = EntityState.Modified;
 					}
+
+					if (existingInstruction.Ingredient != instruction.Ingredient)
+					{
+						existingInstruction.Ingredient = context.Ingredients.FirstOrDefault(e => e.Id == instruction.Ingredient.Id);
+						context.Entry(existingInstruction).State = EntityState.Modified;
+					}
 				}
 				else
 				{
@@ -302,6 +308,17 @@ public class DrinkRepository
 
 					updater.Instructions.Add(newInstruction);
 
+				}
+
+			}
+			var ogdrink = context.Drinks
+				.Include(e => e.Instructions).SingleOrDefault(d => d.Id == drink.Id);
+			foreach (var instruction in ogdrink.Instructions)
+			{
+				var check = drink.Instructions.FirstOrDefault(i => i.Id == instruction.Id);
+				if (check == null)
+				{
+					context.Entry(instruction).State = EntityState.Deleted;
 				}
 			}
 			try

@@ -31,7 +31,7 @@ else
 {
 	<MudDataGrid Items="ingredientTypes" Striped="true">
 		<Columns>
-			<PropertyColumn Property="x => x.Name" />
+			<PropertyColumn Property="x => x.Name" Sortable="true" Filterable="true" />
 			<TemplateColumn T="IngredientTypeDisplayModel" CellClass="d-flex justify-end">
 				<CellTemplate>
 					<MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="@(() => this.OnEdit(context.Item))" aria-label="edit"></MudIconButton>

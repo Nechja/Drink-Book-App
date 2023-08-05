@@ -267,17 +267,11 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 
 		protected void DeleteInstruction(InstructionDisplayModel m)
 		{
-			if(m.Id  == 0)
-			{
+
 				Drink.Instructions.Remove(m);
-                Snackbar.Add($"Instruction Deleted.");
-            }
-			else
-			{
-                repo.DeleteInstruction(m.Id);
-                Drink.Instructions.Remove(m);
-                Snackbar.Add($"Instruction Deleted.");
-            }
+                Snackbar.Add($"Instruction Deleted. Staged.");
+
+
 
 			
 
