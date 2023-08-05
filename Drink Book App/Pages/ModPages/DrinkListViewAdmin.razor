@@ -38,7 +38,7 @@ else
                 <TemplateColumn T="DrinkDisplayModel" Title="Name" Sortable="false">
                     <CellTemplate>
                         <MudGrid Justify="Justify.FlexStart">
-                            <MudLink Underline="Underline.None" Color="Color.Default" @onclick="() => NavTo(context.Item.Name,context.Item.Id)">@context.Item.Name</MudLink>
+                            <MudLink Underline="Underline.None" Color="Color.Default" @onclick="() => NavTo(context.Item.Name,context.Item.Id)">@context.Item.Name.ToUpper()</MudLink>
 
                         </MudGrid>
                     </CellTemplate>

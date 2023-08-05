@@ -132,6 +132,7 @@
 								</MudPaper>
 								<MudButtonGroup Color="Color.Dark" Variant="Variant.Text">
 									<MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete" @onclick="@(() => DeleteInstruction(i))"></MudIconButton>
+									<MudIconButton Icon="@Icons.Material.Filled.Edit" aria-label="Edit" @onclick="@(() => Instruction = i)"></MudIconButton>
 								</MudButtonGroup>
 
 							</MudStack>

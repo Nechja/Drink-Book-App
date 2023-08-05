@@ -227,7 +227,16 @@ namespace Drink_Book_App.Components.DrinkAddEdit
 
 		protected void OnSelectInstructionChange(InstructionDisplayModel m)
         {
-            Drink.Instructions.Add(m);
+			if(Instruction.Id == 0)
+			{
+				Drink.Instructions.Add(m);
+			}
+			else
+			{
+				var index = Drink.Instructions.IndexOf(m);
+				Drink.Instructions[index] = m;
+			}
+            
             Instruction = new InstructionDisplayModel();
         }
 

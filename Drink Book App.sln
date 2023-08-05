@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "PostgresSqlAc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessTests", "DataAccessTests\DataAccessTests.csproj", "{D0AA4885-1D1A-4380-9C53-2924C591810C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AFKDataLoader", "AFKDataLoader\AFKDataLoader.csproj", "{CF5C0AB7-FA14-4827-A7A9-8514F4F80414}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AFKDataLoader", "AFKDataLoader\AFKDataLoader.csproj", "{CF5C0AB7-FA14-4827-A7A9-8514F4F80414}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

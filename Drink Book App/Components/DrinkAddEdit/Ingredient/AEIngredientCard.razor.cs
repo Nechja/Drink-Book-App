@@ -22,6 +22,8 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 
 		public IngredientDisplayModel Ingredient { get; set; } = new IngredientDisplayModel();
 
+		private bool groupin;
+
 		
 
 		private string _ingredientTypeText = string.Empty;
@@ -40,7 +42,14 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Ingredient
 
 		protected override void OnInitialized()
 		{
+			groupin = true;
 			UpdateData();
+		}
+
+		private void flip()
+		{
+			groupin = !groupin;
+			StateHasChanged();
 		}
 
 		protected private void UpdateData()

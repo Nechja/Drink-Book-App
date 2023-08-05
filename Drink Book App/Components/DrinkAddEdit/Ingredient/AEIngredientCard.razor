@@ -44,11 +44,17 @@
 		}
 		else
 		{
-			<MudDataGrid Items="Ingredients" Striped="true" Groupable="true">
+			<MudDataGrid Items="Ingredients" Striped="true" Groupable="@groupin">
+				<ToolBarContent>
+					<MudStack Row>
+						<MudButton @onclick="() => flip()">Group Toggle: @groupin</MudButton>
+					</MudStack>
+
+				</ToolBarContent>
 				<Columns>
-					<PropertyColumn Property="x => x.Name" />
+					<PropertyColumn Property="x => x.Name" Sortable="true" Filterable="true"/>
 	
-					<PropertyColumn Property="x => x.IngredientType.Name" Grouping GroupBy="@_groupBy">
+					<PropertyColumn Property="x => x.IngredientType.Name" Grouping GroupBy="@_groupBy" Filterable="true">
 						 <GroupTemplate>
 							<span style="font-weight:bold">@context.Grouping.Key <MudChip Variant="Variant.Outlined" Label="true" Color="Color.Surface" Size="Size.Small">total @context.Grouping.Count()</MudChip></span>
 						 </GroupTemplate>

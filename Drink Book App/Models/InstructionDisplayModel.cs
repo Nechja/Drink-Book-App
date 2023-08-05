@@ -52,8 +52,12 @@ namespace Drink_Book_App.Models
         {
             get
             {
-                
-                if (Oz % 1 == 0)
+				if (Oz > 1)
+                {
+					return $"{Oz.ToString()} ᵒᶻ";
+				}
+
+				if (Oz % 1 == 0)
                 {
                     return $"{Oz.ToString()} ᵒᶻ";
                 }

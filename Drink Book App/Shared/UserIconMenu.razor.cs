@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components;
 using DataAccess.Models;
+using System.Net;
 
 namespace Drink_Book_App.Shared
 {
@@ -12,7 +13,10 @@ namespace Drink_Book_App.Shared
         [Inject]
         public DrinkRepositoryAsync repo { get; set; }
 
-        public List<UserDrinkListsDataModel> drinkLists { get; set; } = new List<UserDrinkListsDataModel>();
+		[Inject]
+		NavigationManager navi { get; set; }
+
+		public List<UserDrinkListsDataModel> drinkLists { get; set; } = new List<UserDrinkListsDataModel>();
 
 
         bool open;
@@ -30,6 +34,15 @@ namespace Drink_Book_App.Shared
             if(Username == "") { return; }
             await repo.NewList(Username);
             drinkLists = await repo.GetLists(Username);
+
+		}
+
+        private async Task onListNav(string drinklistname, int listid)
+        {
+            string username = await repo.GetUserLink(Username);
+            navi.NavigateTo($"/Lists/{username}/{drinklistname}/{listid}");
+            open = false;
+            StateHasChanged();
         }
 
         protected override async Task OnInitializedAsync()

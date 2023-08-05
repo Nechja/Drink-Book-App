@@ -1,0 +1,11 @@
+﻿@page "/Lists/{UserDisplayName}/{ListName}/{ListID:int}"
+
+@if(model is null)
+{
+	
+}
+else
+{
+	<MudText>@model.Name</MudText>
+}
+

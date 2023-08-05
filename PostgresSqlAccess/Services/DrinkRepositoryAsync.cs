@@ -873,7 +873,7 @@ public class DrinkRepositoryAsync
     {
         using (var context = await _dbContextFactory.CreateDbContextAsync())
         {
-			return await context.DrinkLists.SingleOrDefaultAsync(e => e.Id == id);
+			return await context.DrinkLists.Include(e => e.User).SingleOrDefaultAsync(e => e.Id == id);
 
         }
 

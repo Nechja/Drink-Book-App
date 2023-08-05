@@ -16,7 +16,7 @@
             <MudNavGroup IconColor="@Color.Success" Title="Lists" Icon="fas fa-list-alt" Expanded="false">
                 @foreach(var list in drinkLists)
                 {
-                    <MudNavLink>@list.Name</MudNavLink>
+                    <MudNavLink @onclick="() => onListNav(list.Name,list.Id)">@list.Name</MudNavLink>
                 }
                 <MudNavLink OnClick="@onAddClick" Icon="@Icons.Material.Filled.Add">Add New List</MudNavLink>
             </MudNavGroup>

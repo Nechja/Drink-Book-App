@@ -72,9 +72,11 @@ namespace Drink_Book_App.Components.DrinkAddEdit.Instruction
                 ErrorText = "Ingredient Required";
                 return;
             }
+
+			await OnSelectInstruction.InvokeAsync(Model);
+			Model = new InstructionDisplayModel();
+
             
-            await OnSelectInstruction.InvokeAsync(Model);
-            Model = new InstructionDisplayModel();
 		}
 
         private void OnSelectTag(List<TagDisplayModel> tags)

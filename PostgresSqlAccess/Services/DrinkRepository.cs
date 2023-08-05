@@ -250,17 +250,15 @@ public class DrinkRepository
 	{
 		using (var context = _dbContextFactory.CreateDbContext())
 		{
-			var updater = context.Drinks.Include(e => e.Tags)
-				.Include(e => e.Garnishes).FirstOrDefault(d => d.Id == drink.Id);
+			var updater = context.Drinks
+				.Include(e => e.Tags)
+				.Include(e => e.Garnishes).SingleOrDefault(d => d.Id == drink.Id);
 			updater.Name = drink.Name;
 			updater.Ice = drink.Ice;
 			updater.Rim = drink.Rim;
 			updater.Verification = drink.Verification;
 			updater.Link = drink.Link;
 			updater.Garnishes.Clear();
-			updater.Mod	= drink.Mod;
-			context.ChangeTracker.DetectChanges();
-			var debug1 = context.ChangeTracker.DebugView.ShortView;
 			context.SaveChanges();
 			foreach (var garnish in drink.Garnishes)
 			{
