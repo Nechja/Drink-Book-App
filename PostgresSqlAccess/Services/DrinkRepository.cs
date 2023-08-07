@@ -269,7 +269,8 @@ public class DrinkRepository
 			context.ChangeTracker.DetectChanges();
 			var debug2 = context.ChangeTracker.DebugView.ShortView;
 			context.SaveChanges();
-			updater.Instructions.Clear();
+            updater.Glass = context.Glasses.FirstOrDefault(e => e.Id == drink.Glass.Id);
+            updater.Instructions.Clear();
 			foreach (var instruction in drink.Instructions)
 			{
 				var existingInstruction = context.Instructions.Include(e => e.Flag).FirstOrDefault(i => i.Id == instruction.Id);

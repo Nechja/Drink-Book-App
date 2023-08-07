@@ -6,10 +6,65 @@
 }
 else
 {
-	<MudText>@model.Name</MudText>
-	@foreach(var drink in model.Drinks)
-	{
-		<MudField>@drink.Name</MudField>
-	}
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <MudDataGrid T="DrinkDisplayModel" Items="@drinks" ReadOnly="true"
+             Striped="true"
+             Dense="true">
+        <ToolBarContent>
+            <MudText Typo="Typo.h4">@model.Name Drink List</MudText>
+                <MudPopover Open="@_isOpen" Elevation="4">
+                    <MudPaper Class="p-2 m-1 pl-3" Elevation="0">
+                        <MudTextField Label="New Name (From Tags)" HelperText="Names use existing tags only."></MudTextField>
+                    </MudPaper>
+                
+
+                    
+                </MudPopover>
+                <MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="@Toggle" />
+            <MudSpacer />
+        </ToolBarContent>
+        <Columns>
+            <TemplateColumn T="DrinkDisplayModel" Sortable="false">
+                <CellTemplate>
+                    @if (context.Item.Verification == true)
+                    {
+                        <MudIcon Color="@Color.Tertiary" Icon="@Icons.Material.Filled.Verified" Size="@Size.Small" />
+                    }
+                    else
+                    {
+                        <MudIcon Color="@Color.Error" Icon="@Icons.Material.Filled.Pending" Size="@Size.Small" />
+                    }
+
+                </CellTemplate>
+            </TemplateColumn>
+            <TemplateColumn T="DrinkDisplayModel" Title="Name" Sortable="false">
+                <CellTemplate>
+                    <MudGrid Justify="Justify.FlexStart">
+                        <MudLink Underline="Underline.None" Color="Color.Default" @onclick="() => NavTo(context.Item.Name,context.Item.Id)">@context.Item.Name.ToUpper()</MudLink>
+
+                    </MudGrid>
+                </CellTemplate>
+            </TemplateColumn>
+
+            <TemplateColumn T="DrinkDisplayModel" CellClass="d-flex justify-end">
+                <CellTemplate>
+                    <MudToolBar Dense="true">
+
+                        <MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" />
+
+
+
+                        
+                    </MudToolBar>
+                </CellTemplate>
+
+            </TemplateColumn>
+        </Columns>
+        <PagerContent>
+            <MudDataGridPager T="DrinkDisplayModel"></MudDataGridPager>
+        </PagerContent>
+
+    </MudDataGrid>
+    </MudContainer>
 }
 

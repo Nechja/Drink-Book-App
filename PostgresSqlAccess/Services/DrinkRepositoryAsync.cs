@@ -303,6 +303,9 @@ public class DrinkRepositoryAsync
 			context.ChangeTracker.DetectChanges();
 			var debug2 = context.ChangeTracker.DebugView.ShortView;
 			context.SaveChangesAsync();
+			
+
+
 			updater.Instructions.Clear();
 			foreach (var instruction in drink.Instructions)
 			{
@@ -878,7 +881,10 @@ public class DrinkRepositoryAsync
     {
         using (var context = await _dbContextFactory.CreateDbContextAsync())
         {
-			return await context.DrinkLists.Include(e => e.User).Include(e => e.Drinks).SingleOrDefaultAsync(e => e.Id == id);
+			return await context.DrinkLists
+				.Include(e => e.User)
+				.Include(e => e.Drinks)
+				.SingleOrDefaultAsync(e => e.Id == id);
 
         }
 
