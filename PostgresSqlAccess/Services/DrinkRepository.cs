@@ -73,7 +73,7 @@ public class DrinkRepository
 			var ins = new List<InstructionDataModel>();
 			foreach (InstructionDataModel instruction in drink.Instructions)
 			{
-				if (instruction.Flag.id != 0)
+				if (instruction.Flag != null)
 				{
 					var flag = context.Flags.FirstOrDefault(f => f.id == instruction.Flag.id);
 					instruction.Flag = flag;

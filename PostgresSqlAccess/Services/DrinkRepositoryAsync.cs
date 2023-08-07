@@ -860,9 +860,9 @@ public class DrinkRepositoryAsync
         using (var context = await _dbContextFactory.CreateDbContextAsync())
         {
             var user = await GetUser(username);
-			var drinklist = await context.DrinkLists.SingleOrDefaultAsync(e => e.Id == listid);
+			var drinklist = await context.DrinkLists.Include(e => e.User).SingleOrDefaultAsync(e => e.Id == listid);
 			if (drinklist == null) { return; }
-			if (user != drinklist.User) { return; }
+			if (user.Id != drinklist.User.Id) { return; }
 			drinklist.Drinks.Add(await context.Drinks.SingleOrDefaultAsync(e => e.Id == drink.Id));
 			context.Update(drinklist);
 			await context.SaveChangesAsync();
@@ -878,7 +878,7 @@ public class DrinkRepositoryAsync
     {
         using (var context = await _dbContextFactory.CreateDbContextAsync())
         {
-			return await context.DrinkLists.Include(e => e.User).SingleOrDefaultAsync(e => e.Id == id);
+			return await context.DrinkLists.Include(e => e.User).Include(e => e.Drinks).SingleOrDefaultAsync(e => e.Id == id);
 
         }
 

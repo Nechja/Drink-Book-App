@@ -73,7 +73,20 @@
                     <AuthorizeView Roles="Admin, Mod">
                         <MudIconButton Variant="Variant.Text" @onclick="() => EditDrink(DrinkDisplay.Id)" Icon="@Icons.Material.Outlined.Edit" />
                     </AuthorizeView>
-                    <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.List" />
+                <AuthorizeView>
+                <MudIconButton Variant="Variant.Text" Icon="@Icons.Material.Outlined.List" OnClick="@ToggleOpen"/>
+                    <MudPopover Open="_isOpen">
+                        <MudNavMenu>
+                            <MudNavGroup Title="Lists" Icon="fas fa-list-alt" Expanded="true">
+                                @foreach (var list in drinkLists)
+                                {
+                                        <MudNavLink IconColor="@Color.Success" Icon="@Icons.Material.Outlined.Add" @onclick="() => AddToList(list.Name,list.Id)">@list.Name</MudNavLink>
+                                }
+                            </MudNavGroup>
+                        </MudNavMenu>
+
+                    </MudPopover>
+                    </AuthorizeView>
                     <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Favorite" />
                     <MudIconButton Variant="Variant.Text" Disabled="true" Icon="@Icons.Material.Outlined.Share" />
                 }

@@ -7,5 +7,9 @@
 else
 {
 	<MudText>@model.Name</MudText>
+	@foreach(var drink in model.Drinks)
+	{
+		<MudField>@drink.Name</MudField>
+	}
 }
 
