@@ -2,6 +2,7 @@
 using DataAccess.Models;
 using DataAccess.Tools;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -869,6 +870,43 @@ public class DrinkRepositoryAsync
 			drinklist.Drinks.Add(await context.Drinks.SingleOrDefaultAsync(e => e.Id == drink.Id));
 			context.Update(drinklist);
 			await context.SaveChangesAsync();
+
+
+
+
+        }
+
+    }
+
+    public async Task RemoveDrinkFromDrinkList(string username, int listid, DrinkDataModel drink)
+    {
+        using (var context = await _dbContextFactory.CreateDbContextAsync())
+        {
+            var user = await GetUser(username);
+            var drinklist = await context.DrinkLists.Include(e => e.User).SingleOrDefaultAsync(e => e.Id == listid);
+            if (drinklist == null) { return; }
+            if (user.Id != drinklist.User.Id) { return; }
+            drinklist.Drinks.Remove(await context.Drinks.SingleOrDefaultAsync(e => e.Id == drink.Id));
+            context.Update(drinklist);
+            await context.SaveChangesAsync();
+
+
+
+
+        }
+    }
+
+    public async Task RenameDrinkList(int userid, int listid, string listname)
+    {
+        using (var context = await _dbContextFactory.CreateDbContextAsync())
+        {
+            var user = await context.Users.SingleOrDefaultAsync(e => e.Id == userid);
+            var drinklist = await context.DrinkLists.Include(e => e.User).SingleOrDefaultAsync(e => e.Id == listid);
+            if (drinklist == null) { return; }
+            if (user.Id != drinklist.User.Id) { return; }
+			drinklist.Name = listname;
+            context.Update(drinklist);
+            await context.SaveChangesAsync();
 
 
 

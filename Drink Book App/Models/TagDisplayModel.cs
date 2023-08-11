@@ -14,7 +14,6 @@ namespace Drink_Book_App.Models
         public DrinkTagType TagType { get; set; } = new DrinkTagType();
 
 
-
         public TagDisplayModel(ITagDataModel tagDataModel)
         {
             if (tagDataModel == null) return;

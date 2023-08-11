@@ -14,7 +14,17 @@ else
             <MudText Typo="Typo.h4">@model.Name Drink List</MudText>
                 <MudPopover Open="@_isOpen" Elevation="4">
                     <MudPaper Class="p-2 m-1 pl-3" Elevation="0">
-                        <MudTextField Label="New Name (From Tags)" HelperText="Names use existing tags only."></MudTextField>
+                    <MudStack>
+                            <MudAutocomplete T="string" Label="New Name (From Tags)" HelperText="Names use existing tags only." @bind-Value="@nametext" SearchFunc="@Search" Class="sm-8"></MudAutocomplete>
+                            <MudButtonGroup Variant="@Variant.Filled">
+                                <MudButton OnClick="@SaveListName">Save</MudButton>
+                                <MudButton @onclick ="() => nametext = string.Empty">Clear</MudButton>
+                                <MudButton OnClick="@Toggle">Close</MudButton>
+                            </MudButtonGroup>
+                    </MudStack>
+                   
+
+                        
                     </MudPaper>
                 
 
