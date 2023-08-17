@@ -4,5 +4,6 @@ I started this project to build a drink information repository for my capstone p
 
 
 Things for my next build:
+- Add landing page
 - Finish Dashboards and allow user customization.
 - Finish PDF printing system.
