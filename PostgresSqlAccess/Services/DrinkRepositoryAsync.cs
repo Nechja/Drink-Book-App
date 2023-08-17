@@ -878,15 +878,16 @@ public class DrinkRepositoryAsync
 
     }
 
-    public async Task RemoveDrinkFromDrinkList(string username, int listid, DrinkDataModel drink)
+    public async Task RemoveDrinkFromDrinkList(string username, int listid, int drinkid)
     {
         using (var context = await _dbContextFactory.CreateDbContextAsync())
         {
             var user = await GetUser(username);
-            var drinklist = await context.DrinkLists.Include(e => e.User).SingleOrDefaultAsync(e => e.Id == listid);
+            var drinklist = await context.DrinkLists.Include(e => e.User).Include(e => e.Drinks).SingleOrDefaultAsync(e => e.Id == listid);
             if (drinklist == null) { return; }
             if (user.Id != drinklist.User.Id) { return; }
-            drinklist.Drinks.Remove(await context.Drinks.SingleOrDefaultAsync(e => e.Id == drink.Id));
+            drinklist.Drinks.Remove(await context.Drinks.SingleOrDefaultAsync(e => e.Id == drinkid));
+			context.Entry(drinklist).State = EntityState.Modified;
             context.Update(drinklist);
             await context.SaveChangesAsync();
 

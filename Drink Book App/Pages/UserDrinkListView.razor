@@ -12,25 +12,24 @@ else
              Dense="true">
         <ToolBarContent>
             <MudText Typo="Typo.h4">@model.Name Drink List</MudText>
-                <MudPopover Open="@_isOpen" Elevation="4">
-                    <MudPaper Class="p-2 m-1 pl-3" Elevation="0">
-                    <MudStack>
-                            <MudAutocomplete T="string" Label="New Name (From Tags)" HelperText="Names use existing tags only." @bind-Value="@nametext" SearchFunc="@Search" Class="sm-8"></MudAutocomplete>
-                            <MudButtonGroup Variant="@Variant.Filled">
-                                <MudButton OnClick="@SaveListName">Save</MudButton>
-                                <MudButton @onclick ="() => nametext = string.Empty">Clear</MudButton>
-                                <MudButton OnClick="@Toggle">Close</MudButton>
-                            </MudButtonGroup>
-                    </MudStack>
-                   
-
-                        
-                    </MudPaper>
-                
-
-                    
-                </MudPopover>
-                <MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="@Toggle" />
+                @if (userIsOwner)
+                {
+                    <AuthorizeView>
+                        <MudPopover Open="@_isOpen" Elevation="4">
+                            <MudPaper Class="p-2 m-1 pl-3" Elevation="0">
+                                <MudStack>
+                                    <MudAutocomplete T="string" Label="New Name (From Tags)" HelperText="Names use existing tags only." @bind-Value="@nametext" SearchFunc="@Search" Class="sm-8"></MudAutocomplete>
+                                    <MudButtonGroup Variant="@Variant.Filled">
+                                        <MudButton OnClick="@SaveListName">Save</MudButton>
+                                        <MudButton @onclick="() => nametext = string.Empty">Clear</MudButton>
+                                        <MudButton OnClick="@Toggle">Close</MudButton>
+                                    </MudButtonGroup>
+                                </MudStack>
+                            </MudPaper>
+                        </MudPopover>
+                        <MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="@Toggle" />
+                    </AuthorizeView>
+                }
             <MudSpacer />
         </ToolBarContent>
         <Columns>
@@ -59,8 +58,10 @@ else
             <TemplateColumn T="DrinkDisplayModel" CellClass="d-flex justify-end">
                 <CellTemplate>
                     <MudToolBar Dense="true">
-
-                        <MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Delete" />
+                            @if (userIsOwner)
+                            {
+                                <MudIconButton Size="@Size.Small" Variant="Variant.Text" @onclick="() => OnDelete(context.Item.Id)" Icon="@Icons.Material.Filled.Delete" />
+                            }
 
 
 

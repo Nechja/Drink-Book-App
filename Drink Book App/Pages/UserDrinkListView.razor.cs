@@ -1,8 +1,10 @@
 ﻿using DataAccess.Models;
 using DataAccess.Services;
 using Drink_Book_App.Components;
+using Drink_Book_App.Components.DrinkList;
 using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using System.Runtime.CompilerServices;
 using static MudBlazor.Colors;
 
@@ -19,13 +21,20 @@ namespace Drink_Book_App.Pages
 		[Parameter]
 		public int ListId { get; set; }
 
-		[Inject]
+        [CascadingParameter]
+        private Task<AuthenticationState>? authenticationState { get; set; }
+
+        [Inject]
 		public DrinkRepositoryAsync repo { get; set; }
 
         [Inject]
         NavigationManager navi { get; set; }
 
+
+
         private string nametext { get; set; }
+
+        private bool userIsOwner { get; set; } = false;
         
 
         private UserDrinkListsDataModel? model { get; set; }
@@ -73,6 +82,29 @@ namespace Drink_Book_App.Pages
                 tagsList.Add(tag.Value);
             }
 
+            userIsOwner = await IsUserMaker();
+        }
+
+        private async Task<bool> IsUserMaker()
+        {
+            if (authenticationState is not null)
+            {
+                var state = await authenticationState;
+
+                var Username = state?.User?.Identity?.Name ?? string.Empty;
+
+                if(Username != null)
+                {
+                    var user = await repo.GetUser(Username);
+                    if(user.Id == model.User.Id)
+                    {
+                        return true;
+                    }
+                }
+
+            }
+
+            return false;
         }
 
         protected override async Task OnParametersSetAsync()
@@ -112,6 +144,18 @@ namespace Drink_Book_App.Pages
                 }
             }
             catch { return; }
+
+        }
+
+        private async Task OnDelete(int drinkId)
+        {
+            if (await IsUserMaker())
+            {
+                var state = await authenticationState;
+                var Username = state?.User?.Identity?.Name ?? string.Empty;
+
+                await repo.RemoveDrinkFromDrinkList(Username, model.Id, drinkId);
+            }
 
         }
 
