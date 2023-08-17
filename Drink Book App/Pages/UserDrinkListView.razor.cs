@@ -155,6 +155,7 @@ namespace Drink_Book_App.Pages
                 var Username = state?.User?.Identity?.Name ?? string.Empty;
 
                 await repo.RemoveDrinkFromDrinkList(Username, model.Id, drinkId);
+                await GetData();
             }
 
         }
