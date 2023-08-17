@@ -18,7 +18,10 @@
                 {
                     <MudNavLink @onclick="() => onListNav(list.Name,list.Id)">@list.Name</MudNavLink>
                 }
-                <MudNavLink OnClick="@onAddClick" Icon="@Icons.Material.Filled.Add">Add New List</MudNavLink>
+                @if(drinkLists.Count < 10)
+                {
+                    <MudNavLink OnClick="@onAddClick" Icon="@Icons.Material.Filled.Add">Add New List</MudNavLink>
+                }
             </MudNavGroup>
 
                 

@@ -844,6 +844,8 @@ public class DrinkRepositoryAsync
 			{
                 var user = await GetUser(username);
                 UserDrinkListsDataModel drinklist = new UserDrinkListsDataModel();
+				var lists = await GetLists(username);
+				if(lists.Count >10) { return; }
                 drinklist.Name = RandomName.ListName;
                 drinklist.User = await context.Users.FirstOrDefaultAsync(e => e.Id == user.Id);
                 await context.AddAsync(drinklist);
@@ -858,6 +860,25 @@ public class DrinkRepositoryAsync
 		}
 
     }
+
+	public async Task DeleteDrinkList(string username, int listId)
+	{
+		try
+		{
+			using(var context = await _dbContextFactory.CreateDbContextAsync())
+			{
+				var user = await GetUser(username);
+				var list = await GetList(listId);
+				if(user.Id != list.Id) { return; }
+				context.Entry(list).State = EntityState.Deleted;
+				context.SaveChanges();
+			}
+		}
+		catch(Exception e)
+		{
+			throw;
+		}
+	}
 
     public async Task AppendDrinkList(string username,int listid, DrinkDataModel drink)
     {

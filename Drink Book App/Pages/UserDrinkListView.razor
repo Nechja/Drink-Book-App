@@ -28,6 +28,8 @@ else
                             </MudPaper>
                         </MudPopover>
                         <MudIconButton Size="@Size.Small" Variant="Variant.Text" Icon="@Icons.Material.Filled.Edit" OnClick="@Toggle" />
+                        <MudIconButton Size="@Size.Small" Variant="Variant.Text" @onclick="() => OnListDelete(model.Id)" Icon="@Icons.Material.Filled.Delete" />
+
                     </AuthorizeView>
                 }
             <MudSpacer />

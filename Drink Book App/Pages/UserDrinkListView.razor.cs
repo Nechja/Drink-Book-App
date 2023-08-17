@@ -6,6 +6,7 @@ using Drink_Book_App.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 using static MudBlazor.Colors;
 
 namespace Drink_Book_App.Pages
@@ -158,6 +159,18 @@ namespace Drink_Book_App.Pages
                 await GetData();
             }
 
+        }
+
+        private async Task OnListDelete(int listId)
+        {
+            if (await IsUserMaker())
+            {
+                var state = await authenticationState;
+                var Username = state?.User?.Identity?.Name ?? string.Empty;
+
+                await repo.DeleteDrinkList(Username, listId);
+                navi.NavigateTo($"/");
+            }
         }
 
 
