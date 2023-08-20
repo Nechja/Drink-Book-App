@@ -24,10 +24,11 @@ namespace Drink_Book_App.Shared
         private string Username = "";
         private string Picture = "";
 
-        private void onAvatarClick()
+        private async Task onAvatarClick()
         {
             open = !open;
-        }
+            await GetData();
+		}
 
         private async Task onAddClick()
         {
@@ -62,11 +63,16 @@ namespace Drink_Book_App.Shared
                 if (Username != String.Empty)
                 {
                     await repo.MakeUserLink(Username);
-                    drinkLists = await repo.GetLists(Username);
                 }
 
             }
             await base.OnInitializedAsync();
         }
+
+        private async Task GetData()
+        {
+            drinkLists.Clear();
+			drinkLists = await repo.GetLists(Username);
+		}
     }
 }

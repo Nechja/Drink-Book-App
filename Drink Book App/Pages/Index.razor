@@ -1,11 +1,135 @@
 ﻿@page "/"
-<AuthorizeView Roles="Admin, Mod">
-	<NotAuthorized>
-		<DrinkListView />
-	</NotAuthorized>
-	<Authorized>
-		<DrinkListViewAdmin></DrinkListViewAdmin>
-	</Authorized>
-</AuthorizeView>
+<MudPaper>
+	<MudContainer MaxWidth="MaxWidth.Medium">
+		<MudPaper>
+			<MudStack Row AlignItems="AlignItems.Start" Spacing="0">
+				<MudChip Variant="Variant.Outlined" Label Size="Size.Large">
+					Welcome to the Drink Book!
+				</MudChip>
+				<MudChip Variant="Variant.Outlined" Color="Color.Error" Label Size="Size.Large">
+					Alpha Build
+				</MudChip>
+				</MudStack>
+
+				<MudGrid>
+				<MudItem xs="12">
+					<MudPaper>
+						<MudField Variant="Variant.Outlined">
+							<MudText>
+								Welcome to the <b>Drink Book!</b> We're still adding drinks and developing the app. If you have questions, bugs, or thoughts,
+								pm on Discord or Patreon. If you got here with out knowing how to contact me,
+								thank you for finding this project!
+							</MudText>
+						</MudField>
+					</MudPaper>
+				</MudItem>
+
+				<MudItem xs="6">
+					<MudPaper Class="p-2">
+						<MudText Typo="@Typo.h4">Menu Version Compatibility</MudText>
+						<MudText Class="pr-2 pl-2" Typo="@Typo.subtitle1">As menu version are found they will be updated and checked, for now just years are shown for some.</MudText>
+						<MudSimpleTable Style="overflow-x: auto;" Dense>
+							<thead>
+								<tr>
+									<th>Menu Year</th>
+									<th>Version/Name</th>
+									<th>
+										Availability
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>2020</td>
+									<td>v10.2 Reloaded</td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2020</td>
+									<td>v10.1 Updates</td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2019</td>
+									<td>v10 Anniversary Celebration </td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2019</td>
+									<td>v9.0</td>
+									<td><MudIcon Icon="@Icons.Filled.Check" Color="@Color.Success"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2019</td>
+									<td>v8.8</td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2018</td>
+									<td></td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2017</td>
+									<td></td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2016</td>
+									<td></td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2015</td>
+									<td></td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2014</td>
+									<td></td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2013</td>
+									<td></td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2012</td>
+									<td></td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2011</td>
+									<td></td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+								<tr>
+									<td>2010</td>
+									<td></td>
+									<td><MudIcon Icon="@Icons.Filled.Error" Color="@Color.Error"></MudIcon></td>
+								</tr>
+							</tbody>
+						</MudSimpleTable>
+					</MudPaper>
+				</MudItem>
+				<MudItem xs="6">
+					<MudPaper Class="p-2">
+						<MudText Typo="@Typo.h4">Dev Notes:</MudText>
+						<MudList>
+							<MudListItem>Lists should be up and working!</MudListItem>
+						</MudList>
+					</MudPaper>
+				</MudItem>
+			</MudGrid>
+		</MudPaper>
+				
+	</MudContainer>
+</MudPaper>
+
+@code{
+
+}
+
 
 

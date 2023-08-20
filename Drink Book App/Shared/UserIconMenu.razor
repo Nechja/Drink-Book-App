@@ -13,7 +13,7 @@
         </MudStack>
 
         <MudNavMenu Dense="true" Rounded="true">
-            <MudNavGroup IconColor="@Color.Success" Title="Lists" Icon="fas fa-list-alt" Expanded="false">
+            <MudNavGroup  IconColor="@Color.Success" Title="Lists" Icon="fas fa-list-alt" Expanded="false">
                 @foreach(var list in drinkLists)
                 {
                     <MudNavLink @onclick="() => onListNav(list.Name,list.Id)">@list.Name</MudNavLink>

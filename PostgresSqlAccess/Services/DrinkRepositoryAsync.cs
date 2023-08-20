@@ -868,10 +868,14 @@ public class DrinkRepositoryAsync
 			using(var context = await _dbContextFactory.CreateDbContextAsync())
 			{
 				var user = await GetUser(username);
-				var list = await GetList(listId);
-				if(user.Id != list.Id) { return; }
+				var list = await context.DrinkLists
+					.Include(e => e.User)
+					.FirstOrDefaultAsync(e => e.Id == listId);
+				if(user.Id != list.User.Id) { return; }
+				list.Drinks.Clear();
+				context.Remove(list);
 				context.Entry(list).State = EntityState.Deleted;
-				context.SaveChanges();
+				await context.SaveChangesAsync();
 			}
 		}
 		catch(Exception e)

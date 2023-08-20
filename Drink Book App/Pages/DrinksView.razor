@@ -1,0 +1,11 @@
+﻿@page "/drinks"
+<AuthorizeView Roles="Admin, Mod">
+	<NotAuthorized>
+		<DrinkListView />
+	</NotAuthorized>
+	<Authorized>
+		<DrinkListViewAdmin></DrinkListViewAdmin>
+	</Authorized>
+</AuthorizeView>
+
+
