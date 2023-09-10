@@ -1,21 +1,43 @@
-﻿@page "/drinklist"
+﻿@page "/search"
+<MudContainer>
+    <MudStack>
+        <MudTextField @bind-Value="_ingredientSearch"
+                      Label="Ingredients"
+                      Placeholder="(useage: Vodka, Gin)" Adornment="Adornment.Start" Immediate="true"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" AdornmentColor="Color.Success" Class="mt-0"></MudTextField>
+        <MudTextField @bind-Value="_notingredientSearch" 
+                      Label="Does not have Ingredients" 
+                      Placeholder="Things you don't want (useage: Rum, Soda)" Adornment="Adornment.Start" Immediate="true"
+                      AdornmentIcon="@Icons.Material.Filled.Remove" IconSize="Size.Medium" AdornmentColor="Color.Error" Class="mt-0"></MudTextField>
+        <MudTextField @bind-Value="_tags"
+                      Label="Tags to filter"
+                      Placeholder="(useage: Atla, Hot)" AdornmentColor="Color.Success" Adornment="Adornment.Start" Immediate="true"
+                      AdornmentIcon="@Icons.Material.Filled.Tag" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        <MudTextField @bind-Value="_method"
+                      Label="Method to make"
+                      HelperText="Super janky please mess with."
+                      Placeholder="(usage: shaken)" AdornmentColor="Color.Success" Adornment="Adornment.Start" Immediate="true"
+                      AdornmentIcon="@Icons.Material.Filled.AutoFixHigh" IconSize="Size.Medium" Class="mt-0"></MudTextField>
 
-@if(drinks is null)
+        <MudButton @onclick="() => DrinkFilter()" Variant="Variant.Outlined" Size="Size.Large">Search</MudButton>
+    </MudStack>
+</MudContainer>
+
+
+@if(!filteredDrinks.Any())
 {
-	<Loading></Loading>
+	<MudText Align="Align.Center" Class="p-t4"> No Drinks Found, Search something else :) </MudText>
 }
 else
 {
     <MudContainer>
-        <MudDataGrid T="DrinkDisplayModel" Items="@drinks" ReadOnly="true" 
-            SortMode="SortMode.Multiple" QuickFilter="@QuickFilter"
+
+
+
+
+        <MudDataGrid T="DrinkDisplayModel" Items="@filteredDrinks" ReadOnly="true" 
+            SortMode="SortMode.Multiple"
             Striped="true">
-            <ToolBarContent>
-                <MudText Typo="Typo.h4">Drink List</MudText>
-                <MudSpacer />
-                <MudTextField @bind-Value="searchString" Placeholder="Filter" Adornment="Adornment.Start" Immediate="true"
-                          AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-            </ToolBarContent>
             <Columns>
                 <TemplateColumn T="DrinkDisplayModel" Sortable="false">
                     <CellTemplate>
